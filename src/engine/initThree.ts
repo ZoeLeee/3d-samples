@@ -48,8 +48,8 @@ export function initThreejs(canvas: HTMLCanvasElement) {
         mesh.material = mtl;
         const y = box.max.y - box.min.y;
         mtl.onBeforeCompile = (shader) => {
-          console.log(shader.fragmentShader);
-          console.log(shader.vertexShader);
+          // console.log(shader.fragmentShader);
+          // console.log(shader.vertexShader);
           shader.uniforms.uHeight = { value: y };
           shader.uniforms.uTopColor = { value: new Color("#aaaeff") };
 
