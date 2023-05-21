@@ -13,6 +13,7 @@ import {
   Mesh,
   Effect,
   ShaderStore,
+  TransformNode,
 } from "@babylonjs/core";
 import { GridMaterial } from "@babylonjs/materials/Grid";
 import "@babylonjs/loaders/glTF/2.0/glTFLoader";
@@ -44,12 +45,19 @@ export function initBabylon(canvas: HTMLCanvasElement) {
 
   groud.material = gridMaterial;
 
+  groud.position.y = -1;
+
   const viewer = new AxesViewer(scene, 10);
 
   const store = ShaderStore.GetShadersStore();
 
   SceneLoader.LoadAssetContainer("/models/", "city.glb", scene, (container) => {
     container.addAllToScene();
+
+    container.rootNodes.forEach((node: TransformNode) => {
+      node.position.y += 1;
+    });
+
     for (const m of container.meshes) {
       if (m instanceof Mesh) {
         if (m.geometry) {
@@ -67,7 +75,7 @@ export function initBabylon(canvas: HTMLCanvasElement) {
           vec4 p=viewProjection*worldPos;
           vPosition=worldPos.xyz;
           `);
-          console.log("y: ", y);
+
           mtl.AddUniform("uHeight", "float", y);
           mtl.AddUniform("uTopColor", "vec3", Color3.White());
 
