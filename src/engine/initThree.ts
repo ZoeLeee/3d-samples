@@ -28,13 +28,8 @@ export function initThreejs(canvas: HTMLCanvasElement) {
 
   controls.update();
 
-  const axesHelper = new AxesHelper(50);
-  scene.add(axesHelper);
-
-  const geometry = new BoxGeometry(1, 1, 1);
-
-  const material = new MeshBasicMaterial({ color: 0x00ff00 });
-  const cube = new Mesh(geometry, material);
+  // const axesHelper = new AxesHelper(50);
+  // scene.add(axesHelper);
 
   camera.position.y = 100;
 
@@ -60,7 +55,7 @@ export function initThreejs(canvas: HTMLCanvasElement) {
           // console.log(shader.fragmentShader);
           // console.log(shader.vertexShader);
           shader.uniforms.uHeight = { value: y };
-          shader.uniforms.uTopColor = { value: new Color("#aaaeff") };
+          shader.uniforms.uTopColor = { value: new Color(0xaaaeff) };
 
           // 扩散中心
           shader.uniforms.uCenter = { value: new Vector2(0, 0) }; // 2d
@@ -69,6 +64,16 @@ export function initThreejs(canvas: HTMLCanvasElement) {
           //扩散宽度
           shader.uniforms.uWidth = { value: 40 };
           shader.uniforms.uMaxWidth = { value: maxX };
+
+          // 线型扩散时间
+          shader.uniforms.uLineTime = { value: -200 };
+          // 线型扩散宽度
+          shader.uniforms.uLineWidth = { value: 40 };
+
+          // 垂直扩散时间
+          shader.uniforms.uVerticalTime = { value: 0 };
+          // 垂直扩散宽度
+          shader.uniforms.uVerticalWidth = { value: 200 };
 
           shader.vertexShader = shader.vertexShader.replace(
             "#include <common>",
@@ -92,6 +97,13 @@ export function initThreejs(canvas: HTMLCanvasElement) {
             uniform float uTime;
             uniform float uWidth;
             uniform float uMaxWidth;
+
+            uniform float uLineTime;
+            uniform float uLineWidth;
+
+            uniform float uVerticalTime;
+            uniform float uVerticalWidth;
+
 
             varying vec3 vPosition;
             
@@ -118,6 +130,22 @@ export function initThreejs(canvas: HTMLCanvasElement) {
             if(spreadIndex>0.0){
               gl_FragColor=mix(gl_FragColor,vec4(1.0),spreadIndex/uWidth);
             }
+
+
+            // 线型扩散函数
+            float lineSpreadIndex=-pow(vPosition.x-vPosition.z-uLineTime,2.0)+uLineWidth;
+
+            if(lineSpreadIndex>0.0){
+              gl_FragColor=mix(gl_FragColor,vec4(1.0,0.8,0.8,1.0),lineSpreadIndex/uLineWidth);
+            }
+
+            // 垂直扩散函数
+            float verticalSpreadIndex=-pow(vPosition.y-uVerticalTime,2.0)+uVerticalWidth;
+
+            if(verticalSpreadIndex>0.0){
+              gl_FragColor=mix(gl_FragColor,vec4(0.8,0.8,1.0,1.0),verticalSpreadIndex/uVerticalWidth);
+            }
+
             `
           );
         };
@@ -126,6 +154,9 @@ export function initThreejs(canvas: HTMLCanvasElement) {
   });
 
   let time = 0;
+  let time2 = -400;
+
+  let time3 = -18;
 
   function animate() {
     requestAnimationFrame(animate);
@@ -133,11 +164,24 @@ export function initThreejs(canvas: HTMLCanvasElement) {
     controls.update();
     renderer.render(scene, camera);
     time += 2;
+    time2 += 2;
+    time3 += 0.5;
+
     if (time > 800) {
       time = 0;
     }
+    if (time2 > 800) {
+      time2 = -400;
+    }
+
+    if (time3 > 18) {
+      time3 = -18;
+    }
+
     shaders.forEach((shader) => {
       shader.uniforms.uTime.value = time;
+      shader.uniforms.uLineTime.value = time2;
+      shader.uniforms.uVerticalTime.value = time3;
     });
   }
 
