@@ -142,4 +142,6 @@ export function initBabylon(canvas: HTMLCanvasElement) {
   engine.runRenderLoop(() => {
     scene.render();
   });
+
+  window.addEventListener("resize", () => { engine.resize(); })
 }

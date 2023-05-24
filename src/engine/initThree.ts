@@ -156,7 +156,9 @@ export function initThreejs(canvas: HTMLCanvasElement) {
   let time = 0;
   let time2 = -400;
 
-  let time3 = -18;
+  let time3 = -40;
+
+  let start3 = false
 
   function animate() {
     requestAnimationFrame(animate);
@@ -164,18 +166,21 @@ export function initThreejs(canvas: HTMLCanvasElement) {
     controls.update();
     renderer.render(scene, camera);
     time += 2;
-    time2 += 2;
-    time3 += 0.5;
+    time2 += 4;
+    if (start3)
+      time3 += 0.5;
 
     if (time > 800) {
       time = 0;
     }
     if (time2 > 800) {
       time2 = -400;
+      start3=true
     }
 
     if (time3 > 18) {
-      time3 = -18;
+      time3 = -40;
+      start3=false
     }
 
     shaders.forEach((shader) => {
@@ -186,4 +191,7 @@ export function initThreejs(canvas: HTMLCanvasElement) {
   }
 
   animate();
+
+  
+  window.addEventListener("resize", () => { renderer.setSize(canvas.clientWidth, canvas.clientHeight); })
 }
