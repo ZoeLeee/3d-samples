@@ -12,6 +12,7 @@ import {
 } from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { ThreeFlyLine } from "./fly-line/trhee-fly-line";
 
 export function initThreejs(canvas: HTMLCanvasElement) {
   console.log("canvas: ", canvas);
@@ -28,10 +29,12 @@ export function initThreejs(canvas: HTMLCanvasElement) {
 
   controls.update();
 
-  // const axesHelper = new AxesHelper(50);
-  // scene.add(axesHelper);
+  const axesHelper = new AxesHelper(50);
+  scene.add(axesHelper);
 
   camera.position.y = 100;
+
+  new ThreeFlyLine(scene);
 
   const loader = new GLTFLoader();
 
@@ -158,7 +161,7 @@ export function initThreejs(canvas: HTMLCanvasElement) {
 
   let time3 = -40;
 
-  let start3 = false
+  let start3 = false;
 
   function animate() {
     requestAnimationFrame(animate);
@@ -167,20 +170,19 @@ export function initThreejs(canvas: HTMLCanvasElement) {
     renderer.render(scene, camera);
     time += 2;
     time2 += 4;
-    if (start3)
-      time3 += 0.5;
+    if (start3) time3 += 0.5;
 
     if (time > 800) {
       time = 0;
     }
     if (time2 > 800) {
       time2 = -400;
-      start3=true
+      start3 = true;
     }
 
     if (time3 > 18) {
       time3 = -40;
-      start3=false
+      start3 = false;
     }
 
     shaders.forEach((shader) => {
@@ -192,6 +194,7 @@ export function initThreejs(canvas: HTMLCanvasElement) {
 
   animate();
 
-  
-  window.addEventListener("resize", () => { renderer.setSize(canvas.clientWidth, canvas.clientHeight); })
+  window.addEventListener("resize", () => {
+    renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+  });
 }
