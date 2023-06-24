@@ -134,13 +134,14 @@ export function initBabylon(canvas: HTMLCanvasElement) {
 
           // `);
 
+          console.log(mtl.blackAndWhite)
+
           mtl.onBindObservable.add(function () {
             time++;
-            console.log("time: ", time);
             if (time >= max) {
               time = 0;
             }
-            mtl.getEffect()?.setFloat("uTime", time);
+            mtl.blackAndWhite.time=time
           });
 
           //浅蓝色

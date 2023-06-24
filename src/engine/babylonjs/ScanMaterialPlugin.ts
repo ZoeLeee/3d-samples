@@ -10,6 +10,7 @@ import {
  * This is a custom material plugin that will colorify the material.
  */
 export class ScanMaterialPlugin extends MaterialPluginBase {
+  public time=0;
   constructor(material, private options: { height: number }) {
     // last parameter is a priority, which lets you define the order multiple plugins are run.
     super(material, "BlackAndWhite", 200, { BLACKANDWHITE: false });
@@ -50,7 +51,7 @@ export class ScanMaterialPlugin extends MaterialPluginBase {
     uniformBuffer.updateColor3("uTopColor", Color3.FromHexString("#aaaeff"));
     uniformBuffer.updateFloat2("uCenter", 0, 0);
     uniformBuffer.updateFloat("uWidth", 10);
-    uniformBuffer.updateFloat("uTime", 0);
+    uniformBuffer.updateFloat("uTime", this.time);
   }
 
   getCustomCode(shaderType) {
