@@ -15,10 +15,12 @@ import {
   ShaderStore,
   TransformNode,
   Vector2,
+  RegisterMaterialPlugin,
 } from "@babylonjs/core";
 import { GridMaterial } from "@babylonjs/materials/Grid";
 import "@babylonjs/loaders/glTF/2.0/glTFLoader";
 import { CustomMaterial } from "@babylonjs/materials";
+import { ScanMaterialPlugin } from "./babylonjs/ScanMaterialPlugin";
 
 //初始化babylonjs
 export function initBabylon(canvas: HTMLCanvasElement) {
@@ -57,7 +59,12 @@ export function initBabylon(canvas: HTMLCanvasElement) {
 
   console.log(Color3.FromHexString("#aaaeff"));
 
-  const mtls: CustomMaterial[] = [];
+  const mtls: StandardMaterial[] = [];
+
+  // RegisterMaterialPlugin("BlackAndWhite", (material) => {
+
+  //   return material.blackAndWhite;
+  // });
 
   SceneLoader.LoadAssetContainer("/models/", "city.glb", scene, (container) => {
     container.addAllToScene();
@@ -65,7 +72,7 @@ export function initBabylon(canvas: HTMLCanvasElement) {
     for (const m of container.meshes) {
       if (m instanceof Mesh) {
         if (m.geometry) {
-          const mtl = new CustomMaterial("mtl", scene);
+          const mtl = new StandardMaterial("mtl", scene);
           mtl.diffuseColor = Color3.FromHexString("#0c0e6f");
           m.material = mtl;
 
@@ -77,56 +84,59 @@ export function initBabylon(canvas: HTMLCanvasElement) {
           const y = boundingBox.maximum.y - boundingBox.minimum.y;
           console.log("y: ", y);
 
-          console.log("mtl: ", mtl);
+          // console.log("mtl: ", mtl);
 
           let max = boundingBox.extendSize.x;
 
-          mtl.AddUniform("uHeight", "float", y);
-          mtl.AddUniform(
-            "uTopColor",
-            "vec3",
-            Vector3.FromArray(Color3.FromHexString("#aaaeff").asArray())
-          );
+          mtl.blackAndWhite = new ScanMaterialPlugin(mtl, { height: y });
 
-          mtl.AddUniform("uCenter", "vec2", new Vector2());
-          mtl.AddUniform("uWidth", "float", 10);
-          mtl.AddUniform("uTime", "float", 0);
+          // mtl.AddUniform("uHeight", "float", y);
+          // mtl.AddUniform(
+          //   "uTopColor",
+          //   "vec3",
+          //   Vector3.FromArray(Color3.FromHexString("#aaaeff").asArray())
+          // );
 
-          mtl.Vertex_Begin(`varying vec3 vPosition;`);
-          mtl.Vertex_MainEnd(`
-          vec4 p=viewProjection*worldPos;
-          vPosition=positionUpdated;
-          `);
+          // mtl.AddUniform("uCenter", "vec2", new Vector2());
+          // mtl.AddUniform("uWidth", "float", 10);
+          // mtl.AddUniform("uTime", "float", 0);
 
-          mtl.Fragment_Begin(
-            `
-            varying vec3 vPosition;
-            `
-          );
+          // mtl.Vertex_Begin(`varying vec3 vPosition;`);
+          // mtl.Vertex_MainEnd(`
+          // vec4 p=viewProjection*worldPos;
+          // vPosition=positionUpdated;
+          // `);
 
-          mtl.Fragment_MainEnd(`
-            vec4 distGradColor=gl_FragColor;
+          // mtl.Fragment_Begin(
+          //   `
+          //   varying vec3 vPosition;
+          //   `
+          // );
 
-            // 设置混合的百分比
-            float gradMix=(vPosition.y+uHeight/2.0)/uHeight;
-            //计算出混合颜色
-            vec3 mixColor=mix(distGradColor.xyz,uTopColor,gradMix);
-            gl_FragColor=vec4(mixColor,1.0);
+          // mtl.Fragment_MainEnd(`
+          //   vec4 distGradColor=gl_FragColor;
 
-            // 离中心电距离
-            float dist=distance(vPosition.xz,uCenter);
+          //   // 设置混合的百分比
+          //   float gradMix=(vPosition.y+uHeight/2.0)/uHeight;
+          //   //计算出混合颜色
+          //   vec3 mixColor=mix(distGradColor.xyz,uTopColor,gradMix);
+          //   gl_FragColor=vec4(mixColor,1.0);
 
-            // 扩散范围函数
-            float spreadIndex=-pow(dist-uTime,2.0)+uWidth;
+          //   // 离中心电距离
+          //   float dist=distance(vPosition.xz,uCenter);
 
-            if(spreadIndex>0.0){
-              gl_FragColor=mix(gl_FragColor,vec4(1.0),spreadIndex/uWidth);
-            }
+          //   // 扩散范围函数
+          //   float spreadIndex=-pow(dist-uTime,2.0)+uWidth;
 
-          `);
+          //   if(spreadIndex>0.0){
+          //     gl_FragColor=mix(gl_FragColor,vec4(1.0),spreadIndex/uWidth);
+          //   }
+
+          // `);
 
           mtl.onBindObservable.add(function () {
             time++;
+            console.log("time: ", time);
             if (time >= max) {
               time = 0;
             }
@@ -143,5 +153,7 @@ export function initBabylon(canvas: HTMLCanvasElement) {
     scene.render();
   });
 
-  window.addEventListener("resize", () => { engine.resize(); })
+  window.addEventListener("resize", () => {
+    engine.resize();
+  });
 }
