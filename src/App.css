@@ -9,7 +9,7 @@
   display: flex;
 }
 
-#root>.canvas-container>canvas{
+#root>.canvas-container>canvas,#root>.canvas-container>div{
   height: 100%;
-  width: 50%;
+  width: 100%;
 }

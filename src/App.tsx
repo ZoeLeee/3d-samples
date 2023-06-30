@@ -1,26 +1,21 @@
-import { useEffect, useRef, useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
+import { useEffect, useRef } from 'react';
 import './App.css';
-import { initBabylon } from './engine/init';
+import { BabylonCanvas } from './components/babylon-canvas';
 import { initThreejs } from './engine/initThree';
 
 function App() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
   const canvas2Ref = useRef<HTMLCanvasElement>(null);
 
 
   useEffect(() => {
-    //初始化Babylonjs
-    initBabylon(canvasRef.current!);
     if (canvas2Ref.current!)
       initThreejs(canvas2Ref.current!);
   }, []);
 
   return (
     <div className='canvas-container'>
-      <canvas ref={canvasRef} />
-      <canvas ref={canvas2Ref} />
+      {/* <canvas ref={canvas2Ref} /> */}
+      <BabylonCanvas />
     </div>
   );
 }

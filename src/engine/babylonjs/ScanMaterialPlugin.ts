@@ -61,26 +61,26 @@ export class ScanMaterialPlugin extends MaterialPluginBase {
       return {
         CUSTOM_FRAGMENT_DEFINITIONS: `varying vec3 vPos;`,
         CUSTOM_FRAGMENT_MAIN_END: `
-                    #ifdef BLACKANDWHITE
-                      vec4 distGradColor=gl_FragColor;
+          #ifdef BLACKANDWHITE
+            vec4 distGradColor=gl_FragColor;
 
-                      // 设置混合的百分比
-                      float gradMix=(vPos.y+uHeight/2.0)/uHeight;
-                      //计算出混合颜色
-                      vec3 mixColor=mix(distGradColor.xyz,uTopColor,gradMix);
-                      gl_FragColor=vec4(mixColor,1.0);
-          
-                      // 离中心电距离
-                      float dist=distance(vPos.xz,uCenter);
-          
-                      // 扩散范围函数
-                      float spreadIndex=-pow(dist-uTime,2.0)+uWidth;
-          
-                      if(spreadIndex>0.0){
-                        gl_FragColor=mix(gl_FragColor,vec4(1.0),spreadIndex/uWidth);
-                      }
-                    #endif
-                `,
+            // 设置混合的百分比
+            float gradMix=(vPos.y+uHeight/2.0)/uHeight;
+            //计算出混合颜色
+            vec3 mixColor=mix(distGradColor.xyz,uTopColor,gradMix);
+            gl_FragColor=vec4(mixColor,1.0);
+
+            // 离中心电距离
+            float dist=distance(vPos.xz,uCenter);
+
+            // 扩散范围函数
+            float spreadIndex=-pow(dist-uTime,2.0)+uWidth;
+
+            if(spreadIndex>0.0){
+              gl_FragColor=mix(gl_FragColor,vec4(1.0),spreadIndex/uWidth);
+            }
+          #endif
+      `,
       };
     }
 

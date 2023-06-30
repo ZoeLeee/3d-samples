@@ -16,14 +16,17 @@ import {
   TransformNode,
   Vector2,
   RegisterMaterialPlugin,
+  ShaderMaterial,
+  Texture,
 } from "@babylonjs/core";
+
 import { GridMaterial } from "@babylonjs/materials/Grid";
 import "@babylonjs/loaders/glTF/2.0/glTFLoader";
 import { CustomMaterial } from "@babylonjs/materials";
 import { ScanMaterialPlugin } from "./babylonjs/ScanMaterialPlugin";
 
 //初始化babylonjs
-export function initBabylon(canvas: HTMLCanvasElement) {
+export function initBabylon(canvas: HTMLCanvasElement, type: number) {
   const engine = new Engine(canvas, true);
   const scene = new Scene(engine);
 
@@ -53,102 +56,179 @@ export function initBabylon(canvas: HTMLCanvasElement) {
 
   // groud.position.y = -1;
 
-  let time = 0;
+  if (type === 0) {
+    let time = 0;
 
-  // const viewer = new AxesViewer(scene, 10);
+    // const viewer = new AxesViewer(scene, 10);
 
-  console.log(Color3.FromHexString("#aaaeff"));
+    console.log(Color3.FromHexString("#aaaeff"));
 
-  const mtls: StandardMaterial[] = [];
+    const mtls: StandardMaterial[] = [];
 
-  // RegisterMaterialPlugin("BlackAndWhite", (material) => {
+    // RegisterMaterialPlugin("BlackAndWhite", (material) => {
 
-  //   return material.blackAndWhite;
-  // });
+    //   return material.blackAndWhite;
+    // });
 
-  SceneLoader.LoadAssetContainer("/models/", "city.glb", scene, (container) => {
-    container.addAllToScene();
+    SceneLoader.LoadAssetContainer(
+      "/models/",
+      "city.glb",
+      scene,
+      (container) => {
+        container.addAllToScene();
 
-    for (const m of container.meshes) {
-      if (m instanceof Mesh) {
-        if (m.geometry) {
-          const mtl = new StandardMaterial("mtl", scene);
-          mtl.diffuseColor = Color3.FromHexString("#0c0e6f");
-          m.material = mtl;
+        for (const m of container.meshes) {
+          if (m instanceof Mesh) {
+            if (m.geometry) {
+              const mtl = new StandardMaterial("mtl", scene);
+              mtl.diffuseColor = Color3.FromHexString("#0c0e6f");
+              m.material = mtl;
 
-          mtls.push(mtl);
-          m.computeWorldMatrix(true);
-          const boundingBox = m.getBoundingInfo().boundingBox;
-          console.log("boundingBox: ", boundingBox);
+              mtls.push(mtl);
+              m.computeWorldMatrix(true);
+              const boundingBox = m.getBoundingInfo().boundingBox;
+              console.log("boundingBox: ", boundingBox);
 
-          const y = boundingBox.maximum.y - boundingBox.minimum.y;
-          console.log("y: ", y);
+              const y = boundingBox.maximum.y - boundingBox.minimum.y;
+              console.log("y: ", y);
 
-          // console.log("mtl: ", mtl);
+              // console.log("mtl: ", mtl);
 
-          let max = boundingBox.extendSize.x;
+              let max = boundingBox.extendSize.x;
 
-          mtl.blackAndWhite = new ScanMaterialPlugin(mtl, { height: y });
+              mtl.blackAndWhite = new ScanMaterialPlugin(mtl, { height: y });
 
-          // mtl.AddUniform("uHeight", "float", y);
-          // mtl.AddUniform(
-          //   "uTopColor",
-          //   "vec3",
-          //   Vector3.FromArray(Color3.FromHexString("#aaaeff").asArray())
-          // );
+              // mtl.AddUniform("uHeight", "float", y);
+              // mtl.AddUniform(
+              //   "uTopColor",
+              //   "vec3",
+              //   Vector3.FromArray(Color3.FromHexString("#aaaeff").asArray())
+              // );
 
-          // mtl.AddUniform("uCenter", "vec2", new Vector2());
-          // mtl.AddUniform("uWidth", "float", 10);
-          // mtl.AddUniform("uTime", "float", 0);
+              // mtl.AddUniform("uCenter", "vec2", new Vector2());
+              // mtl.AddUniform("uWidth", "float", 10);
+              // mtl.AddUniform("uTime", "float", 0);
 
-          // mtl.Vertex_Begin(`varying vec3 vPosition;`);
-          // mtl.Vertex_MainEnd(`
-          // vec4 p=viewProjection*worldPos;
-          // vPosition=positionUpdated;
-          // `);
+              // mtl.Vertex_Begin(`varying vec3 vPosition;`);
+              // mtl.Vertex_MainEnd(`
+              // vec4 p=viewProjection*worldPos;
+              // vPosition=positionUpdated;
+              // `);
 
-          // mtl.Fragment_Begin(
-          //   `
-          //   varying vec3 vPosition;
-          //   `
-          // );
+              // mtl.Fragment_Begin(
+              //   `
+              //   varying vec3 vPosition;
+              //   `
+              // );
 
-          // mtl.Fragment_MainEnd(`
-          //   vec4 distGradColor=gl_FragColor;
+              // mtl.Fragment_MainEnd(`
+              //   vec4 distGradColor=gl_FragColor;
 
-          //   // 设置混合的百分比
-          //   float gradMix=(vPosition.y+uHeight/2.0)/uHeight;
-          //   //计算出混合颜色
-          //   vec3 mixColor=mix(distGradColor.xyz,uTopColor,gradMix);
-          //   gl_FragColor=vec4(mixColor,1.0);
+              //   // 设置混合的百分比
+              //   float gradMix=(vPosition.y+uHeight/2.0)/uHeight;
+              //   //计算出混合颜色
+              //   vec3 mixColor=mix(distGradColor.xyz,uTopColor,gradMix);
+              //   gl_FragColor=vec4(mixColor,1.0);
 
-          //   // 离中心电距离
-          //   float dist=distance(vPosition.xz,uCenter);
+              //   // 离中心电距离
+              //   float dist=distance(vPosition.xz,uCenter);
 
-          //   // 扩散范围函数
-          //   float spreadIndex=-pow(dist-uTime,2.0)+uWidth;
+              //   // 扩散范围函数
+              //   float spreadIndex=-pow(dist-uTime,2.0)+uWidth;
 
-          //   if(spreadIndex>0.0){
-          //     gl_FragColor=mix(gl_FragColor,vec4(1.0),spreadIndex/uWidth);
-          //   }
+              //   if(spreadIndex>0.0){
+              //     gl_FragColor=mix(gl_FragColor,vec4(1.0),spreadIndex/uWidth);
+              //   }
 
-          // `);
+              // `);
 
-          console.log(mtl.blackAndWhite)
+              console.log(mtl.blackAndWhite);
 
-          mtl.onBindObservable.add(function () {
-            time++;
-            if (time >= max) {
-              time = 0;
+              mtl.onBindObservable.add(function () {
+                time++;
+                if (time >= max) {
+                  time = 0;
+                }
+                mtl.blackAndWhite.time = time;
+              });
+
+              //浅蓝色
             }
-            mtl.blackAndWhite.time=time
-          });
-
-          //浅蓝色
+          }
         }
       }
-    }
-  });
+    );
+  } else if (type === 1) {
+    SceneLoader.LoadAssetContainer(
+      "/models/",
+      "city.glb",
+      scene,
+      (container) => {
+        const root = container.createRootMesh();
+        container.addAllToScene();
+        const meshes = container.meshes as Mesh[];
+        meshes.forEach((m) => {
+          if (m.geometry) {
+            const mtl = new StandardMaterial("mtl", scene);
+            mtl.diffuseColor = Color3.FromHexString("#00dbfd");
+            m.material = mtl;
+          }
+        });
+
+        const groud = MeshBuilder.CreateGround(
+          "ground",
+          { width: 40, height: 40 },
+          scene
+        );
+
+        const material1 = new ShaderMaterial(
+          "material1",
+          scene,
+          { vertex: "scan1", fragment: "scan1" },
+          {
+            attributes: ["position", "uv"],
+            uniforms: [
+              "worldViewProjection",
+              "time",
+              "opacity",
+              "alpha",
+              "color",
+              "flowColor",
+              "glowFactor",
+              "speed",
+            ],
+            samplers: ["textureSampler"],
+          }
+        );
+
+        const scan_map = new Texture(
+          "https://hcwl-cdn.cdn.bcebos.com/hc3d/static/images/scan_map.png",
+          scene
+        );
+        const maskMap = new Texture(
+          "https://hcwl-cdn.cdn.bcebos.com/hc3d/static/images/scan-mask-map.png",
+          scene
+        );
+        material1.setTexture("map", scan_map);
+        material1.setTexture("maskMap", maskMap);
+        material1.setFloat("opacity", 1);
+        material1.setFloat("alpha", 0.1);
+        material1.setColor3("color", new Color3(0.0784, 0.5490, 0.9608));
+        material1.setColor3("flowColor", new Color3(0.1490, 0.7961, 1));
+        material1.setFloat("glowFactor", 10);
+        material1.setFloat("speed", 0.6);
+        material1.setFloat("time", 0);
+
+
+        groud.material = material1;
+        let t = 0.025;
+        material1.onBindObservable.add(function () {
+          t += 0.01;
+          material1.setFloat("time", t);
+        });
+      }
+    );
+  }
 
   engine.runRenderLoop(() => {
     scene.render();
