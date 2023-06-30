@@ -19,6 +19,8 @@ import {
   ShaderMaterial,
   Texture,
 } from "@babylonjs/core";
+import "@babylonjs/core/Debug/debugLayer";
+import "@babylonjs/inspector";
 
 import { GridMaterial } from "@babylonjs/materials/Grid";
 import "@babylonjs/loaders/glTF/2.0/glTFLoader";
@@ -31,6 +33,14 @@ export function initBabylon(canvas: HTMLCanvasElement, type: number) {
   const scene = new Scene(engine);
 
   scene.useRightHandedSystem = true;
+
+  window["debug"] = () => {
+    scene.debugLayer.show({
+      embedMode: true,
+      overlay: true,
+      globalRoot: document.getElementById("app"),
+    });
+  };
 
   const camera = new ArcRotateCamera(
     "camera",
@@ -206,18 +216,20 @@ export function initBabylon(canvas: HTMLCanvasElement, type: number) {
           scene
         );
         const maskMap = new Texture(
-          "https://hcwl-cdn.cdn.bcebos.com/hc3d/static/images/scan-mask-map.png",
+          "https://hcwl-cdn.cdn.bcebos.com/hc3d/static/images/scan-mask-map-2.png",
           scene
         );
         material1.setTexture("map", scan_map);
         material1.setTexture("maskMap", maskMap);
         material1.setFloat("opacity", 1);
-        material1.setFloat("alpha", 0.1);
+        material1.setFloat("alpha", 0.2);
         material1.setColor3("color", new Color3(0.0784, 0.5490, 0.9608));
         material1.setColor3("flowColor", new Color3(0.1490, 0.7961, 1));
         material1.setFloat("glowFactor", 10);
         material1.setFloat("speed", 0.6);
         material1.setFloat("time", 0);
+
+        material1.alpha=0.99
 
 
         groud.material = material1;
