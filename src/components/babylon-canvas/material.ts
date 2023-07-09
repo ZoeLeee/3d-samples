@@ -41,3 +41,35 @@ void main() {
     gl_FragColor = vec4(finalCol.rgb, (alpha+mask.a*glowFactor)*col.a*(1.-dis)*opacity);
 }
 `;
+
+
+
+Effect.ShadersStore["LightingCylinerVertexShader"] = `
+precision highp float;
+attribute vec3 position;
+attribute vec2 uv;
+uniform mat4 worldViewProjection;
+uniform mat4 world;
+uniform mat4 worldView;
+varying vec3 vPosition;
+
+void main() {
+    vec4 p = vec4(position, 1.);
+    gl_Position = worldViewProjection * p;
+    vec4 p2 =  p;
+    vPosition = position.xyz;
+}
+`;
+
+
+Effect.ShadersStore["LightingCylinerFragmentShader"] = `
+varying vec3 vPosition;
+uniform float uHeight;
+
+void main() {
+
+    float n=(uHeight-vPosition.y)/ uHeight;
+
+    gl_FragColor = vec4(1.0,0.0,0.0,n);
+}
+`;

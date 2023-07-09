@@ -26,6 +26,7 @@ import { GridMaterial } from "@babylonjs/materials/Grid";
 import "@babylonjs/loaders/glTF/2.0/glTFLoader";
 import { CustomMaterial } from "@babylonjs/materials";
 import { ScanMaterialPlugin } from "./babylonjs/ScanMaterialPlugin";
+import { getCylinderShader } from "./babylonjs/shader";
 
 //初始化babylonjs
 export function initBabylon(canvas: HTMLCanvasElement, type: number) {
@@ -229,7 +230,7 @@ export function initBabylon(canvas: HTMLCanvasElement, type: number) {
         material1.setFloat("speed", 0.6);
         material1.setFloat("time", 0);
 
-        material1.alpha=0.99
+        material1.alpha = 0.99
 
 
         groud.material = material1;
@@ -238,6 +239,22 @@ export function initBabylon(canvas: HTMLCanvasElement, type: number) {
           t += 0.01;
           material1.setFloat("time", t);
         });
+
+        const height = 10
+
+        const cylinder = MeshBuilder.CreateCylinder("光柱", {
+          diameter: 5, height: height, cap: 0, sideOrientation: 0
+        }, scene)
+
+        // cylinder.position.y = height / 2;
+
+        const mtl=getCylinderShader(scene)
+
+        cylinder.material=mtl;
+        mtl.alpha=0.99
+
+        mtl.setFloat("uHeight",height)
+
       }
     );
   }
