@@ -27,6 +27,7 @@ import "@babylonjs/loaders/glTF/2.0/glTFLoader";
 import { CustomMaterial } from "@babylonjs/materials";
 import { ScanMaterialPlugin } from "./babylonjs/ScanMaterialPlugin";
 import { getCylinderShader } from "./babylonjs/shader";
+import { gsap } from "gsap";
 
 //初始化babylonjs
 export function initBabylon(canvas: HTMLCanvasElement, type: number) {
@@ -243,17 +244,20 @@ export function initBabylon(canvas: HTMLCanvasElement, type: number) {
         const height = 10
 
         const cylinder = MeshBuilder.CreateCylinder("光柱", {
-          diameter: 5, height: height, cap: 0, sideOrientation: 0
+          diameter: 5, height: height, cap: 0, sideOrientation: 2
         }, scene)
 
-        // cylinder.position.y = height / 2;
-
+        cylinder.position.y = height / 2;
         const mtl=getCylinderShader(scene)
 
         cylinder.material=mtl;
         mtl.alpha=0.99
 
+
         mtl.setFloat("uHeight",height)
+        gsap.to(cylinder.scaling,{
+          x:2,z:2,yoyo:true,repeat:-1,duration:1
+        })
 
       }
     );
