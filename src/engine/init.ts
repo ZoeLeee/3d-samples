@@ -248,7 +248,7 @@ export function initBabylon(canvas: HTMLCanvasElement, type: number) {
         }, scene)
 
         cylinder.position.y = height / 2;
-        const mtl=getCylinderShader(scene)
+        const mtl=getCylinderShader("LightingCyliner",scene)
 
         cylinder.material=mtl;
         mtl.alpha=0.99
@@ -257,6 +257,28 @@ export function initBabylon(canvas: HTMLCanvasElement, type: number) {
         mtl.setFloat("uHeight",height)
         gsap.to(cylinder.scaling,{
           x:2,z:2,yoyo:true,repeat:-1,duration:1
+        })
+
+
+        const RadarMtl=getCylinderShader("Radar",scene,{
+          attributes: ["position", "uv"],
+          uniforms:["worldViewProjection","uColor","uTime"],
+        })
+
+        RadarMtl.setColor3("uColor",new Color3(1,0,1));
+        RadarMtl.setFloat("uTime",0);
+
+        const ground=MeshBuilder.CreateGround("ground",{width:10,height:10},scene)
+
+        ground.material=RadarMtl;
+
+        RadarMtl.alpha=0.99
+
+        ground.position.y=10
+        let time=0
+        RadarMtl.onBindObservable.add(function(){
+          time+=0.01;
+          RadarMtl.setFloat("uTime",time);
         })
 
       }

@@ -67,6 +67,6 @@ void main() {
 
     float n=(vPosition.y+uHeight*0.5)/ uHeight;
 
-    gl_FragColor = vec4(1.0,1.0,0.0,1.0-n);
+    gl_FragColor = vec4(1.0,1.0,0.0,n);
 }
 `;
