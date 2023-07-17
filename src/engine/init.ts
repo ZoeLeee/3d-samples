@@ -28,6 +28,7 @@ import { CustomMaterial } from "@babylonjs/materials";
 import { ScanMaterialPlugin } from "./babylonjs/ScanMaterialPlugin";
 import { getCylinderShader } from "./babylonjs/shader";
 import { gsap } from "gsap";
+import { showSnow } from "./effect/snow";
 
 //初始化babylonjs
 export function initBabylon(canvas: HTMLCanvasElement, type: number) {
@@ -168,6 +169,8 @@ export function initBabylon(canvas: HTMLCanvasElement, type: number) {
             }
           }
         }
+
+        showSnow(scene,camera)
       }
     );
   } else if (type === 1) {
@@ -176,11 +179,10 @@ export function initBabylon(canvas: HTMLCanvasElement, type: number) {
       "city.glb",
       scene,
       (container) => {
-        const root = container.createRootMesh();
         container.addAllToScene();
         const meshes = container.meshes as Mesh[];
         meshes.forEach((m) => {
-          if (m.geometry) {
+        if (m.geometry) {
             const mtl = new StandardMaterial("mtl", scene);
             mtl.diffuseColor = Color3.FromHexString("#00dbfd");
             m.material = mtl;
@@ -280,6 +282,7 @@ export function initBabylon(canvas: HTMLCanvasElement, type: number) {
           time+=0.01;
           RadarMtl.setFloat("uTime",time);
         })
+
 
       }
     );
