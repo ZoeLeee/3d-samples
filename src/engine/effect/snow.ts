@@ -1,19 +1,15 @@
 import {
+  ArcRotateCamera,
   Effect,
   Matrix,
   PostProcess,
   PostProcessRenderEffect,
+  Scene,
   ShaderMaterial,
   Texture,
 } from "@babylonjs/core";
 
 Effect.ShadersStore["customSnowFragmentShader"] = `
-#ifdef GL_FRAGMENT_PRECISION_HIGH
-precision highp float;
-#else
-precision mediump float; 
-#endif
-
 varying vec2 vUV;
 uniform sampler2D textureSampler;
 uniform sampler2D depthSampler;
@@ -39,8 +35,6 @@ vec3 ssToWorldPos() {
 }
 
 
-
-
 void main() {
 
     vec4 baseColor = texture2D(textureSampler, vUV);
@@ -54,10 +48,11 @@ void main() {
 
 
   // 获取雪花颜色
-  vec4 snowColor = texture2D(snowTexture, vUV);
+  // vec4 snowColor = texture2D(snowTexture, vUV);
+   vec4 snowColor = vec4(1.0);
 
   // 根据高度控制混合因子
-  float heightMix = smoothstep(0.0, 50.0, worldPosition.y);
+  float heightMix = smoothstep(0.0, 10.0, worldPosition.y);
 
   // 根据法线方向控制混合因子 
   float normalMix = pow(max(0.0, dot(vec3(0.0, 1.0, 0.0), vNormalW)), 2.0);
@@ -69,7 +64,7 @@ void main() {
   mixFactor *= snowAmount;
 
   // 混合雪花
-  vec4 color = mix(baseColor, snowColor, mixFactor);
+  vec4 color = mix(baseColor, snowColor,0.5);
   
   gl_FragColor = color;
 }
@@ -77,12 +72,19 @@ void main() {
 
 let snowAmount = 0;
 
-export function showSnow(scene, camera) {
+export function showSnow(scene:Scene, camera:ArcRotateCamera) {
   // 创建纹理
   const snowTexture = new Texture(
     "https://hcwl-cdn.cdn.bcebos.com/hc3d/textures/yun1.png?v=1&v=1",
     scene
   );
+
+  scene.enableDepthRenderer(camera, false);
+
+  camera.alpha=Math.PI
+  camera.beta=Math.PI/4
+  camera.radius=30
+
 
   //"My custom post process", "custom", ["screenSize", "threshold"], null, 0.25, camera
   // 积雪后处理效果
@@ -98,7 +100,7 @@ export function showSnow(scene, camera) {
       "iview",
     ],
     ["depthSampler",'positionSampler'],
-    0.25,
+    1,
     camera
   );
 

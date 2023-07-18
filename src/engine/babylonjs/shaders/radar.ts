@@ -43,3 +43,45 @@ void main() {
     gl_FragColor = vec4(uColor,alpha*strength);
 }
 `;
+
+Effect.ShadersStore["SnowVertexShader"] = `
+precision highp float;
+uniform float snowDepth;
+attribute vec3 position;
+attribute vec3 normal;
+uniform mat4 worldViewProjection;
+uniform vec3 snowDirection;
+varying vec3 vNormal;
+
+void main() {
+
+  // 顶点沿法线和雪方向偏移
+  vec3 offset = normalize(normal + snowDirection) * snowDepth;  
+  vec3 pos = position ;
+  vNormal=normal;
+
+  gl_Position = worldViewProjection * vec4(pos, 1.0);
+
+}
+`;
+
+
+Effect.ShadersStore["SnowFragmentShader"] = `
+uniform float snowAmount; 
+uniform vec3 snowDirection;
+uniform vec3 snowColor;
+varying vec3 vNormal;
+
+void main() {
+
+  // 计算覆盖判断
+  float cover = dot(vNormal, snowDirection) - (1.0 - snowAmount);
+
+  if (cover > 0.0) {
+    gl_FragColor = vec4(snowColor,1.0); 
+  }
+  else {
+    gl_FragColor = vec4(1.0,0.0,0.,1.0);
+  }
+}
+`;

@@ -26,7 +26,7 @@ import { GridMaterial } from "@babylonjs/materials/Grid";
 import "@babylonjs/loaders/glTF/2.0/glTFLoader";
 import { CustomMaterial } from "@babylonjs/materials";
 import { ScanMaterialPlugin } from "./babylonjs/ScanMaterialPlugin";
-import { getCylinderShader } from "./babylonjs/shader";
+import { getCylinderShader, getSnowMtl } from "./babylonjs/shader";
 import { gsap } from "gsap";
 import { showSnow } from "./effect/snow";
 
@@ -74,15 +74,13 @@ export function initBabylon(canvas: HTMLCanvasElement, type: number) {
 
     // const viewer = new AxesViewer(scene, 10);
 
-    console.log(Color3.FromHexString("#aaaeff"));
-
     const mtls: StandardMaterial[] = [];
 
     // RegisterMaterialPlugin("BlackAndWhite", (material) => {
 
     //   return material.blackAndWhite;
-    // });
-
+    // });  
+    return
     SceneLoader.LoadAssetContainer(
       "/models/",
       "city.glb",
@@ -170,10 +168,10 @@ export function initBabylon(canvas: HTMLCanvasElement, type: number) {
           }
         }
 
-        showSnow(scene,camera)
       }
     );
   } else if (type === 1) {
+    return
     SceneLoader.LoadAssetContainer(
       "/models/",
       "city.glb",
@@ -182,7 +180,7 @@ export function initBabylon(canvas: HTMLCanvasElement, type: number) {
         container.addAllToScene();
         const meshes = container.meshes as Mesh[];
         meshes.forEach((m) => {
-        if (m.geometry) {
+          if (m.geometry) {
             const mtl = new StandardMaterial("mtl", scene);
             mtl.diffuseColor = Color3.FromHexString("#00dbfd");
             m.material = mtl;
@@ -250,39 +248,62 @@ export function initBabylon(canvas: HTMLCanvasElement, type: number) {
         }, scene)
 
         cylinder.position.y = height / 2;
-        const mtl=getCylinderShader("LightingCyliner",scene)
+        const mtl = getCylinderShader("LightingCyliner", scene)
 
-        cylinder.material=mtl;
-        mtl.alpha=0.99
+        cylinder.material = mtl;
+        mtl.alpha = 0.99
 
 
-        mtl.setFloat("uHeight",height)
-        gsap.to(cylinder.scaling,{
-          x:2,z:2,yoyo:true,repeat:-1,duration:1
+        mtl.setFloat("uHeight", height)
+        gsap.to(cylinder.scaling, {
+          x: 2, z: 2, yoyo: true, repeat: -1, duration: 1
         })
 
 
-        const RadarMtl=getCylinderShader("Radar",scene,{
+        const RadarMtl = getCylinderShader("Radar", scene, {
           attributes: ["position", "uv"],
-          uniforms:["worldViewProjection","uColor","uTime"],
+          uniforms: ["worldViewProjection", "uColor", "uTime"],
         })
 
-        RadarMtl.setColor3("uColor",new Color3(1,0,1));
-        RadarMtl.setFloat("uTime",0);
+        RadarMtl.setColor3("uColor", new Color3(1, 0, 1));
+        RadarMtl.setFloat("uTime", 0);
 
-        const ground=MeshBuilder.CreateGround("ground",{width:10,height:10},scene)
+        const ground = MeshBuilder.CreateGround("ground", { width: 10, height: 10 }, scene)
 
-        ground.material=RadarMtl;
+        ground.material = RadarMtl;
 
-        RadarMtl.alpha=0.99
+        RadarMtl.alpha = 0.99
 
-        ground.position.y=10
-        let time=0
-        RadarMtl.onBindObservable.add(function(){
-          time+=0.01;
-          RadarMtl.setFloat("uTime",time);
+        ground.position.y = 10
+        let time = 0
+        RadarMtl.onBindObservable.add(function () {
+          time += 0.01;
+          RadarMtl.setFloat("uTime", time);
         })
 
+
+      }
+    );
+  } else if (type === 2) {
+    SceneLoader.LoadAssetContainer(
+      "/models/",
+      "city.glb",
+      scene,
+      (container) => {
+        container.addAllToScene();
+        setTimeout(() => {
+          const meshes = container.meshes as Mesh[];
+          console.log("file: init.ts:295 ~ initBabylon ~ meshes:", meshes)
+          meshes.forEach((m) => {
+            if (m.geometry) {
+              const mtl = getSnowMtl(scene);
+
+              m.material = mtl;
+            }
+          });
+        }, 1000);
+
+        // showSnow(scene,camera)
 
       }
     );
@@ -296,3 +317,4 @@ export function initBabylon(canvas: HTMLCanvasElement, type: number) {
     engine.resize();
   });
 }
+
