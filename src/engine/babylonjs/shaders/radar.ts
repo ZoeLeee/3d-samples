@@ -57,7 +57,7 @@ void main() {
 
   // 顶点沿法线和雪方向偏移
   vec3 offset = normalize(normal + snowDirection) * snowDepth;  
-  vec3 pos = position ;
+  vec3 pos = position +offset;
   vNormal=normal;
 
   gl_Position = worldViewProjection * vec4(pos, 1.0);

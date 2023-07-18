@@ -285,15 +285,38 @@ export function initBabylon(canvas: HTMLCanvasElement, type: number) {
       }
     );
   } else if (type === 2) {
-    SceneLoader.LoadAssetContainer(
-      "/models/",
-      "city.glb",
+    // SceneLoader.LoadAssetContainer(
+    //   "/models/",
+    //   "city.glb",
+    //   scene,
+    //   (container) => {
+    //     container.addAllToScene();
+    //     setTimeout(() => {
+    //       const meshes = container.meshes as Mesh[];
+    //       console.log("file: init.ts:295 ~ initBabylon ~ meshes:", meshes)
+    //       meshes.forEach((m) => {
+    //         if (m.geometry) {
+    //           const mtl = getSnowMtl(scene);
+
+    //           m.material = mtl;
+    //         }
+    //       });
+    //     }, 1000);
+
+    //     // showSnow(scene,camera)
+
+    //   }
+    // );
+    SceneLoader.Append(
+      "https://threejs.org/examples/models/gltf/",
+      "LittlestTokyo.glb",
       scene,
       (container) => {
-        container.addAllToScene();
-        setTimeout(() => {
-          const meshes = container.meshes as Mesh[];
-          console.log("file: init.ts:295 ~ initBabylon ~ meshes:", meshes)
+        console.log("file: init.ts:315 ~ initBabylon ~ container:", container.rootNodes)
+        // container.addAllToScene();
+        // setTimeout(() => {
+          const meshes = container.rootNodes[2].getChildMeshes() as Mesh[];
+          // meshes[0].scaling.set(0.01,0.01,0.01)
           meshes.forEach((m) => {
             if (m.geometry) {
               const mtl = getSnowMtl(scene);
@@ -301,12 +324,13 @@ export function initBabylon(canvas: HTMLCanvasElement, type: number) {
               m.material = mtl;
             }
           });
-        }, 1000);
+        // }, 1000);
 
         // showSnow(scene,camera)
 
       }
     );
+    
   }
 
   engine.runRenderLoop(() => {

@@ -14,8 +14,8 @@ export function getSnowMtl(scene: Scene) {
         uniforms: ["worldViewProjection","snowAmount", "snowColor", "snowDirection"]
     })
 
-    mtl.setFloat("snowAmount", 0.1)
-    mtl.setVector3("snowDirection", new Vector3(0,1))
+    mtl.setFloat("snowAmount", 1)
+    mtl.setVector3("snowDirection", new Vector3(0,0,1))
     mtl.setColor3("snowColor", Color3.White())
     
 
