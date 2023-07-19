@@ -318,16 +318,19 @@ export function initBabylon(canvas: HTMLCanvasElement, type: number) {
     
       }
       let amount=0;
-      scene.onAfterRenderObservable.add(function () {
-        amount+=1e-4;
-        if(amount>0.8){
-          return
-        }
-        for (const p of plugin) {
-          p.snowAmount=amount;
-        }
+      // scene.onAfterRenderObservable.add(function () {
+      //   amount+=1e-4;
+      //   if(amount>0.8){
+      //     return
+      //   }
+      //   for (const p of plugin) {
+      //     p.snowAmount=amount;
+      //   }
         
-      });
+      // });
+      for (const p of plugin) {
+        p.snowAmount=0.6;
+      }
 
 
     });

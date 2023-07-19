@@ -13,11 +13,11 @@ export function BabylonCanvas() {
         const engine = initBabylon(canvasRef.current, index);
         window.addEventListener("resize", callback);
 
-        return ()=>{
+        return () => {
             engine.dispose();
             window.removeEventListener("resize", callback);
-        }
-    }, [index])
+        };
+    }, [index]);
 
     return <div style={{ position: "relative" }}>
         <div style={{
@@ -25,23 +25,12 @@ export function BabylonCanvas() {
             left: 10,
             top: 10,
         }}>
-            <button onClick={()=>setIndex(0)}>效果0</button>
-            <button onClick={()=>setIndex(1)}>效果1</button>
-            <button onClick={()=>setIndex(2)}>效果2</button>
-            <button onClick={()=>setIndex(3)}>效果3</button>
+            <button onClick={() => setIndex(0)}>效果0</button>
+            <button onClick={() => setIndex(1)}>效果1</button>
+            <button onClick={() => setIndex(2)}>效果2</button>
+            <button onClick={() => setIndex(3)}>效果3</button>
         </div>
-        {
-            index === 0 && <canvas style={{ width: "100%", height: "100%" }} ref={canvasRef} />
-        }
-        {
-            index === 1 && <canvas style={{ width: "100%", height: "100%" }} ref={canvasRef} />
-        }
-        {
-            index === 2 && <canvas style={{ width: "100%", height: "100%" }} ref={canvasRef} />
-        }
-        {
-            index === 3 && <canvas style={{ width: "100%", height: "100%" }} ref={canvasRef} />
-        }
+        <canvas style={{ width: "100%", height: "100%" }} ref={canvasRef} />
         <button onClick={() => window["debug"]()} style={{ position: "fixed", right: 10, top: 10 }}>调试</button>
     </div>;
 }
