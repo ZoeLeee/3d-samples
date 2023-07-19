@@ -29,6 +29,7 @@ import { ScanMaterialPlugin } from "./babylonjs/ScanMaterialPlugin";
 import { getCylinderShader, getSnowMtl } from "./babylonjs/shader";
 import { gsap } from "gsap";
 import { showSnow } from "./effect/snow";
+import { SnowCoverMaterialPlugin } from "./babylonjs/SnowCoverMaterialPlugin";
 
 //初始化babylonjs
 export function initBabylon(canvas: HTMLCanvasElement, type: number) {
@@ -79,8 +80,7 @@ export function initBabylon(canvas: HTMLCanvasElement, type: number) {
     // RegisterMaterialPlugin("BlackAndWhite", (material) => {
 
     //   return material.blackAndWhite;
-    // });  
-    return
+    // });
     SceneLoader.LoadAssetContainer(
       "/models/",
       "city.glb",
@@ -167,11 +167,9 @@ export function initBabylon(canvas: HTMLCanvasElement, type: number) {
             }
           }
         }
-
       }
     );
   } else if (type === 1) {
-    return
     SceneLoader.LoadAssetContainer(
       "/models/",
       "city.glb",
@@ -225,14 +223,13 @@ export function initBabylon(canvas: HTMLCanvasElement, type: number) {
         material1.setTexture("maskMap", maskMap);
         material1.setFloat("opacity", 1);
         material1.setFloat("alpha", 0.2);
-        material1.setColor3("color", new Color3(0.0784, 0.5490, 0.9608));
-        material1.setColor3("flowColor", new Color3(0.1490, 0.7961, 1));
+        material1.setColor3("color", new Color3(0.0784, 0.549, 0.9608));
+        material1.setColor3("flowColor", new Color3(0.149, 0.7961, 1));
         material1.setFloat("glowFactor", 10);
         material1.setFloat("speed", 0.6);
         material1.setFloat("time", 0);
 
-        material1.alpha = 0.99
-
+        material1.alpha = 0.99;
 
         groud.material = material1;
         let t = 0.025;
@@ -241,104 +238,111 @@ export function initBabylon(canvas: HTMLCanvasElement, type: number) {
           material1.setFloat("time", t);
         });
 
-        const height = 10
+        const height = 10;
 
-        const cylinder = MeshBuilder.CreateCylinder("光柱", {
-          diameter: 5, height: height, cap: 0, sideOrientation: 2
-        }, scene)
+        const cylinder = MeshBuilder.CreateCylinder(
+          "光柱",
+          {
+            diameter: 5,
+            height: height,
+            cap: 0,
+            sideOrientation: 2,
+          },
+          scene
+        );
 
         cylinder.position.y = height / 2;
-        const mtl = getCylinderShader("LightingCyliner", scene)
+        const mtl = getCylinderShader("LightingCyliner", scene);
 
         cylinder.material = mtl;
-        mtl.alpha = 0.99
+        mtl.alpha = 0.99;
 
-
-        mtl.setFloat("uHeight", height)
+        mtl.setFloat("uHeight", height);
         gsap.to(cylinder.scaling, {
-          x: 2, z: 2, yoyo: true, repeat: -1, duration: 1
-        })
-
+          x: 2,
+          z: 2,
+          yoyo: true,
+          repeat: -1,
+          duration: 1,
+        });
 
         const RadarMtl = getCylinderShader("Radar", scene, {
           attributes: ["position", "uv"],
           uniforms: ["worldViewProjection", "uColor", "uTime"],
-        })
+        });
 
         RadarMtl.setColor3("uColor", new Color3(1, 0, 1));
         RadarMtl.setFloat("uTime", 0);
 
-        const ground = MeshBuilder.CreateGround("ground", { width: 10, height: 10 }, scene)
+        const ground = MeshBuilder.CreateGround(
+          "ground",
+          { width: 10, height: 10 },
+          scene
+        );
 
         ground.material = RadarMtl;
 
-        RadarMtl.alpha = 0.99
+        RadarMtl.alpha = 0.99;
 
-        ground.position.y = 10
-        let time = 0
+        ground.position.y = 10;
+        let time = 0;
         RadarMtl.onBindObservable.add(function () {
           time += 0.01;
           RadarMtl.setFloat("uTime", time);
-        })
-
-
+        });
       }
     );
   } else if (type === 2) {
-    // SceneLoader.LoadAssetContainer(
-    //   "/models/",
-    //   "city.glb",
-    //   scene,
-    //   (container) => {
-    //     container.addAllToScene();
-    //     setTimeout(() => {
-    //       const meshes = container.meshes as Mesh[];
-    //       console.log("file: init.ts:295 ~ initBabylon ~ meshes:", meshes)
-    //       meshes.forEach((m) => {
-    //         if (m.geometry) {
-    //           const mtl = getSnowMtl(scene);
+    const name = "HillValley.babylon";
 
-    //           m.material = mtl;
-    //         }
-    //       });
-    //     }, 1000);
+    SceneLoader.AppendAsync(
+      "https://www.babylonjs.com/Scenes/hillvalley/",
+      name,
+      scene
+    ).then((res) => {
+      const plugin:SnowCoverMaterialPlugin[]=[]
+      camera.position=scene.activeCamera.position;
+      camera.target=scene.activeCamera.target;
+      scene.activeCamera=camera;
 
-    //     // showSnow(scene,camera)
+      for (const material of scene.materials) {
+        // if (m.geometry) {
+        //   const mtl = getSnowMtl(scene);
 
-    //   }
-    // );
-    SceneLoader.Append(
-      "https://threejs.org/examples/models/gltf/",
-      "LittlestTokyo.glb",
-      scene,
-      (container) => {
-        console.log("file: init.ts:315 ~ initBabylon ~ container:", container.rootNodes)
-        // container.addAllToScene();
-        // setTimeout(() => {
-          const meshes = container.rootNodes[2].getChildMeshes() as Mesh[];
-          // meshes[0].scaling.set(0.01,0.01,0.01)
-          meshes.forEach((m) => {
-            if (m.geometry) {
-              const mtl = getSnowMtl(scene);
+        //   m.material = mtl;
+        // }
 
-              m.material = mtl;
-            }
-          });
-        // }, 1000);
+        material["snowCover"]=new SnowCoverMaterialPlugin(material)
 
-        // showSnow(scene,camera)
-
-      }
-    );
+        plugin.push(material["snowCover"])
     
+      }
+      let amount=0;
+      // scene.onAfterRenderObservable.add(function () {
+      //   amount+=1e-4;
+      //   if(amount>0.8){
+      //     return
+      //   }
+      //   for (const p of plugin) {
+      //     p.snowAmount=amount;
+      //   }
+        
+      // });
+      for (const p of plugin) {
+        p.snowAmount=0.6;
+      }
+
+
+    });
+
+ 
   }
 
   engine.runRenderLoop(() => {
     scene.render();
   });
 
-  window.addEventListener("resize", () => {
-    engine.resize();
-  });
-}
 
+
+  return engine
+}
