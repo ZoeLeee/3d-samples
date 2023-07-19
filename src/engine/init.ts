@@ -329,7 +329,7 @@ export function initBabylon(canvas: HTMLCanvasElement, type: number) {
         
       // });
       for (const p of plugin) {
-        p.snowAmount=0.6;
+        p.snowAmount=0.2;
       }
 
 

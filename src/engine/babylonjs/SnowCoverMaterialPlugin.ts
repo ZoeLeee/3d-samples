@@ -67,23 +67,23 @@ export class SnowCoverMaterialPlugin extends MaterialPluginBase {
       return {
         CUSTOM_FRAGMENT_DEFINITIONS: `
         varying vec3 vNormal;
+        varying vec2 vUv;
         uniform sampler2D SnowTexture;
-        float random (vec2 st) {
-            return fract(sin(dot(st.xy,
-                                 vec2(12.9898,78.233)))*
-                43758.5453123);
-        }
         `,
         CUSTOM_FRAGMENT_MAIN_END: `
             #ifdef SNOWCOVER
         
-            vec4 snowC=texture2D(SnowTexture,vDiffuseUV);
+            vec4 snowC=texture2D(SnowTexture,vUv);
+
+            float an=dot(vNormal, snowDirection);
 
             // 计算覆盖判断
-            float cover = dot(vNormal, snowDirection) - (1.0 - snowAmount);
+            float cover = an - (1.0 - snowAmount);
           
             if (cover > 0.0) {
-              gl_FragColor = snowC; 
+              vec3 color=mix(vec3(1.0,1.0,1.0),vec3(0.0,0.0,0.0),cover);
+              // gl_FragColor = vec4(snowC.rgb,clamp(an,0.0,1.0)); 
+               gl_FragColor = vec4(color,cover);
             }
             #endif
         `,
@@ -92,18 +92,14 @@ export class SnowCoverMaterialPlugin extends MaterialPluginBase {
 
     if (shaderType === "vertex") {
       return {
-        CUSTOM_VERTEX_DEFINITIONS: `varying vec3 vNormal;`,
-        // CUSTOM_VERTEX_UPDATE_WORLDPOS: `
-        //   float snowDepth=0.1;
-        //   vec3 snowDirection=vec3(0.0,1.0,0.0);
-        //   // 顶点沿法线和雪方向偏移
-        //   vec3 offset = normalize(normal + snowDirection) * snowDepth;
-        //   worldPos.x+=offset.x;
-        //   worldPos.y+=offset.y;
-        //   worldPos.z+=offset.z;  
-        // `,
+        CUSTOM_VERTEX_DEFINITIONS: `
+        varying vec3 vNormal;
+        varying vec2 vUv;`,
         CUSTOM_VERTEX_MAIN_END: `
           vNormal=normal;
+          #ifdef UV1
+          vUv=uv;
+          #endif
           `,
       };
     }
