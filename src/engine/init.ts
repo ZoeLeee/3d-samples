@@ -31,12 +31,17 @@ import { gsap } from "gsap";
 import { showSnow } from "./effect/snow";
 import { SnowCoverMaterialPlugin } from "./babylonjs/SnowCoverMaterialPlugin";
 
+import { GUI } from 'dat.gui';
+
+
 //初始化babylonjs
 export function initBabylon(canvas: HTMLCanvasElement, type: number) {
   const engine = new Engine(canvas, true);
   const scene = new Scene(engine);
 
   scene.useRightHandedSystem = true;
+
+  let gui;
 
   window["debug"] = () => {
     scene.debugLayer.show({
@@ -295,15 +300,19 @@ export function initBabylon(canvas: HTMLCanvasElement, type: number) {
   } else if (type === 2) {
     const name = "HillValley.babylon";
 
+     gui = new GUI();
+
+
+
     SceneLoader.AppendAsync(
       "https://www.babylonjs.com/Scenes/hillvalley/",
       name,
       scene
     ).then((res) => {
-      const plugin:SnowCoverMaterialPlugin[]=[]
-      camera.position=scene.activeCamera.position;
-      camera.target=scene.activeCamera.target;
-      scene.activeCamera=camera;
+      const plugin: SnowCoverMaterialPlugin[] = []
+      camera.position = scene.activeCamera.position;
+      camera.target = scene.activeCamera.target;
+      scene.activeCamera = camera;
 
       for (const material of scene.materials) {
         // if (m.geometry) {
@@ -312,36 +321,44 @@ export function initBabylon(canvas: HTMLCanvasElement, type: number) {
         //   m.material = mtl;
         // }
 
-        material["snowCover"]=new SnowCoverMaterialPlugin(material)
+        material["snowCover"] = new SnowCoverMaterialPlugin(material)
 
         plugin.push(material["snowCover"])
-    
-      }
-      let amount=0;
-      // scene.onAfterRenderObservable.add(function () {
-      //   amount+=1e-4;
-      //   if(amount>0.8){
-      //     return
-      //   }
-      //   for (const p of plugin) {
-      //     p.snowAmount=amount;
-      //   }
-        
-      // });
-      for (const p of plugin) {
-        p.snowAmount=0.2;
+
       }
 
+      const params = {
+        snowAmount: 0.5,
+        smoothFactor: 0.5,
+      };
+
+
+      gui.add(params, 'snowAmount', 0, 1).onChange(function (val) {
+        for (const p of plugin) {
+          p.snowAmount = val;
+        }
+      });
+      gui.add(params, 'smoothFactor', 0, 1).onChange(function (val) {
+        for (const p of plugin) {
+          p.smoothFactor = val;
+        }
+      });
+
+      gui.open();
 
     });
 
- 
+
   }
 
   engine.runRenderLoop(() => {
     scene.render();
   });
 
+  engine.onDisposeObservable.addOnce(()=>{
+    if(gui)
+      gui.destroy()
+  })
 
 
   return engine
