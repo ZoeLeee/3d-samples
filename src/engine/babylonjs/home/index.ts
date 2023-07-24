@@ -74,7 +74,7 @@ export function renderHome(canvas: HTMLCanvasElement) {
 
 
     // Create the 3D UI manager
-    const manager = new GUI.GUI3DManager(scene);
+    // const manager = new GUI.GUI3DManager(scene);
 
 
     return () => {
