@@ -8,9 +8,12 @@ dependencies:
   '@babylonjs/core':
     specifier: ^6.3.1
     version: 6.3.1
+  '@babylonjs/gui':
+    specifier: ^6.13.0
+    version: 6.13.0(@babylonjs/core@6.3.1)
   '@babylonjs/inspector':
     specifier: ^6.10.0
-    version: 6.10.0(@babylonjs/core@6.3.1)(@babylonjs/gui-editor@6.10.0)(@babylonjs/gui@6.10.0)(@babylonjs/loaders@6.3.1)(@babylonjs/materials@6.3.1)(@babylonjs/serializers@6.10.0)(@types/react-dom@18.0.11)(@types/react@18.0.28)
+    version: 6.10.0(@babylonjs/core@6.3.1)(@babylonjs/gui-editor@6.10.0)(@babylonjs/gui@6.13.0)(@babylonjs/loaders@6.3.1)(@babylonjs/materials@6.3.1)(@babylonjs/serializers@6.10.0)(@types/react-dom@18.0.11)(@types/react@18.0.28)
   '@babylonjs/loaders':
     specifier: ^6.3.1
     version: 6.3.1(@babylonjs/core@6.3.1)(babylonjs-gltf2interface@6.9.0)
@@ -379,7 +382,7 @@ packages:
     resolution: {integrity: sha512-VShcryUF+H55cJ556Ki9yBQJCIMMALsin1dFHFmdG4VUKlDf9AVj5WbvSmAtr0dRNJZop+RNRrteKHHqVEOYyA==}
     dev: false
 
-  /@babylonjs/gui-editor@6.10.0(@babylonjs/core@6.3.1)(@babylonjs/gui@6.10.0)(@types/react-dom@18.0.11)(@types/react@18.0.28):
+  /@babylonjs/gui-editor@6.10.0(@babylonjs/core@6.3.1)(@babylonjs/gui@6.13.0)(@types/react-dom@18.0.11)(@types/react@18.0.28):
     resolution: {integrity: sha512-Y0gVxrhxoPbBHIZpM4TSf4hAFqMpvOfwM0nBILGbFeCqphl06gwRYuikWzHeKBphwqer20aj78Hcrlu/3G0UYg==}
     peerDependencies:
       '@babylonjs/core': ^6.0.0
@@ -388,20 +391,20 @@ packages:
       '@types/react-dom': '>=16.0.9'
     dependencies:
       '@babylonjs/core': 6.3.1
-      '@babylonjs/gui': 6.10.0(@babylonjs/core@6.3.1)
+      '@babylonjs/gui': 6.13.0(@babylonjs/core@6.3.1)
       '@types/react': 18.0.28
       '@types/react-dom': 18.0.11
     dev: false
 
-  /@babylonjs/gui@6.10.0(@babylonjs/core@6.3.1):
-    resolution: {integrity: sha512-yxtEqAzkuPSmTNqH6CTqN6a/HJ3qkrmW3MbHi5RbbAEtYjTg+xGbdfVB72muk4o35pcHDpebAWeMK4EOmCSzWg==}
+  /@babylonjs/gui@6.13.0(@babylonjs/core@6.3.1):
+    resolution: {integrity: sha512-FWKgsIrzgVpf2jaANVyubwRPlmoXpi5v8D3hnhC/l4Tzfq8PKXc5JLHqLO7NxVZdRwnNVeM3bETWJSnq9eBZ2A==}
     peerDependencies:
       '@babylonjs/core': ^6.0.0
     dependencies:
       '@babylonjs/core': 6.3.1
     dev: false
 
-  /@babylonjs/inspector@6.10.0(@babylonjs/core@6.3.1)(@babylonjs/gui-editor@6.10.0)(@babylonjs/gui@6.10.0)(@babylonjs/loaders@6.3.1)(@babylonjs/materials@6.3.1)(@babylonjs/serializers@6.10.0)(@types/react-dom@18.0.11)(@types/react@18.0.28):
+  /@babylonjs/inspector@6.10.0(@babylonjs/core@6.3.1)(@babylonjs/gui-editor@6.10.0)(@babylonjs/gui@6.13.0)(@babylonjs/loaders@6.3.1)(@babylonjs/materials@6.3.1)(@babylonjs/serializers@6.10.0)(@types/react-dom@18.0.11)(@types/react@18.0.28):
     resolution: {integrity: sha512-tDVd8A7ACN1D52dnm1nDgjIxqtjgQuStHaSdnKjDGA/LYnzMkvCbediXcGhtLoBkM/MSRTDxxJJEPILZuKuZvw==}
     peerDependencies:
       '@babylonjs/core': ^6.0.0
@@ -414,8 +417,8 @@ packages:
       '@types/react-dom': '>=16.0.9'
     dependencies:
       '@babylonjs/core': 6.3.1
-      '@babylonjs/gui': 6.10.0(@babylonjs/core@6.3.1)
-      '@babylonjs/gui-editor': 6.10.0(@babylonjs/core@6.3.1)(@babylonjs/gui@6.10.0)(@types/react-dom@18.0.11)(@types/react@18.0.28)
+      '@babylonjs/gui': 6.13.0(@babylonjs/core@6.3.1)
+      '@babylonjs/gui-editor': 6.10.0(@babylonjs/core@6.3.1)(@babylonjs/gui@6.13.0)(@types/react-dom@18.0.11)(@types/react@18.0.28)
       '@babylonjs/loaders': 6.3.1(@babylonjs/core@6.3.1)(babylonjs-gltf2interface@6.9.0)
       '@babylonjs/materials': 6.3.1(@babylonjs/core@6.3.1)
       '@babylonjs/serializers': 6.10.0(@babylonjs/core@6.3.1)(babylonjs-gltf2interface@6.9.0)

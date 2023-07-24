@@ -1,35 +1,25 @@
 import {
-  Engine,
-  Scene,
   ArcRotateCamera,
-  Vector3,
-  MeshBuilder,
-  AxesViewer,
-  SceneLoader,
-  HemisphericLight,
-  StandardMaterial,
   Color3,
-  AbstractMesh,
+  Engine,
+  HemisphericLight,
   Mesh,
-  Effect,
-  ShaderStore,
-  TransformNode,
-  Vector2,
-  RegisterMaterialPlugin,
+  MeshBuilder,
+  Scene,
+  SceneLoader,
   ShaderMaterial,
+  StandardMaterial,
   Texture,
+  Vector3
 } from "@babylonjs/core";
 import "@babylonjs/core/Debug/debugLayer";
 import "@babylonjs/inspector";
 
-import { GridMaterial } from "@babylonjs/materials/Grid";
 import "@babylonjs/loaders/glTF/2.0/glTFLoader";
-import { CustomMaterial } from "@babylonjs/materials";
-import { ScanMaterialPlugin } from "./babylonjs/ScanMaterialPlugin";
-import { getCylinderShader, getSnowMtl } from "./babylonjs/shader";
 import { gsap } from "gsap";
-import { showSnow } from "./effect/snow";
+import { ScanMaterialPlugin } from "./babylonjs/ScanMaterialPlugin";
 import { SnowCoverMaterialPlugin } from "./babylonjs/SnowCoverMaterialPlugin";
+import { getCylinderShader } from "./babylonjs/shader";
 
 import { GUI } from 'dat.gui';
 
@@ -300,7 +290,7 @@ export function initBabylon(canvas: HTMLCanvasElement, type: number) {
   } else if (type === 2) {
     const name = "HillValley.babylon";
 
-     gui = new GUI();
+    gui = new GUI();
 
 
 
@@ -355,8 +345,8 @@ export function initBabylon(canvas: HTMLCanvasElement, type: number) {
     scene.render();
   });
 
-  engine.onDisposeObservable.addOnce(()=>{
-    if(gui)
+  engine.onDisposeObservable.addOnce(() => {
+    if (gui)
       gui.destroy()
   })
 

@@ -186,8 +186,11 @@ export function initThreejs(canvas: HTMLCanvasElement) {
     }
 
     shaders.forEach((shader) => {
+      //@ts-ignore
       shader.uniforms.uTime.value = time;
+      //@ts-ignore
       shader.uniforms.uLineTime.value = time2;
+      //@ts-ignore
       shader.uniforms.uVerticalTime.value = time3;
     });
   }

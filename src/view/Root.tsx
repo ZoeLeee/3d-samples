@@ -28,7 +28,7 @@ export default function Root() {
         <a
           href="https://beian.miit.gov.cn/"
           target="_blank"
-          style={{ color: "#479f52;" }}
+          style={{ color: "#479f52" }}
         >
           闽ICP备19012108号
         </a>
