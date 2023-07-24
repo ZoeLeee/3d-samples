@@ -1,7 +1,4 @@
 import { useEffect, useRef } from "react";
-import { Outlet } from "react-router-dom";
-import { initThreejs } from "../engine/initThree";
-import { initBabylon } from "../engine/init";
 import { renderHome } from "../engine/babylonjs/home";
 
 export default function Root() {
@@ -18,7 +15,7 @@ export default function Root() {
   }, []);
 
   return (
-    <div id="detail">
+    <div id="detail" style={{ width: "100%", height: "100%" }}>
       <canvas style={{ width: "100%", height: "100%" }} ref={canvas2Ref} />
     </div>
   );

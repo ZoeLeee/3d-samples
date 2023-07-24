@@ -45,6 +45,13 @@ export function InitCanvas(canvas: HTMLCanvasElement) {
 
     light.intensity = 1
 
+    const onResize = () => {
+        engine.resize()
+    }
+
+    window.addEventListener("resize", onResize)
+
+
     engine.runRenderLoop(() => {
         scene.render();
     });
@@ -52,9 +59,12 @@ export function InitCanvas(canvas: HTMLCanvasElement) {
     engine.onDisposeObservable.addOnce(() => {
         if (gui)
             gui.destroy()
+
+        window.removeEventListener("resize", onResize)
     })
 
-    return [engine, scene, gui] as [
-        Engine, Scene, GUI
+
+    return [engine, scene, camera, gui] as [
+        Engine, Scene, ArcRotateCamera, GUI
     ]
 }
