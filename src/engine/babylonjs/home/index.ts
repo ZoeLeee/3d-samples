@@ -1,14 +1,12 @@
-import { Camera, CreatePlane, CreatePlaneVertexData, Mesh, ShaderMaterial, Texture, Vector2 } from "@babylonjs/core";
+import { Camera, CreatePlane, CreatePlaneVertexData, Mesh, ShaderMaterial, Texture, TransformNode, Vector2, Vector3 } from "@babylonjs/core";
 import { InitCanvas } from "../common/init";
+import { CylinderPanel, GUI3DManager, HolographicButton, HolographicSlate, Image } from "@babylonjs/gui";
 
 export function renderHome(canvas: HTMLCanvasElement) {
     const [engine, scene, camera, gui] = InitCanvas(canvas);
 
     const width = engine.getRenderWidth()
     const height = engine.getRenderHeight()
-
-
-    const ap = width / height;
 
     const plane = CreatePlane("广告牌", {
         width,
@@ -72,10 +70,25 @@ export function renderHome(canvas: HTMLCanvasElement) {
 
     })
 
+    const anchor = new TransformNode("anchor", scene);
 
     // Create the 3D UI manager
-    // const manager = new GUI.GUI3DManager(scene);
+    const manager = new GUI3DManager(scene);
 
+    const button = new HolographicButton("BJS");
+    manager.addControl(button);
+    button.linkToTransformNode(anchor);
+
+    button.position.set(-500, 500, 0)
+    button.scaling.set(200, 200, 200)
+
+    button.imageUrl = "https://logos-download.com/wp-content/uploads/2022/12/Babylon.js_Logo.png";
+
+    button.text = "Babylonjs";
+
+    button.onPointerDownObservable.addOnce(() => {
+        location.href = "/bjs/list"
+    })
 
     return () => {
         engine.dispose()
