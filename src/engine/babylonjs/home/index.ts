@@ -1,12 +1,15 @@
-import { Camera, CreatePlane, CreatePlaneVertexData, Mesh, ShaderMaterial, Texture, TransformNode, Vector2, Vector3 } from "@babylonjs/core";
+import { Camera, CreatePlane, CreatePlaneVertexData, Mesh, ShaderMaterial, Texture, TransformNode, Vector2 } from "@babylonjs/core";
+import { GUI3DManager, HolographicButton } from "@babylonjs/gui";
 import { InitCanvas } from "../common/init";
-import { CylinderPanel, GUI3DManager, HolographicButton, HolographicSlate, Image } from "@babylonjs/gui";
 
 export function renderHome(canvas: HTMLCanvasElement) {
     const [engine, scene, camera, gui] = InitCanvas(canvas);
 
     const width = engine.getRenderWidth()
     const height = engine.getRenderHeight()
+
+    camera.alpha = Math.PI / 2
+    camera.beta = Math.PI / 2
 
     const plane = CreatePlane("广告牌", {
         width,
@@ -87,7 +90,7 @@ export function renderHome(canvas: HTMLCanvasElement) {
     button.text = "Babylonjs";
 
     button.onPointerDownObservable.addOnce(() => {
-        location.href = "/bjs/list"
+        location.href = "/bjs"
     })
 
     return () => {

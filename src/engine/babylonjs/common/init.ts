@@ -34,7 +34,7 @@ export function InitCanvas(canvas: HTMLCanvasElement) {
     const camera = new ArcRotateCamera(
         "camera",
         Math.PI / 2,
-        Math.PI / 2,
+        Math.PI / 4,
         100,
         new Vector3(0, 0, 0),
         scene

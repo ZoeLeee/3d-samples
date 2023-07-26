@@ -3,7 +3,8 @@ import "./App.css";
 import "./shaders";
 import ErrorPage from "./view/ErrorPage";
 import Root from "./view/Root";
-import Contact from "./view/Test";
+import { RenderBJS } from "./components/render-bjs";
+import { SamplesComponent } from "./components/samples";
 
 const router = createBrowserRouter([
   {
@@ -13,7 +14,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/bjs",
-    element: <div>bjs列表</div>,
+    element: <SamplesComponent />,
+  },
+  {
+    path: "/bjs/:id",
+    element: <RenderBJS />,
   },
 ]);
 

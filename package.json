@@ -8,9 +8,10 @@
     "build": "vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "tsc":"tsc"
+    "tsc": "tsc"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.1.4",
     "@babylonjs/core": "^6.3.1",
     "@babylonjs/gui": "^6.13.0",
     "@babylonjs/inspector": "^6.10.0",
