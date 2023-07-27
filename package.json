@@ -7,7 +7,8 @@
   ],
   "scripts": {
     "dev:app": "yarn workspace @lizhou/3d-samples dev",
-    "build:app": "yarn workspace @lizhou/3d-samples build"
+    "build:app": "yarn workspace @lizhou/3d-samples build",
+    "dev:mo": "yarn workspace @lizhou/mesh-optimize node src/index.js"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.2.0",
