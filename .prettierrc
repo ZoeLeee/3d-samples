@@ -1,0 +1,11 @@
+{
+  "semi": true,
+  "singleQuote": false,
+  "trailingComma": "es5",
+  "tabWidth": 2,
+  "endOfLine": "lf",
+  "importOrder": ["^@lizhou/(.*)$", "^[./]"],
+  "importOrderParserPlugins": ["typescript", "decorators-legacy", "jsx"],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
+}

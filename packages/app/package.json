@@ -1,0 +1,34 @@
+{
+  "name": "@lizhou/3d-samples",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview",
+    "tsc": "tsc"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^5.1.4",
+    "@babylonjs/core": "^6.3.1",
+    "@babylonjs/gui": "^6.13.0",
+    "@babylonjs/gui-editor": "^6.14.0",
+    "@babylonjs/inspector": "^6.10.0",
+    "@babylonjs/loaders": "^6.3.1",
+    "@babylonjs/materials": "^6.3.1",
+    "@babylonjs/serializers": "^6.14.0",
+    "@types/dat.gui": "^0.7.10",
+    "@types/three": "^0.152.0",
+    "antd": "^5.7.2",
+    "dat.gui": "^0.7.9",
+    "gsap": "^3.11.5",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.14.2",
+    "three": "^0.152.2"
+  },
+  "nx": {
+    "targets": {}
+  }
+}

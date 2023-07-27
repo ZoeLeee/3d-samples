@@ -1,33 +1,16 @@
 {
-  "name": "-",
+  "name": "samples-3d",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview",
-    "tsc": "tsc"
-  },
-  "dependencies": {
-    "@ant-design/icons": "^5.1.4",
-    "@babylonjs/core": "^6.3.1",
-    "@babylonjs/gui": "^6.13.0",
-    "@babylonjs/inspector": "^6.10.0",
-    "@babylonjs/loaders": "^6.3.1",
-    "@babylonjs/materials": "^6.3.1",
-    "@types/dat.gui": "^0.7.10",
-    "@types/three": "^0.152.0",
-    "antd": "^5.7.2",
-    "dat.gui": "^0.7.9",
-    "gsap": "^3.11.5",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.14.2",
-    "three": "^0.152.2"
+    "dev:app": "yarn workspace @lizhou/3d-samples dev",
+    "build:app": "yarn workspace @lizhou/3d-samples build"
   },
   "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^4.2.0",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@typescript-eslint/eslint-plugin": "^5.57.1",
@@ -36,8 +19,13 @@
     "eslint": "^8.38.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.3.4",
+    "nx": "16.5.5",
     "terser": "^5.19.2",
     "typescript": "^5.0.2",
     "vite": "^4.3.2"
-  }
+  },
+  "nx": {
+    "targets": {}
+  },
+  "packageManager": "yarn@3.6.1"
 }
