@@ -32,7 +32,7 @@ export const SamplesComponent: React.FC = () => {
   }, []);
 
   return (
-    <Layout>
+    <Layout style={{ height: "100%" }}>
       <Layout.Header style={headerStyle}>
         <Link to="/">
           {" "}
@@ -61,6 +61,23 @@ export const SamplesComponent: React.FC = () => {
               </Link>
             </Col>
           ))}
+          <Col className="gutter-row" xs={4} span={6}>
+            <Link to={`/bjs`}>
+              <Card
+                hoverable
+                cover={
+                  <img
+                    alt="example"
+                    src={
+                      "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+                    }
+                  />
+                }
+              >
+                <Meta title="gltf压缩" description="开发中" />
+              </Card>
+            </Link>
+          </Col>
         </Row>
       </Content>
     </Layout>
