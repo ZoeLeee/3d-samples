@@ -4,7 +4,8 @@ import "./shaders";
 import ErrorPage from "./view/ErrorPage";
 import Root from "./view/Root";
 import { RenderBJS } from "./components/render-bjs";
-import { SamplesComponent } from "./components/samples";
+import { lazy } from "react";
+import SamplesComponent from "./components/samples";
 
 const router = createBrowserRouter([
   {

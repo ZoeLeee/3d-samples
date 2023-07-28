@@ -3,6 +3,7 @@ import { renderScanEffect } from "../../engine/babylonjs/render-list/scan";
 import { renderCoverSnow } from "../../engine/babylonjs/render-list/snow";
 import imgUrl from "../../assets/southeast.jpg";
 import radarimgUrl from "../../assets/radar.png";
+import { renderMeshOptimize } from "../../engine/babylonjs/render-list/mesh-optimize";
 
 export const RenderMap = {
   coverSnow: {
@@ -18,6 +19,10 @@ export const RenderMap = {
   radar: {
     render: renderRadarEffect,
     title: "雷达光柱扩散效果",
-    iamge: radarimgUrl,
+    image: radarimgUrl,
+  },
+  meshOptimize: {
+    render: renderMeshOptimize,
+    title: "gltf压缩",
   },
 };

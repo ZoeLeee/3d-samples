@@ -5,8 +5,7 @@ import { Link } from "react-router-dom";
 import { Card } from "antd";
 
 const { Meta } = Card;
-const { Header, Footer, Sider, Content } = Layout;
-const style: React.CSSProperties = { background: "#0092ff", padding: "8px 0" };
+const { Content } = Layout;
 
 const headerStyle: React.CSSProperties = {
   color: "#fff",
@@ -18,7 +17,7 @@ const headerStyle: React.CSSProperties = {
   alignItems: "center",
 };
 
-export const SamplesComponent: React.FC = () => {
+const SamplesComponent: React.FC = () => {
   const list = useMemo(() => {
     const list = [];
     for (const key in RenderMap) {
@@ -83,3 +82,5 @@ export const SamplesComponent: React.FC = () => {
     </Layout>
   );
 };
+
+export default SamplesComponent;

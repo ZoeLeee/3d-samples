@@ -5,6 +5,7 @@ import { koaBody } from "koa-body";
 import multer from "multer";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
+import cors from "koa2-cors";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -12,8 +13,10 @@ const __dirname = dirname(__filename);
 const app = new Koa();
 const router = new Router();
 
+app.use(cors());
+
 // 设置静态资源目录为public
-app.use(koaStatic(join(__dirname, "public")));
+app.use(koaStatic(join(__dirname, "../public")));
 
 // 配置multer中间件用于文件上传
 const storage = multer.diskStorage({
@@ -29,19 +32,6 @@ const upload = multer({ storage: storage });
 
 // 编写文件上传路由
 router.post("/upload", upload.single("file"), (ctx) => {
-  const file = ctx.req.file;
-  if (!file) {
-    ctx.status = 400;
-    ctx.body = { message: "No file uploaded" };
-  } else {
-    ctx.body = {
-      message: "File uploaded successfully",
-      filename: file.filename,
-    };
-  }
-});
-
-router.post("/optimize", upload.single("file"), (ctx) => {
   const file = ctx.req.file;
   if (!file) {
     ctx.status = 400;
