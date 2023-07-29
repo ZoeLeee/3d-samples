@@ -6,11 +6,16 @@ export function renderCoverSnow(canvas: HTMLCanvasElement) {
     const [engine, scene, camera, gui] = InitCanvas(canvas)
     const name = "HillValley.babylon";
 
+    engine.loadingScreen.displayLoadingUI();
+
     SceneLoader.AppendAsync(
         "https://www.babylonjs.com/Scenes/hillvalley/",
         name,
         scene
     ).then((res) => {
+
+        engine.loadingScreen.hideLoadingUI();
+
         const plugin: SnowCoverMaterialPlugin[] = []
         camera.position = scene.activeCamera.position;
         camera.target = scene.activeCamera.target;

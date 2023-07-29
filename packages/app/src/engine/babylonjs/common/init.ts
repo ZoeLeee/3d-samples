@@ -8,8 +8,11 @@ import { Scene } from "@babylonjs/core/scene";
 
 import "@babylonjs/core/Helpers/sceneHelpers"
 
-import "@babylonjs/loaders/glTF/2.0/glTFLoader";
+import "@babylonjs/loaders";
+
 import { GUI } from 'dat.gui';
+
+import "@babylonjs/core/Loading"
 
 
 export function InitCanvas(canvas: HTMLCanvasElement) {
