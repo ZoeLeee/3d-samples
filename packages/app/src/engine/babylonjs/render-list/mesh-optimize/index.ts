@@ -10,10 +10,13 @@ import { TextBlock } from "@babylonjs/gui/2D/controls/textBlock";
 import { Mesh } from "@babylonjs/core/Meshes";
 import { Color3 } from "@babylonjs/core/Maths/math.color";
 import { Vector3 } from "@babylonjs/core/Maths";
-import { postData } from "../../../utils/fetch";
+import { postData, uploadMultiple } from "../../../utils/fetch";
 import { message } from "antd";
+import { chooseFile } from "../../../utils/file";
 
 const uiContainer = new Map<Scene, AdvancedDynamicTexture>()
+
+const hostName = location.hostname
 
 const renderCount = (scene: Scene, meshes: Mesh[]) => {
 
@@ -71,7 +74,19 @@ export function renderMeshOptimize(canvas: HTMLCanvasElement, demoName = "Xbot.g
 
     const params = {
         loadFile: function () {
-            document.getElementById('myInput').click();
+            chooseFile({
+                callback: (files) => {
+                    const formData = new FormData()
+
+                    for (const f of Array.from(files)) {
+                        formData.append(f.name, f)
+                    }
+
+                    uploadMultiple(formData)
+
+                }
+            })
+
         },
         radio: 0.5,
         error: 0.001,
@@ -80,14 +95,14 @@ export function renderMeshOptimize(canvas: HTMLCanvasElement, demoName = "Xbot.g
     };
 
     const optimize = () => {
-        postData("http://localhost:3000/optimize", {
+        postData(`//${hostName}:3000/optimize`, {
             radio: params.radio,
             fileName: params.demoName,
             error: params.error
         }).then(res => {
             if (res.code === 0) {
                 SceneLoader.LoadAssetContainer(
-                    "http://localhost:3000/",
+                    `//${hostName}:3000/`,
                     res.result,
                     scene2,
                     (container) => {
@@ -110,7 +125,7 @@ export function renderMeshOptimize(canvas: HTMLCanvasElement, demoName = "Xbot.g
 
     const load = (demoName: string) => {
         SceneLoader.LoadAssetContainer(
-            "http://localhost:3000/",
+            `//${hostName}:3000/`,
             `${demoName}`,
             scene,
             (container) => {
@@ -193,7 +208,7 @@ export function renderMeshOptimize(canvas: HTMLCanvasElement, demoName = "Xbot.g
     gui.add({
         label: 'Click me!',
         onClick: function () {
-            postData("http://localhost:3000/clear").then(res => {
+            postData(`//${hostName}:3000/clear`).then(res => {
                 message.success("清理成功")
             })
         }

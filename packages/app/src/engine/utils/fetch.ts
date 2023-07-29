@@ -12,3 +12,20 @@ export async function postData(url = '', data = {}) {
     });
     return response.json(); // parses JSON response into native JavaScript objects
 }
+
+
+
+export async function uploadMultiple(formData: FormData) {
+    try {
+        const response = await fetch(`//${location.hostname}:3000/upload`, {
+            method: "POST",
+            body: formData,
+        });
+        const result = await response.json();
+
+        return result
+
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
