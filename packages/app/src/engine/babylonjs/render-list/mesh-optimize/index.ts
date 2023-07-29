@@ -116,7 +116,7 @@ export function renderMeshOptimize(canvas: HTMLCanvasElement, demoName = "Xbot.g
     };
 
     const optimize = (demoName: string) => {
-
+        engine.displayLoadingUI()
         let url = `//${hostName}:3000/`
 
         if (!demos.includes(demoName)) {
@@ -143,6 +143,8 @@ export function renderMeshOptimize(canvas: HTMLCanvasElement, demoName = "Xbot.g
 
                             renderCount(scene2, container.meshes as Mesh[])
 
+                            engine.hideLoadingUI()
+
                         }, 1000);
                     }
                 );
@@ -158,6 +160,8 @@ export function renderMeshOptimize(canvas: HTMLCanvasElement, demoName = "Xbot.g
             url += "upload/"
         }
 
+        engine.displayLoadingUI()
+
         SceneLoader.LoadAssetContainer(
             url,
             `${demoName}`,
@@ -172,6 +176,7 @@ export function renderMeshOptimize(canvas: HTMLCanvasElement, demoName = "Xbot.g
                     helper.setMainColor(Color3.Teal());
 
                     renderCount(scene, container.meshes as Mesh[])
+                    engine.hideLoadingUI()
                 }, 1000);
             }
         );
@@ -203,7 +208,7 @@ export function renderMeshOptimize(canvas: HTMLCanvasElement, demoName = "Xbot.g
     });
 
 
-    gui.add(params, 'radio', 0, 1).onChange(function (val) {
+    gui.add(params, 'radio', 0.01, 1).onChange(function (val) {
         params.radio = val
     }).name("压缩率");
 
