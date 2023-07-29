@@ -1,13 +1,10 @@
-import {
-  ArcRotateCamera,
-  Effect,
-  Matrix,
-  PostProcess,
-  PostProcessRenderEffect,
-  Scene,
-  ShaderMaterial,
-  Texture,
-} from "@babylonjs/core";
+import { ArcRotateCamera } from "@babylonjs/core/Cameras/arcRotateCamera";
+import { Texture } from "@babylonjs/core/Materials";
+import { Effect } from "@babylonjs/core/Materials/effect";
+import { Matrix } from "@babylonjs/core/Maths/math.vector";
+import { PostProcess } from "@babylonjs/core/PostProcesses";
+import { Scene } from "@babylonjs/core/scene";
+
 
 Effect.ShadersStore["customSnowFragmentShader"] = `
 varying vec2 vUV;
@@ -72,7 +69,7 @@ void main() {
 
 let snowAmount = 0;
 
-export function showSnow(scene:Scene, camera:ArcRotateCamera) {
+export function showSnow(scene: Scene, camera: ArcRotateCamera) {
   // 创建纹理
   const snowTexture = new Texture(
     "https://hcwl-cdn.cdn.bcebos.com/hc3d/textures/yun1.png?v=1&v=1",
@@ -81,9 +78,9 @@ export function showSnow(scene:Scene, camera:ArcRotateCamera) {
 
   scene.enableDepthRenderer(camera, false);
 
-  camera.alpha=Math.PI
-  camera.beta=Math.PI/4
-  camera.radius=30
+  camera.alpha = Math.PI
+  camera.beta = Math.PI / 4
+  camera.radius = 30
 
 
   //"My custom post process", "custom", ["screenSize", "threshold"], null, 0.25, camera
@@ -99,7 +96,7 @@ export function showSnow(scene:Scene, camera:ArcRotateCamera) {
       "projection",
       "iview",
     ],
-    ["depthSampler",'positionSampler'],
+    ["depthSampler", 'positionSampler'],
     1,
     camera
   );

@@ -1,12 +1,12 @@
-import {
-    ArcRotateCamera,
-    Engine,
-    HemisphericLight,
-    Scene,
-    Vector3
-} from "@babylonjs/core";
+
+import { ArcRotateCamera } from "@babylonjs/core/Cameras/arcRotateCamera";
 import "@babylonjs/core/Debug/debugLayer";
-import "@babylonjs/inspector";
+import { Engine } from "@babylonjs/core/Engines/engine";
+import { HemisphericLight } from "@babylonjs/core/Lights/hemisphericLight";
+import { Vector3 } from "@babylonjs/core/Maths";
+import { Scene } from "@babylonjs/core/scene";
+
+import "@babylonjs/core/Helpers/sceneHelpers"
 
 import "@babylonjs/loaders/glTF/2.0/glTFLoader";
 import { GUI } from 'dat.gui';
@@ -23,11 +23,14 @@ export function InitCanvas(canvas: HTMLCanvasElement) {
     gui.add({
         label: 'Click me!',
         onClick: function () {
-            scene.debugLayer.show({
-                embedMode: true,
-                overlay: true,
-                globalRoot: document.getElementById("app"),
-            });
+            import("@babylonjs/inspector").then(() => {
+                scene.debugLayer.show({
+                    embedMode: true,
+                    overlay: true,
+                    globalRoot: document.getElementById("app"),
+                });
+            })
+
         }
     }, 'onClick').name("调试");
 

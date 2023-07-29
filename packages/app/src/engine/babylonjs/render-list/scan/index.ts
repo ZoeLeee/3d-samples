@@ -1,6 +1,9 @@
-import { Color3, Mesh, SceneLoader, StandardMaterial } from "@babylonjs/core";
+import { StandardMaterial } from "@babylonjs/core/Materials/standardMaterial";
 import { ScanMaterialPlugin } from "../../ScanMaterialPlugin";
 import { InitCanvas } from "../../common/init";
+import { SceneLoader } from "@babylonjs/core/Loading/sceneLoader";
+import { Mesh } from "@babylonjs/core/Meshes";
+import { Color3 } from "@babylonjs/core/Maths/math.color";
 
 export function renderScanEffect(canvas: HTMLCanvasElement) {
     const [engine, scene, camera, gui] = InitCanvas(canvas)

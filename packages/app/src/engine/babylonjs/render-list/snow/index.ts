@@ -1,4 +1,4 @@
-import { SceneLoader } from "@babylonjs/core";
+import { SceneLoader } from "@babylonjs/core/Loading/sceneLoader";
 import { InitCanvas } from "../../common/init";
 import { SnowCoverMaterialPlugin } from "../../SnowCoverMaterialPlugin";
 

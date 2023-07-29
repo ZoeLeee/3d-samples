@@ -1,4 +1,4 @@
-import { Effect } from "@babylonjs/core";
+import { Effect } from "@babylonjs/core/Materials/effect";
 
 Effect.ShadersStore["scan1VertexShader"] = `
 precision highp float;

@@ -55,6 +55,19 @@ const renderCount = (scene: Scene, meshes: Mesh[]) => {
 export function renderMeshOptimize(canvas: HTMLCanvasElement, demoName = "Xbot.glb") {
     const [engine, scene, camera, gui] = InitCanvas(canvas)
 
+
+    const scene2 = new Scene(engine)
+
+    const camera2 = new ArcRotateCamera("1", Math.PI / 2, Math.PI / 4, 100, new Vector3(0, 0, 0), scene2)
+
+    camera.viewport = new Viewport(0, 0, 0.5, 1)
+
+
+    scene2.activeCamera = camera2
+    camera2.viewport = new Viewport(0.5, 0, 0.5, 1)
+
+    scene2.autoClear = false
+
     const params = {
         loadFile: function () {
             document.getElementById('myInput').click();
@@ -120,11 +133,13 @@ export function renderMeshOptimize(canvas: HTMLCanvasElement, demoName = "Xbot.g
     gui.add({
         label: 'Click me!',
         onClick: function () {
-            scene2.debugLayer.show({
-                embedMode: true,
-                overlay: true,
-                globalRoot: document.getElementById("app"),
-            });
+            import("@babylonjs/inspector").then((inspector) => {
+                scene2.debugLayer.show({
+                    embedMode: true,
+                    overlay: true,
+                    globalRoot: document.getElementById("app"),
+                });
+            })
         }
     }, 'onClick').name("调试2");
 
@@ -174,17 +189,7 @@ export function renderMeshOptimize(canvas: HTMLCanvasElement, demoName = "Xbot.g
     }, 'onClick').name("压缩");
 
 
-    const scene2 = new Scene(engine)
 
-    const camera2 = new ArcRotateCamera("1", Math.PI / 2, Math.PI / 4, 100, new Vector3(0, 0, 0), scene2)
-
-    camera.viewport = new Viewport(0, 0, 0.5, 1)
-
-
-    scene2.activeCamera = camera2
-    camera2.viewport = new Viewport(0.5, 0, 0.5, 1)
-
-    scene2.autoClear = false
 
     camera.onViewMatrixChangedObservable.add((c: ArcRotateCamera) => {
         camera2.radius = c.radius

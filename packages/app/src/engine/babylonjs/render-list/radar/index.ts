@@ -1,7 +1,11 @@
-import { Color3, Mesh, MeshBuilder, SceneLoader, ShaderMaterial, StandardMaterial, Texture } from "@babylonjs/core";
+import { SceneLoader } from "@babylonjs/core/Loading/sceneLoader";
 import { InitCanvas } from "../../common/init";
 import { getCylinderShader } from "../../shader";
 import gsap from "gsap";
+import { Mesh, MeshBuilder } from "@babylonjs/core/Meshes";
+import { StandardMaterial } from "@babylonjs/core/Materials/standardMaterial";
+import { Color3 } from "@babylonjs/core/Maths/math.color";
+import { ShaderMaterial, Texture } from "@babylonjs/core/Materials";
 
 export function renderRadarEffect(canvas: HTMLCanvasElement) {
     const [engine, scene, camera, gui] = InitCanvas(canvas)

@@ -1,6 +1,13 @@
-import { Camera, CreatePlane, CreatePlaneVertexData, Mesh, ShaderMaterial, Texture, TransformNode, Vector2 } from "@babylonjs/core";
-import { GUI3DManager, HolographicButton } from "@babylonjs/gui";
+
+import { CreatePlane, CreatePlaneVertexData } from "@babylonjs/core/Meshes/Builders/planeBuilder";
 import { InitCanvas } from "../common/init";
+import { Mesh } from "@babylonjs/core/Meshes/mesh";
+import { ShaderMaterial, Texture } from "@babylonjs/core/Materials";
+import { Vector2 } from "@babylonjs/core/Maths";
+import { Camera } from "@babylonjs/core/Cameras";
+import { TransformNode } from "@babylonjs/core/Meshes/transformNode";
+import { GUI3DManager } from "@babylonjs/gui/3D/gui3DManager";
+import { HolographicButton } from "@babylonjs/gui/3D/controls/holographicButton";
 
 export function renderHome(canvas: HTMLCanvasElement) {
     const [engine, scene, camera, gui] = InitCanvas(canvas);

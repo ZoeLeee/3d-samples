@@ -1,25 +1,22 @@
-import {
-  Color3,
-  MaterialPluginBase,
-  PBRBaseMaterial,
-  Texture,
-  UniformBuffer,
-  Vector2,
-  Vector3,
-} from "@babylonjs/core";
+
+import { Vector3 } from "@babylonjs/core/Maths/math.vector";
+import { Color3 } from "@babylonjs/core/Maths/math.color";
+
 
 import imgUrl from '../../assets/southeast.jpg'
+import { MaterialPluginBase } from "@babylonjs/core/Materials/materialPluginBase";
+import { Texture, UniformBuffer } from "@babylonjs/core/Materials";
 
 
 export class SnowCoverMaterialPlugin extends MaterialPluginBase {
   public snowAmount = 0.5;
-  public smoothFactor=0.5
+  public smoothFactor = 0.5
   private texture;
   constructor(material) {
     // last parameter is a priority, which lets you define the order multiple plugins are run.
     super(material, "SnowCover", 200, { SNOWCOVER: false });
 
-    this.texture=new Texture(imgUrl,material.getScene())
+    this.texture = new Texture(imgUrl, material.getScene())
 
     this._enable(true);
   }
@@ -58,7 +55,7 @@ export class SnowCoverMaterialPlugin extends MaterialPluginBase {
     uniformBuffer.updateFloat("snowAmount", this.snowAmount);
     uniformBuffer.updateColor3("snowColor", Color3.White());
     uniformBuffer.updateVector3("snowDirection", new Vector3(0, 1));
-    uniformBuffer.setTexture("SnowTexture",this.texture);
+    uniformBuffer.setTexture("SnowTexture", this.texture);
   }
 
   getCustomCode(shaderType) {

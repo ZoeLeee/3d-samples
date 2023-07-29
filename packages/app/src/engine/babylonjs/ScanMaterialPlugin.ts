@@ -1,16 +1,12 @@
-import {
-  Color3,
-  MaterialPluginBase,
-  PBRBaseMaterial,
-  UniformBuffer,
-  Vector2,
-} from "@babylonjs/core";
+import { MaterialPluginBase } from "@babylonjs/core/Materials/materialPluginBase";
+import { UniformBuffer } from "@babylonjs/core/Materials/uniformBuffer";
+import { Color3 } from "@babylonjs/core/Maths/math.color";
 
 /**
  * This is a custom material plugin that will colorify the material.
  */
 export class ScanMaterialPlugin extends MaterialPluginBase {
-  public time=0;
+  public time = 0;
   constructor(material, private options: { height: number }) {
     // last parameter is a priority, which lets you define the order multiple plugins are run.
     super(material, "BlackAndWhite", 200, { BLACKANDWHITE: false });
