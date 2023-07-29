@@ -3,7 +3,11 @@ import { ArcRotateCamera } from "@babylonjs/core/Cameras/arcRotateCamera";
 import { Scene } from "@babylonjs/core/scene";
 
 export function ZoomAll(camera: ArcRotateCamera, scene: Scene) {
+
+    camera.upperAlphaLimit = null
+
     camera.alpha += Math.PI;
+
     // Enable camera's behaviors
     camera.useFramingBehavior = true;
 
@@ -24,7 +28,6 @@ export function ZoomAll(camera: ArcRotateCamera, scene: Scene) {
 
 
     camera.pinchPrecision = 200 / camera.radius;
-    camera.upperRadiusLimit = 5 * camera.radius;
 
     camera.wheelDeltaPercentage = 0.01;
     camera.pinchDeltaPercentage = 0.01;

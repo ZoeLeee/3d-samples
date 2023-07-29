@@ -5,7 +5,7 @@ import { koaBody } from "koa-body";
 import multer from "multer";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
-import cors from "koa2-cors";
+import { optimize } from "./transform.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -13,7 +13,19 @@ const __dirname = dirname(__filename);
 const app = new Koa();
 const router = new Router();
 
-app.use(cors());
+app.use(async (ctx, next) => {
+  ctx.set("Access-Control-Allow-Origin", "*");
+  ctx.set(
+    "Access-Control-Allow-Headers",
+    "Content-Type, Content-Length, Authorization, Accept, X-Requested-With"
+  );
+  ctx.set("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, OPTIONS");
+  if (ctx.method == "OPTIONS") {
+    ctx.body = 200;
+  } else {
+    await next();
+  }
+});
 
 // 设置静态资源目录为public
 app.use(koaStatic(join(__dirname, "../public")));
@@ -45,19 +57,18 @@ router.post("/upload", upload.single("file"), (ctx) => {
 });
 
 // 编写优化接口路由
-router.post("/optimize", koaBody(), (ctx) => {
-  const { radio } = ctx.request.body;
-  if (!radio) {
+router.post("/optimize", koaBody(), async (ctx) => {
+  const { radio, fileName, error } = ctx.request.body;
+
+  if (radio === undefined || !fileName) {
     ctx.status = 400;
     ctx.body = { message: 'Missing "radio" parameter' };
   } else {
-    // Process the "radio" parameter here
-    // You can access the selected option as "radio" variable
-    ctx.body = { message: "Optimization completed", selectedOption: radio };
+    const result = await optimize(fileName, radio, error);
+    ctx.body = { message: "Optimization completed", ...result };
   }
 });
 
-app.use(koaBody());
 app.use(router.routes());
 
 // 启动服务

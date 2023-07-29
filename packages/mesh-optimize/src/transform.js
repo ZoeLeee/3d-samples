@@ -19,18 +19,45 @@ const io = new NodeIO()
     "draco3d.encoder": await draco3d.createEncoderModule(), // Optional.
   });
 
-// Read from URL.
-const document = await io.read(path.resolve(__dirname, "../public/Xbot.glb"));
+export async function optimize(fileName, ratio, error = 0.001) {
+  const name = fileName.split(".")[0];
+  const type = fileName.split(".")[1];
 
-await document.transform(
-  weld({ tolerance: 0.0001 }),
-  simplify({ simplifier: MeshoptSimplifier, ratio: 0.5, error: 0.001 })
-);
+  let outputFileName =
+    name + `_output_${(ratio * 100).toFixed(0)}_${error}.${type}`;
 
-//判断dist目录是否存在
-const distPath = path.resolve(__dirname, "../dist");
-if (!fs.existsSync(distPath)) {
-  fs.mkdirSync(distPath);
+  //判断文件是否存在
+  let filePath = path.resolve(__dirname, "../public/" + outputFileName);
+
+  if (fs.existsSync(filePath)) {
+    return { code: 0, result: outputFileName };
+  }
+
+  filePath = path.resolve(__dirname, "../public/" + fileName);
+
+  if (!fs.existsSync(filePath)) {
+    return { code: 1, message: "文件不存在" };
+  }
+
+  // Read from URL.
+  const document = await io.read(
+    path.resolve(__dirname, `../public/${fileName}`)
+  );
+
+  await document.transform(
+    weld({ tolerance: 0.0001 }),
+    simplify({
+      simplifier: MeshoptSimplifier,
+      ratio: ratio,
+      error,
+      lockBorder: false,
+    })
+  );
+
+  await io.write(
+    path.resolve(__dirname, "../public/" + outputFileName),
+    document
+  );
+
+  return { code: 0, result: outputFileName };
 }
-
-await io.write(path.resolve(__dirname, "../dist/output.glb"), document);
