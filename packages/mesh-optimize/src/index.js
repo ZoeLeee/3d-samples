@@ -73,7 +73,12 @@ app.use(
 );
 
 // 设置静态资源目录为public
-app.use(koaStatic(join(__dirname, "../public")));
+app.use(
+  koaStatic(join(__dirname, "../public"), {
+    //缓存一个月
+    maxage: 30 * 24 * 60 * 60 * 1000,
+  })
+);
 
 // 编写文件上传路由
 router.post("/upload", (ctx) => {
