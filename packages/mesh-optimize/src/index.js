@@ -2,10 +2,12 @@ import Koa from "koa";
 import Router from "koa-router";
 import koaStatic from "koa-static";
 import { koaBody } from "koa-body";
-import multer from "multer";
+
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import { clearFiles, optimize } from "./transform.js";
+import path from "path";
+import fs from "fs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -27,37 +29,77 @@ app.use(async (ctx, next) => {
   }
 });
 
+app.use(async (ctx, next) => {
+  if (ctx.request.url === "/upload") {
+    const dir = path.resolve(__dirname, `../public/upload`);
+    // 检查文件夹是否存在如果不存在则新建文件夹
+    if (!fs.existsSync(dir)) {
+      //新建文件夹
+      fs.mkdirSync(dir);
+    } else {
+      //清理目录中的文件
+      const files = fs.readdirSync(dir);
+      files.forEach((file) => {
+        fs.unlinkSync(path.resolve(dir, file));
+      });
+    }
+  }
+  await next();
+});
+
+app.use(
+  koaBody({
+    multipart: true,
+    formidable: {
+      uploadDir: path.resolve(__dirname, "../public/upload/"), // 设置文件上传目录
+      keepExtensions: true, // 保持文件的后缀
+      maxFieldsSize: 20 * 1024 * 1024, // 文件上传大小限制
+      onFileBegin: (name, file) => {
+        const dir = path.resolve(__dirname, `../public/upload`);
+
+        file.name = name;
+        // 覆盖文件存放的完整路径(保留原始名称)
+        file.path = `${dir}/${name}`;
+      },
+      onError: (error) => {
+        app.status = 400;
+        log4js.error(error);
+        // 这里可以定义自己的返回内容
+        app.body = { code: 400, msg: "上传失败", data: {} };
+        return;
+      },
+    },
+  })
+);
+
 // 设置静态资源目录为public
 app.use(koaStatic(join(__dirname, "../public")));
 
-// 配置multer中间件用于文件上传
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, join(__dirname, "public/uploads/"));
-  },
-  filename: function (req, file, cb) {
-    cb(null, `${Date.now()}-${file.originalname}`);
-  },
-});
-
-const upload = multer({ storage: storage });
-
 // 编写文件上传路由
-router.post("/upload", upload.single("file"), (ctx) => {
-  const file = ctx.req.file;
-  if (!file) {
+router.post("/upload", (ctx) => {
+  try {
+    // 获取上传文件
+    const files = ctx.request.files;
+
+    let path;
+
+    for (const key in files) {
+      const file = files[key];
+      const name = file.newFilename;
+      if (name.endsWith("glb") || name.endsWith("gltf")) {
+        path = name;
+        break;
+      }
+    }
+    ctx.body = { code: 0, msg: "", data: { fileName: path } };
+  } catch (error) {
     ctx.status = 400;
-    ctx.body = { message: "No file uploaded" };
-  } else {
-    ctx.body = {
-      message: "File uploaded successfully",
-      filename: file.filename,
-    };
+    ctx.body = { code: 400, msg: "上传失败", data: {} };
   }
 });
 
 // 编写优化接口路由
-router.post("/optimize", koaBody(), async (ctx) => {
+router.post("/optimize", async (ctx) => {
   const { radio, fileName, error } = ctx.request.body;
 
   if (radio === undefined || !fileName) {

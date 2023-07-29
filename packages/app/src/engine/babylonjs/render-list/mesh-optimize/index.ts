@@ -18,6 +18,8 @@ const uiContainer = new Map<Scene, AdvancedDynamicTexture>()
 
 const hostName = location.hostname
 
+const demos = ['Xbot.glb', 'LittlestTokyo.glb']
+
 const renderCount = (scene: Scene, meshes: Mesh[]) => {
 
     const advancedTexture = uiContainer.get(scene) ?? AdvancedDynamicTexture.CreateFullscreenUI("UI", undefined, scene);
@@ -66,6 +68,14 @@ export function renderMeshOptimize(canvas: HTMLCanvasElement, demoName = "Xbot.g
 
     camera.viewport = new Viewport(0, 0, 0.5, 1)
 
+    const clearAll = () => {
+        const roots = scene.rootNodes.filter(m => m instanceof Mesh)
+        roots.push(...scene2.rootNodes.filter(m => m instanceof Mesh))
+        roots.forEach(m => {
+            m.dispose()
+        })
+    }
+
 
     scene2.activeCamera = camera2
     camera2.viewport = new Viewport(0.5, 0, 0.5, 1)
@@ -75,14 +85,25 @@ export function renderMeshOptimize(canvas: HTMLCanvasElement, demoName = "Xbot.g
     const params = {
         loadFile: function () {
             chooseFile({
-                callback: (files) => {
+                multiple: true,
+                callback: async (files) => {
                     const formData = new FormData()
 
                     for (const f of Array.from(files)) {
                         formData.append(f.name, f)
                     }
 
-                    uploadMultiple(formData)
+                    const res = await uploadMultiple(formData)
+
+                    if (res.code === 0) {
+                        message.success("上传成功")
+                        const path = res.data.fileName;
+
+                        params.demoName = path
+                        clearAll()
+                        load(path)
+
+                    }
 
                 }
             })
@@ -94,15 +115,21 @@ export function renderMeshOptimize(canvas: HTMLCanvasElement, demoName = "Xbot.g
         wireframe: false,
     };
 
-    const optimize = () => {
+    const optimize = (demoName: string) => {
+
+        let url = `//${hostName}:3000/`
+
+        if (!demos.includes(demoName)) {
+            url += "upload/"
+        }
         postData(`//${hostName}:3000/optimize`, {
             radio: params.radio,
-            fileName: params.demoName,
+            fileName: demoName,
             error: params.error
         }).then(res => {
             if (res.code === 0) {
                 SceneLoader.LoadAssetContainer(
-                    `//${hostName}:3000/`,
+                    url,
                     res.result,
                     scene2,
                     (container) => {
@@ -124,8 +151,15 @@ export function renderMeshOptimize(canvas: HTMLCanvasElement, demoName = "Xbot.g
     }
 
     const load = (demoName: string) => {
+
+        let url = `//${hostName}:3000/`
+
+        if (!demos.includes(demoName)) {
+            url += "upload/"
+        }
+
         SceneLoader.LoadAssetContainer(
-            `//${hostName}:3000/`,
+            url,
             `${demoName}`,
             scene,
             (container) => {
@@ -141,7 +175,7 @@ export function renderMeshOptimize(canvas: HTMLCanvasElement, demoName = "Xbot.g
                 }, 1000);
             }
         );
-        optimize()
+        optimize(demoName)
     }
 
     gui.domElement.style.float = "left"
@@ -162,13 +196,9 @@ export function renderMeshOptimize(canvas: HTMLCanvasElement, demoName = "Xbot.g
 
     gui.add(params, 'loadFile').name('上传模型');
 
-    gui.add(params, 'demoName', ['Xbot.glb', 'LittlestTokyo.glb']).onChange(function (val) {
+    gui.add(params, 'demoName', demos).onChange(function (val) {
         params.demoName = val
-        const roots = scene.rootNodes.filter(m => m instanceof Mesh)
-        roots.push(...scene2.rootNodes.filter(m => m instanceof Mesh))
-        roots.forEach(m => {
-            m.dispose()
-        })
+        clearAll()
         load(val)
     });
 
@@ -200,7 +230,7 @@ export function renderMeshOptimize(canvas: HTMLCanvasElement, demoName = "Xbot.g
             roots.forEach(m => {
                 m.dispose()
             })
-            optimize()
+            optimize(params.demoName)
         }
     }, 'onClick').name("压缩");
 
