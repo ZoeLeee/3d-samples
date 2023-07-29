@@ -61,3 +61,13 @@ export async function optimize(fileName, ratio, error = 0.001) {
 
   return { code: 0, result: outputFileName };
 }
+
+export function clearFiles() {
+  //清理目录中的文件
+  const files = fs.readdirSync(path.resolve(__dirname, "../public/"));
+  files.forEach((file) => {
+    if (file.indexOf("output") > -1) {
+      fs.unlinkSync(path.resolve(__dirname, "../public/" + file));
+    }
+  });
+}

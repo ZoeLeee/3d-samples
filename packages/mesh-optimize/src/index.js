@@ -5,7 +5,7 @@ import { koaBody } from "koa-body";
 import multer from "multer";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
-import { optimize } from "./transform.js";
+import { clearFiles, optimize } from "./transform.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -67,6 +67,11 @@ router.post("/optimize", koaBody(), async (ctx) => {
     const result = await optimize(fileName, radio, error);
     ctx.body = { message: "Optimization completed", ...result };
   }
+});
+
+router.post("/clear", (ctx) => {
+  clearFiles();
+  ctx.body = { message: "Clear completed" };
 });
 
 app.use(router.routes());

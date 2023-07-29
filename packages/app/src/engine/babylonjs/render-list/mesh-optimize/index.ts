@@ -11,6 +11,7 @@ import { Mesh } from "@babylonjs/core/Meshes";
 import { Color3 } from "@babylonjs/core/Maths/math.color";
 import { Vector3 } from "@babylonjs/core/Maths";
 import { postData } from "../../../utils/fetch";
+import { message } from "antd";
 
 const uiContainer = new Map<Scene, AdvancedDynamicTexture>()
 
@@ -189,6 +190,14 @@ export function renderMeshOptimize(canvas: HTMLCanvasElement, demoName = "Xbot.g
     }, 'onClick').name("压缩");
 
 
+    gui.add({
+        label: 'Click me!',
+        onClick: function () {
+            postData("http://localhost:3000/clear").then(res => {
+                message.success("清理成功")
+            })
+        }
+    }, 'onClick').name("清理压缩缓存");
 
 
     camera.onViewMatrixChangedObservable.add((c: ArcRotateCamera) => {
