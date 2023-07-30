@@ -105,13 +105,13 @@ router.post("/upload", (ctx) => {
 
 // 编写优化接口路由
 router.post("/optimize", async (ctx) => {
-  const { radio, fileName, error } = ctx.request.body;
+  const { ratio, fileName, error, compress } = ctx.request.body;
 
-  if (radio === undefined || !fileName) {
+  if (ratio === undefined || !fileName) {
     ctx.status = 400;
     ctx.body = { message: 'Missing "radio" parameter' };
   } else {
-    const result = await optimize(fileName, radio, error);
+    const result = await optimize(fileName, ctx.request.body);
     ctx.body = { message: "Optimization completed", ...result };
   }
 });

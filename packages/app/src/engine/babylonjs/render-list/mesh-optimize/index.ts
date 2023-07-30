@@ -18,7 +18,7 @@ const uiContainer = new Map<Scene, AdvancedDynamicTexture>()
 
 const hostName = location.hostname
 
-const demos = ['Xbot.glb', 'LittlestTokyo.glb']
+const demos = ['Xbot.glb', 'LittlestTokyo.glb', "DamagedHelmet.gltf"]
 
 const renderCount = (scene: Scene, meshes: Mesh[]) => {
 
@@ -61,7 +61,6 @@ const renderCount = (scene: Scene, meshes: Mesh[]) => {
 export function renderMeshOptimize(canvas: HTMLCanvasElement, demoName = "Xbot.glb") {
     const [engine, scene, camera, gui] = InitCanvas(canvas)
 
-
     const scene2 = new Scene(engine)
 
     const camera2 = new ArcRotateCamera("1", Math.PI / 2, Math.PI / 4, 100, new Vector3(0, 0, 0), scene2)
@@ -72,7 +71,7 @@ export function renderMeshOptimize(canvas: HTMLCanvasElement, demoName = "Xbot.g
         const roots = scene.rootNodes.filter(m => m instanceof Mesh)
         roots.push(...scene2.rootNodes.filter(m => m instanceof Mesh))
         roots.forEach(m => {
-            m.dispose()
+            m.dispose(false, true)
         })
     }
 
@@ -109,10 +108,13 @@ export function renderMeshOptimize(canvas: HTMLCanvasElement, demoName = "Xbot.g
             })
 
         },
-        radio: 0.5,
+        ratio: 0.5,
         error: 0.001,
         demoName: 'Xbot.glb',
+        compress: false,
         wireframe: false,
+        maxSize: 2048,
+        quality: 0.5,
     };
 
     const optimize = (demoName: string) => {
@@ -122,10 +124,19 @@ export function renderMeshOptimize(canvas: HTMLCanvasElement, demoName = "Xbot.g
         if (!demos.includes(demoName)) {
             url += "upload/"
         }
+
+        if (demoName === "DamagedHelmet.gltf") {
+            url += "DamagedHelmet/"
+        }
+
+        const par = {
+            ...params,
+            loadFile: undefined
+        }
+
         postData(`//${hostName}:3000/optimize`, {
-            radio: params.radio,
+            ...par,
             fileName: demoName,
-            error: params.error
         }).then(res => {
             if (res.code === 0) {
                 SceneLoader.LoadAssetContainer(
@@ -149,6 +160,10 @@ export function renderMeshOptimize(canvas: HTMLCanvasElement, demoName = "Xbot.g
                     }
                 );
             }
+            else {
+                message.error(res.message ?? "减面失败")
+                engine.displayLoadingUI()
+            }
         })
     }
 
@@ -158,6 +173,9 @@ export function renderMeshOptimize(canvas: HTMLCanvasElement, demoName = "Xbot.g
 
         if (!demos.includes(demoName)) {
             url += "upload/"
+        }
+        if (demoName === "DamagedHelmet.gltf") {
+            url += "DamagedHelmet/"
         }
 
         engine.displayLoadingUI()
@@ -208,13 +226,26 @@ export function renderMeshOptimize(canvas: HTMLCanvasElement, demoName = "Xbot.g
     });
 
 
-    gui.add(params, 'radio', 0.01, 1).onChange(function (val) {
-        params.radio = val
+    gui.add(params, 'ratio', 0.01, 1).onChange(function (val) {
+        params.ratio = val
     }).name("压缩率");
 
     gui.add(params, 'error').onChange(function (val) {
         params.error = val
     }).name("误差限制");
+
+    gui.add(params, 'compress').onChange(function (val) {
+        params.compress = val
+    }).name("压缩纹理");
+
+    gui.add(params, 'maxSize').onChange(function (val) {
+        params.maxSize = val
+    }).name("最大纹理尺寸");
+
+    gui.add(params, 'quality', 0.1, 0.9).onChange(function (val) {
+        params.quality = val
+    }).name("纹理质量");
+
 
     gui.add(params, 'wireframe').onChange(function (val) {
         scene.materials.forEach(mtl => {
@@ -237,7 +268,7 @@ export function renderMeshOptimize(canvas: HTMLCanvasElement, demoName = "Xbot.g
             })
             optimize(params.demoName)
         }
-    }, 'onClick').name("压缩");
+    }, 'onClick').name("减面");
 
 
     gui.add({

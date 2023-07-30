@@ -4,9 +4,11 @@ import draco3d from "draco3dgltf";
 import path from "path";
 import { fileURLToPath } from "url";
 
-import { simplify, weld } from "@gltf-transform/functions";
+import { simplify, textureCompress, weld } from "@gltf-transform/functions";
 import { MeshoptSimplifier } from "meshoptimizer";
 import fs from "fs";
+
+import sharp from "sharp";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -21,25 +23,31 @@ const io = new NodeIO()
 
 export const demos = ["Xbot.glb", "LittlestTokyo.glb"];
 
-export async function optimize(fileName, ratio, error = 0.001) {
+export async function optimize(fileName, options) {
+  const { ratio, error = 0.001, compress, maxSize, quality } = options;
+
   const name = fileName.split(".")[0];
-  const type = fileName.split(".")[1];
 
   let outputFileName =
-    name + `_output_${(ratio * 100).toFixed(0)}_${error}.${type}`;
+    name +
+    `_output_${(ratio * 100).toFixed(0)}_${error}_${compress ? 1 : 0}.glb`;
 
   let d = "../public/";
 
   if (!demos.includes(fileName)) {
-    d += "upload/";
+    if (fileName.includes("DamagedHelmet")) {
+      d += "DamagedHelmet/";
+    } else {
+      d += "upload/";
+    }
   }
 
   //判断文件是否存在
   let filePath = path.resolve(__dirname, d + outputFileName);
 
-  if (fs.existsSync(filePath)) {
-    return { code: 0, result: outputFileName };
-  }
+  // if (fs.existsSync(filePath)) {
+  //   return { code: 0, result: outputFileName };
+  // }
 
   filePath = path.resolve(__dirname, d + fileName);
 
@@ -60,6 +68,16 @@ export async function optimize(fileName, ratio, error = 0.001) {
     })
   );
 
+  if (compress) {
+    await document.transform(
+      textureCompress({
+        encoder: sharp,
+        resize: [maxSize, maxSize],
+        quality: quality * 100,
+      })
+    );
+  }
+
   await io.write(path.resolve(__dirname, d + outputFileName), document);
 
   return { code: 0, result: outputFileName };
@@ -68,9 +86,17 @@ export async function optimize(fileName, ratio, error = 0.001) {
 export function clearFiles() {
   //清理目录中的文件
   const files = fs.readdirSync(path.resolve(__dirname, "../public/"));
+  const files2 = fs.readdirSync(
+    path.resolve(__dirname, "../public/DamagedHelmet")
+  );
   files.forEach((file) => {
     if (file.indexOf("output") > -1) {
       fs.unlinkSync(path.resolve(__dirname, "../public/" + file));
+    }
+  });
+  files2.forEach((file) => {
+    if (file.indexOf("output") > -1) {
+      fs.unlinkSync(path.resolve(__dirname, "../public/DamagedHelmet/" + file));
     }
   });
 }
