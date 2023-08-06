@@ -4,6 +4,9 @@ import { renderCoverSnow } from "../../engine/babylonjs/render-list/snow";
 import imgUrl from "../../assets/southeast.jpg";
 import radarimgUrl from "../../assets/radar.png";
 import { renderMeshOptimize } from "../../engine/babylonjs/render-list/mesh-optimize";
+import { renderClip2ParticleEffect } from "../../engine/babylonjs/render-list/clip-particles";
+
+import prev2 from "../../assets/preview2.png";
 
 export const RenderMap = {
   coverSnow: {
@@ -20,6 +23,11 @@ export const RenderMap = {
     render: renderRadarEffect,
     title: "雷达光柱扩散效果",
     image: radarimgUrl,
+  },
+  clip2Particle:{
+    render: renderClip2ParticleEffect,
+    title: "裁剪转粒子",
+    image: prev2,
   },
   meshOptimize: {
     render: renderMeshOptimize,
