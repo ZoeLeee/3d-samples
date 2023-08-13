@@ -1,5 +1,20 @@
 import { useEffect, useRef } from "react";
 import { renderHome } from "../engine/babylonjs/home";
+import { Card, Space } from "antd";
+import { Link } from "react-router-dom";
+
+const List = [
+  {
+    label: "Babylonjs",
+    path: "/bjs",
+    icon: "https://logos-download.com/wp-content/uploads/2022/12/Babylon.js_Logo.png",
+  },
+  {
+    label: "Threejs",
+    path: "/tjs",
+    icon: "/threejs.svg",
+  },
+];
 
 export default function Root() {
   const canvas2Ref = useRef<HTMLCanvasElement>(null);
@@ -17,6 +32,39 @@ export default function Root() {
   return (
     <div id="detail" style={{ width: "100%", height: "100%" }}>
       <canvas style={{ width: "100%", height: "100%" }} ref={canvas2Ref} />
+      <Space
+        style={{
+          position: "fixed",
+          left: "5%",
+          top: "5%",
+        }}
+      >
+        {List.map((item) => (
+          <Link to={item.path} key={item.label}>
+            <Card
+              hoverable
+              style={{
+                width: 140,
+                height: 200,
+                textAlign: "center",
+                padding: 2,
+                background: "#2b485c",
+              }}
+              cover={
+                <img
+                  style={{
+                    width: "80%",
+                    margin: "auto",
+                  }}
+                  src={item.icon}
+                />
+              }
+            >
+              <Card.Meta title={item.label} style={{ color: "#fff" }} />
+            </Card>
+          </Link>
+        ))}
+      </Space>
       <div
         style={{
           position: "fixed",
