@@ -4,8 +4,8 @@ import "./shaders";
 import ErrorPage from "./view/ErrorPage";
 import Root from "./view/Root";
 import { RenderBJS } from "./components/render-bjs";
-import { lazy } from "react";
 import SamplesComponent from "./components/samples";
+import { RenderTJS } from "./components/render-threejs";
 
 const router = createBrowserRouter([
   {
@@ -18,8 +18,16 @@ const router = createBrowserRouter([
     element: <SamplesComponent />,
   },
   {
+    path: "/tjs",
+    element: <SamplesComponent />,
+  },
+  {
     path: "/bjs/:id",
     element: <RenderBJS />,
+  },
+  {
+    path: "/tjs/:id",
+    element: <RenderTJS />,
   },
 ]);
 
