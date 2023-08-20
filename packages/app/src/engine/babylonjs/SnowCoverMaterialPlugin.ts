@@ -12,17 +12,31 @@ export class SnowCoverMaterialPlugin extends MaterialPluginBase {
   public snowAmount = 0.5;
   public smoothFactor = 0.5
   private texture;
+  private _isEnabled = false;
+
   constructor(material) {
     // last parameter is a priority, which lets you define the order multiple plugins are run.
     super(material, "SnowCover", 200, { SNOWCOVER: false });
-
     this.texture = new Texture(imgUrl, material.getScene())
-
-    this._enable(true);
   }
 
+  get isEnabled() {
+    return this._isEnabled;
+  }
+
+  set isEnabled(enabled) {
+    if (this._isEnabled === enabled) {
+      return;
+    }
+    this._isEnabled = enabled;
+    this.markAllDefinesAsDirty();
+    this._enable(this._isEnabled);
+  }
+
+
+
   prepareDefines(defines, scene, mesh) {
-    defines["SNOWCOVER"] = true;
+    defines["SNOWCOVER"] = this._isEnabled;
   }
 
   getClassName() {

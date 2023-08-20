@@ -38,7 +38,11 @@ export function BabylonCanvas() {
         icon={<RollbackOutlined />}
         href="/bjs"
       />
-      <input id="myInput" type="file" style={{ visibility: "hidden" }} />
+      <input
+        id="myInput"
+        type="file"
+        style={{ visibility: "hidden", position: "fixed" }}
+      />
     </div>
   );
 }
