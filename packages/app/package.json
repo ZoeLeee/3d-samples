@@ -26,7 +26,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.14.2",
-    "three": "^0.152.2"
+    "three": "^0.152.2",
+    "zustand": "^4.4.1"
   },
   "nx": {
     "targets": {}
