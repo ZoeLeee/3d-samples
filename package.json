@@ -8,7 +8,8 @@
   "scripts": {
     "dev:app": "yarn workspace @lizhou/3d-samples dev",
     "build:app": "yarn workspace @lizhou/3d-samples build",
-    "dev:mo": "yarn workspace @lizhou/mesh-optimize nodemon src/index.js"
+    "dev:mo": "yarn workspace @lizhou/mesh-optimize nodemon src/index.js",
+    "pub:app": "node scripts/publish.js"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.2.0",
@@ -17,9 +18,11 @@
     "@typescript-eslint/eslint-plugin": "^5.57.1",
     "@typescript-eslint/parser": "^5.57.1",
     "@vitejs/plugin-react": "^4.0.0",
+    "axios": "^1.5.0",
     "eslint": "^8.38.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.3.4",
+    "form-data": "^4.0.0",
     "nx": "16.5.5",
     "terser": "^5.19.2",
     "typescript": "^5.0.2",
