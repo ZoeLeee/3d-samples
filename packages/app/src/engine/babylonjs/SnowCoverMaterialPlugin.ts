@@ -62,7 +62,7 @@ export class SnowCoverMaterialPlugin extends MaterialPluginBase {
                         uniform float snowAmount; 
                         uniform vec3 snowDirection;
                         uniform vec3 snowColor;
-                        #endif`,
+                  #endif`,
     };
   }
   getSamplers(samplers) {
@@ -92,7 +92,7 @@ export class SnowCoverMaterialPlugin extends MaterialPluginBase {
         #ifdef SNOWCOVER
           vec4 norSnowC=texture2D(snowNorTexture,vUv);
           // normalW =normalW * (norSnowC.rgb*0.5+0.5);
-        
+        #endif
         `,
         CUSTOM_FRAGMENT_MAIN_END: `
             #ifdef SNOWCOVER
