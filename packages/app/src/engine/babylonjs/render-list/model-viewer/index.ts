@@ -29,7 +29,7 @@ export function renderModelViewer(canvas: HTMLCanvasElement) {
           for (const f of Array.from(files)) {
             formData.append(f.name, f);
           }
-
+          toggleGLoablLoading(true);
           const res = await uploadMultiple(formData, "model-viewer");
 
           let url = `//${location.hostname}:3000`;

@@ -8,6 +8,7 @@ import { dirname, join } from "path";
 import { clearFiles, optimize } from "./transform.js";
 import path from "path";
 import fs from "fs";
+import { convertSTEPorIGES } from "./convert.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -99,7 +100,7 @@ router.post("/upload", (ctx) => {
   }
 });
 
-router.post("/model-viewer", (ctx) => {
+router.post("/model-viewer", async (ctx) => {
   try {
     // 获取上传文件
     const files = ctx.request.files;
@@ -114,6 +115,8 @@ router.post("/model-viewer", (ctx) => {
         break;
       } else if (name.endsWith(".STEP")) {
         // 处理Step
+        path = await convertSTEPorIGES({ filename: name, path: file.filepath });
+        break;
       }
     }
     ctx.body = { code: 0, msg: "", data: { url: `/upload/${path}` } };
