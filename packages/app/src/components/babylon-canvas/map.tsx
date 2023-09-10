@@ -7,6 +7,7 @@ import { renderMeshOptimize } from "../../engine/babylonjs/render-list/mesh-opti
 import { renderClip2ParticleEffect } from "../../engine/babylonjs/render-list/clip-particles";
 
 import prev2 from "../../assets/preview2.png";
+import { renderModelViewer } from "@/engine/babylonjs/render-list/model-viewer";
 
 export const RenderMap = {
   coverSnow: {
@@ -24,7 +25,7 @@ export const RenderMap = {
     title: "雷达光柱扩散效果",
     image: radarimgUrl,
   },
-  clip2Particle:{
+  clip2Particle: {
     render: renderClip2ParticleEffect,
     title: "裁剪转粒子",
     image: prev2,
@@ -32,5 +33,9 @@ export const RenderMap = {
   meshOptimize: {
     render: renderMeshOptimize,
     title: "gltf压缩",
+  },
+  viewer: {
+    render: renderModelViewer,
+    title: "模型查看器",
   },
 };

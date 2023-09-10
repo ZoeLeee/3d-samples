@@ -38,10 +38,10 @@ app.use(async (ctx, next) => {
       fs.mkdirSync(dir);
     } else {
       //清理目录中的文件
-      const files = fs.readdirSync(dir);
-      files.forEach((file) => {
-        fs.unlinkSync(path.resolve(dir, file));
-      });
+      // const files = fs.readdirSync(dir);
+      // files.forEach((file) => {
+      //   fs.unlinkSync(path.resolve(dir, file));
+      // });
     }
   }
   await next();
@@ -54,12 +54,8 @@ app.use(
       uploadDir: path.resolve(__dirname, "../public/upload/"), // 设置文件上传目录
       keepExtensions: true, // 保持文件的后缀
       maxFieldsSize: 20 * 1024 * 1024, // 文件上传大小限制
-      onFileBegin: (name, file) => {
-        const dir = path.resolve(__dirname, `../public/upload`);
-
-        file.name = name;
-        // 覆盖文件存放的完整路径(保留原始名称)
-        file.path = `${dir}/${name}`;
+      filename: (name, ext) => {
+        return `${name}${ext}`;
       },
       onError: (error) => {
         app.status = 400;
@@ -96,7 +92,31 @@ router.post("/upload", (ctx) => {
         break;
       }
     }
-    ctx.body = { code: 0, msg: "", data: { fileName: path } };
+    ctx.body = { code: 0, msg: "", data: { url: `/upload/${path}` } };
+  } catch (error) {
+    ctx.status = 400;
+    ctx.body = { code: 400, msg: "上传失败", data: {} };
+  }
+});
+
+router.post("/model-viewer", (ctx) => {
+  try {
+    // 获取上传文件
+    const files = ctx.request.files;
+
+    let path;
+
+    for (const key in files) {
+      const file = files[key];
+      const name = file.newFilename;
+      if (name.endsWith("glb") || name.endsWith("gltf")) {
+        path = name;
+        break;
+      } else if (name.endsWith(".STEP")) {
+        // 处理Step
+      }
+    }
+    ctx.body = { code: 0, msg: "", data: { url: `/upload/${path}` } };
   } catch (error) {
     ctx.status = 400;
     ctx.body = { code: 400, msg: "上传失败", data: {} };
