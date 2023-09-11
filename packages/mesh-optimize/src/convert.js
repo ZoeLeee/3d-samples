@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import initOpenCascade from "opencascade.js/dist/node.js";
+import { optimizeGLTF } from "./transform.js";
 
 const loadSTEPorIGES = async (openCascade, file, fileName) => {
   const fileText = fs.readFileSync(file.path, "utf8");
@@ -96,7 +97,7 @@ function visualizeDoc(oc, doc, fileName, fileType) {
 
   fs.writeFileSync(writePath, glbFile);
 
-  return `${justName}.glb`;
+  return [`${justName}.glb`, writePath];
 }
 
 function visualizeShapes(oc, doc, fileName, fileType) {

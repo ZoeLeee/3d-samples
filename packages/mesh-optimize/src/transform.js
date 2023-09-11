@@ -7,6 +7,8 @@ import { fileURLToPath } from "url";
 import { simplify, textureCompress, weld } from "@gltf-transform/functions";
 import { MeshoptSimplifier } from "meshoptimizer";
 import fs from "fs";
+import { PropertyType } from "@gltf-transform/core";
+import { join, flatten, dedup } from "@gltf-transform/functions";
 
 import sharp from "sharp";
 
@@ -99,4 +101,31 @@ export function clearFiles() {
       fs.unlinkSync(path.resolve(__dirname, "../public/DamagedHelmet/" + file));
     }
   });
+}
+
+export async function optimizeGLTF(url, options = {}) {
+  const {
+    ratio = 0.5,
+    error = 0.001,
+    out = path.join(__dirname, "../public/upload/output.glb"),
+    compress,
+    maxSize,
+    quality,
+  } = options;
+
+  const document = await io.read(url);
+
+  await document.transform(
+    weld({ tolerance: 0.0001 }),
+    simplify({
+      simplifier: MeshoptSimplifier,
+      ratio: ratio,
+      error,
+      lockBorder: false,
+    })
+  );
+
+  await io.write(out, document);
+
+  return out;
 }

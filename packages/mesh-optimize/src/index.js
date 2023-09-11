@@ -5,7 +5,7 @@ import { koaBody } from "koa-body";
 
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
-import { clearFiles, optimize } from "./transform.js";
+import { clearFiles, optimize, optimizeGLTF } from "./transform.js";
 import path from "path";
 import fs from "fs";
 import { convertSTEPorIGES } from "./convert.js";
@@ -72,8 +72,7 @@ app.use(
 // 设置静态资源目录为public
 app.use(
   koaStatic(join(__dirname, "../public"), {
-    //缓存一个月
-    maxage: 30 * 24 * 60 * 60 * 1000,
+    maxAge: 1,
   })
 );
 
@@ -106,6 +105,7 @@ router.post("/model-viewer", async (ctx) => {
     const files = ctx.request.files;
 
     let path;
+    let writePath;
 
     for (const key in files) {
       const file = files[key];
@@ -115,10 +115,19 @@ router.post("/model-viewer", async (ctx) => {
         break;
       } else if (name.endsWith(".STEP")) {
         // 处理Step
-        path = await convertSTEPorIGES({ filename: name, path: file.filepath });
+        [path, writePath] = await convertSTEPorIGES({
+          filename: name,
+          path: file.filepath,
+        });
+
+        await optimizeGLTF(writePath, {
+          out: writePath,
+        });
+
         break;
       }
     }
+
     ctx.body = { code: 0, msg: "", data: { url: `/upload/${path}` } };
   } catch (error) {
     ctx.status = 400;

@@ -3,10 +3,11 @@ import { InitCanvas } from "../../common/init";
 import { uploadMultiple } from "@/engine/utils/fetch";
 import { message } from "antd";
 import { toggleGLoablLoading } from "@/stores";
-import { SceneLoader } from "@babylonjs/core";
+import { Quaternion, SceneLoader, Vector2, Vector3 } from "@babylonjs/core";
 import { ZoomAll } from "@/engine/utils";
 import { Color3 } from "@babylonjs/core/Maths/math.color";
-import { Mesh } from "@babylonjs/core/Meshes";
+import { Mesh, TransformNode } from "@babylonjs/core/Meshes";
+import { Node } from "@babylonjs/core/node";
 
 export function renderModelViewer(canvas: HTMLCanvasElement) {
   const [engine, scene, camera, gui] = InitCanvas(canvas);
@@ -17,6 +18,29 @@ export function renderModelViewer(canvas: HTMLCanvasElement) {
       m.dispose(false, true);
     });
   };
+
+  toggleGLoablLoading(true);
+  SceneLoader.LoadAssetContainer(
+    "//localhost:3000/upload/wolf.glb",
+    "",
+    scene,
+    (container) => {
+      container.addAllToScene();
+
+      const roots = container.meshes.filter((m) => !m.parent);
+
+      mergeMeshes(roots);
+
+      setTimeout(() => {
+        ZoomAll(camera, scene);
+        const helper = scene.createDefaultEnvironment();
+
+        helper.setMainColor(Color3.Teal());
+
+        toggleGLoablLoading(false);
+      }, 1000);
+    }
+  );
 
   const params = {
     loadFile: function () {
@@ -45,6 +69,10 @@ export function renderModelViewer(canvas: HTMLCanvasElement) {
               (container) => {
                 container.addAllToScene();
 
+                const roots = container.meshes.filter((m) => !m.parent);
+
+                mergeMeshes(roots);
+
                 setTimeout(() => {
                   ZoomAll(camera, scene);
                   const helper = scene.createDefaultEnvironment();
@@ -66,4 +94,37 @@ export function renderModelViewer(canvas: HTMLCanvasElement) {
   return () => {
     engine.dispose();
   };
+}
+
+function mergeMeshes(meshes: (Mesh | TransformNode)[], root?: Node) {
+  const needMergeMeshes: Mesh[] = [];
+
+  for (const node of meshes) {
+    const children = node.getChildren() as (Mesh | TransformNode)[];
+    if (children.length) {
+      mergeMeshes(children, node);
+    } else {
+      if (node instanceof Mesh && node.geometry) {
+        needMergeMeshes.push(node);
+      }
+    }
+  }
+
+  if (needMergeMeshes.length > 1) {
+    const mesh = Mesh.MergeMeshes(needMergeMeshes, true, true);
+    if (mesh) {
+      const mtx = root.getWorldMatrix().clone().invert();
+      const positon = new Vector3();
+      const rotation = new Quaternion();
+      const scale = new Vector3();
+
+      mtx.decompose(scale, rotation, positon);
+
+      mesh.position.copyFrom(positon);
+      mesh.rotation.copyFrom(rotation.toEulerAngles());
+      mesh.scaling.copyFrom(scale);
+
+      mesh.parent = root;
+    }
+  }
 }
