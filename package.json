@@ -7,7 +7,7 @@
   ],
   "scripts": {
     "dev:app": "pnpm --filter=@lizhou/3d-samples run dev",
-    "build:app": "pnpm --filter= @lizhou/3d-samples run build",
+    "build:app": "pnpm --filter=@lizhou/3d-samples run build",
     "dev:mo": "pnpm  --filter=@lizhou/mesh-optimize exec nodemon src/index.js",
     "pub:app": "node scripts/publish.js"
   },

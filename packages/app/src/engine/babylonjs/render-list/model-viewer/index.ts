@@ -19,29 +19,6 @@ export function renderModelViewer(canvas: HTMLCanvasElement) {
     });
   };
 
-  toggleGLoablLoading(true);
-  SceneLoader.LoadAssetContainer(
-    "//localhost:3000/upload/wolf.glb",
-    "",
-    scene,
-    (container) => {
-      container.addAllToScene();
-
-      const roots = container.meshes.filter((m) => !m.parent);
-
-      mergeMeshes(roots);
-
-      setTimeout(() => {
-        ZoomAll(camera, scene);
-        const helper = scene.createDefaultEnvironment();
-
-        helper.setMainColor(Color3.Teal());
-
-        toggleGLoablLoading(false);
-      }, 1000);
-    }
-  );
-
   const params = {
     loadFile: function () {
       chooseFile({
