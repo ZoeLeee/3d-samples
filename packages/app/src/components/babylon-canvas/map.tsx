@@ -18,7 +18,7 @@ export const RenderMap = {
   scan: {
     render: renderScanEffect,
     title: "扫描效果",
-    image: "https://hcwl-cdn.cdn.bcebos.com/hc3d/static/images/scan_map.png",
+    image: radarimgUrl,
   },
   radar: {
     render: renderRadarEffect,

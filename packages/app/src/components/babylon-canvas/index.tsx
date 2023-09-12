@@ -4,10 +4,13 @@ import { useParams } from "react-router-dom";
 import { RenderMap } from "./map";
 import { FloatButton } from "antd";
 import { RollbackOutlined } from "@ant-design/icons";
+import { NodeTree } from "../node-list";
+import { useStores } from "@/stores";
 
 export function BabylonCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const par = useParams();
+  const [nodes] = useStores((state) => [state.nodes]);
 
   useEffect(() => {
     const clears = [];
@@ -43,6 +46,19 @@ export function BabylonCanvas() {
         type="file"
         style={{ visibility: "hidden", position: "fixed" }}
       />
+      {nodes && (
+        <div
+          style={{
+            position: "absolute",
+            left: 10,
+            top: 10,
+            height: "80%",
+            overflow: "auto",
+          }}
+        >
+          <NodeTree nodes={nodes} />
+        </div>
+      )}
     </div>
   );
 }

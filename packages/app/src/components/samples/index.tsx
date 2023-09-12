@@ -48,17 +48,14 @@ const SamplesComponent: React.FC = () => {
       <Content>
         <Row gutter={16}>
           {list.map((item) => (
-            <Col className="gutter-row" xs={4} span={6}>
+            <Col className="gutter-row" xs={4} span={6} key={item.key}>
               <Link to={`${item.key}`}>
                 <Card
                   hoverable
                   cover={
                     <img
                       alt="example"
-                      src={
-                        map[item.key].image ??
-                        "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-                      }
+                      src={map[item.key].image ?? "/dodream2.jpg"}
                     />
                   }
                 >

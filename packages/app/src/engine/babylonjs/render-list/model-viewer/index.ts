@@ -2,7 +2,7 @@ import { chooseFile } from "@/engine/utils/file";
 import { InitCanvas } from "../../common/init";
 import { uploadMultiple } from "@/engine/utils/fetch";
 import { message } from "antd";
-import { toggleGLoablLoading } from "@/stores";
+import { setRenderScene, toggleGLoablLoading } from "@/stores";
 import { Quaternion, SceneLoader, Vector2, Vector3 } from "@babylonjs/core";
 import { ZoomAll } from "@/engine/utils";
 import { Color3 } from "@babylonjs/core/Maths/math.color";
@@ -11,6 +11,33 @@ import { Node } from "@babylonjs/core/node";
 
 export function renderModelViewer(canvas: HTMLCanvasElement) {
   const [engine, scene, camera, gui] = InitCanvas(canvas);
+
+  if (import.meta.env.DEV) {
+    toggleGLoablLoading(true);
+    SceneLoader.LoadAssetContainer(
+      "//localhost:3000/upload/wolf.glb",
+      "",
+      scene,
+      (container) => {
+        container.addAllToScene();
+
+        const roots = container.meshes.filter((m) => !m.parent);
+
+        setRenderScene(roots);
+
+        mergeMeshes(roots);
+
+        setTimeout(() => {
+          ZoomAll(camera, scene);
+          const helper = scene.createDefaultEnvironment();
+
+          helper.setMainColor(Color3.Teal());
+
+          toggleGLoablLoading(false);
+        }, 1000);
+      }
+    );
+  }
 
   const clearAll = () => {
     const roots = scene.rootNodes.filter((m) => m instanceof Mesh);

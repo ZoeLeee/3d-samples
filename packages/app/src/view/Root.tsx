@@ -7,7 +7,7 @@ const List = [
   {
     label: "Babylonjs",
     path: "/bjs",
-    icon: "https://logos-download.com/wp-content/uploads/2022/12/Babylon.js_Logo.png",
+    icon: "/Babylon.js_Logo.png",
   },
   {
     label: "Threejs",
