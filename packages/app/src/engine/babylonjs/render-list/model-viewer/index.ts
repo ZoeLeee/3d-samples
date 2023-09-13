@@ -8,6 +8,7 @@ import { ZoomAll } from "@/engine/utils";
 import { Color3 } from "@babylonjs/core/Maths/math.color";
 import { Mesh, TransformNode } from "@babylonjs/core/Meshes";
 import { Node } from "@babylonjs/core/node";
+import { explode } from "./explode";
 
 export function renderModelViewer(canvas: HTMLCanvasElement) {
   const [engine, scene, camera, gui] = InitCanvas(canvas);
@@ -26,6 +27,8 @@ export function renderModelViewer(canvas: HTMLCanvasElement) {
         setRenderScene(roots);
 
         mergeMeshes(roots);
+
+        explode(roots[0]);
 
         setTimeout(() => {
           ZoomAll(camera, scene);
@@ -60,7 +63,7 @@ export function renderModelViewer(canvas: HTMLCanvasElement) {
           toggleGLoablLoading(true);
           const res = await uploadMultiple(formData, "model-viewer");
 
-          let url = `//${location.hostname}:3000`;
+          const url = `//${location.hostname}:3000`;
           if (res.code === 0) {
             console.log("res: ", res);
             clearAll();
@@ -76,6 +79,8 @@ export function renderModelViewer(canvas: HTMLCanvasElement) {
                 const roots = container.meshes.filter((m) => !m.parent);
 
                 mergeMeshes(roots);
+
+                setRenderScene(roots);
 
                 setTimeout(() => {
                   ZoomAll(camera, scene);
