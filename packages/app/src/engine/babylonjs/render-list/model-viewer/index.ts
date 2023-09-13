@@ -89,6 +89,8 @@ export function renderModelViewer(canvas: HTMLCanvasElement) {
                   helper.setMainColor(Color3.Teal());
 
                   toggleGLoablLoading(false);
+
+                  explode(roots[0]);
                 }, 1000);
               }
             );
