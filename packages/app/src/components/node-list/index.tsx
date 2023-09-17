@@ -1,21 +1,16 @@
-import React, { useCallback, useMemo, useState } from "react";
-import {
-  CarryOutOutlined,
-  CheckOutlined,
-  FormOutlined,
-} from "@ant-design/icons";
-import { Select, Switch, Tree } from "antd";
-import type { DataNode } from "antd/es/tree";
+import { explode } from "@/engine/babylonjs/render-list/model-viewer/explode";
+import { ZoomAll, zoomToNode } from "@/engine/utils";
+import { CarryOutOutlined } from "@ant-design/icons";
 import {
   ArcRotateCamera,
   Color3,
   Mesh,
-  Node,
-  PBRMaterial,
   Scene,
   TransformNode,
 } from "@babylonjs/core";
-import { zoomToNode } from "@/engine/utils";
+import { Button, Tree } from "antd";
+import type { DataNode } from "antd/es/tree";
+import React, { useCallback, useMemo, useState } from "react";
 
 const map = new Map<number, Mesh | TransformNode>();
 
@@ -39,10 +34,16 @@ export const NodeTree: React.FC<{
   nodes: (Mesh | TransformNode)[];
   scene: Scene;
 }> = ({ nodes, scene }) => {
+  const [isExplode, setExplode] = useState(false);
+
   const tree = useMemo(() => {
     map.clear();
     return parse(nodes);
   }, [nodes, scene]);
+
+  const animation = useMemo(() => {
+    return explode(nodes[0]);
+  }, [nodes[0]]);
 
   const resetAll = () => {
     const nodes = map.values();
@@ -135,13 +136,32 @@ export const NodeTree: React.FC<{
     [scene]
   );
 
+  const toggleExplode = () => {
+    setExplode(!isExplode);
+
+    if (!isExplode) {
+      resetAll();
+      ZoomAll(scene.activeCamera as ArcRotateCamera, scene);
+      animation.start();
+    } else {
+      animation.start(false, 1, animation.to, 0);
+    }
+  };
+
   return (
-    <Tree
-      showLine
-      showIcon
-      onSelect={onSelect}
-      treeData={tree}
-      defaultExpandAll
-    />
+    <>
+      <Tree
+        showLine
+        showIcon
+        onSelect={onSelect}
+        treeData={tree}
+        defaultExpandAll
+      />
+      <div className="fixed bottom-8 w-full flex justify-center">
+        <Button onClick={toggleExplode}>
+          {isExplode ? "取消分解" : "分解"}
+        </Button>
+      </div>
+    </>
   );
 };

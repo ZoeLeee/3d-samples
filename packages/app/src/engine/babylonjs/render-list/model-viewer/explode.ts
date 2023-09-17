@@ -59,11 +59,5 @@ export function explode(root: Node) {
     }
   }
 
-  // setTimeout(() => {
-  //   group.start();
-
-  //   group.onAnimationGroupEndObservable.addOnce(() => {
-  //     group.start(false, 1, time * frame, 0);
-  //   });
-  // }, 1000);
+  return group;
 }
