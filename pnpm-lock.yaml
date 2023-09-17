@@ -12,11 +12,11 @@ importers:
         specifier: ^4.2.0
         version: 4.2.0(prettier@3.0.3)
       '@types/react':
-        specifier: ^18.0.28
-        version: 18.0.28
+        specifier: ^18.2.0
+        version: 18.2.0
       '@types/react-dom':
-        specifier: ^18.0.11
-        version: 18.0.11
+        specifier: ^18.2.0
+        version: 18.2.0
       '@typescript-eslint/eslint-plugin':
         specifier: ^5.57.1
         version: 5.57.1(@typescript-eslint/parser@5.57.1)(eslint@8.38.0)(typescript@5.0.2)
@@ -73,10 +73,10 @@ importers:
         version: 6.13.0(@babylonjs/core@6.3.1)
       '@babylonjs/gui-editor':
         specifier: ^6.14.0
-        version: 6.14.0(@babylonjs/core@6.3.1)(@babylonjs/gui@6.13.0)(@types/react-dom@18.0.11)(@types/react@18.0.28)
+        version: 6.14.0(@babylonjs/core@6.3.1)(@babylonjs/gui@6.13.0)(@types/react-dom@18.2.0)(@types/react@18.2.0)
       '@babylonjs/inspector':
         specifier: ^6.10.0
-        version: 6.10.0(@babylonjs/core@6.3.1)(@babylonjs/gui-editor@6.14.0)(@babylonjs/gui@6.13.0)(@babylonjs/loaders@6.3.1)(@babylonjs/materials@6.3.1)(@babylonjs/serializers@6.14.0)(@types/react-dom@18.0.11)(@types/react@18.0.28)
+        version: 6.10.0(@babylonjs/core@6.3.1)(@babylonjs/gui-editor@6.14.0)(@babylonjs/gui@6.13.0)(@babylonjs/loaders@6.3.1)(@babylonjs/materials@6.3.1)(@babylonjs/serializers@6.14.0)(@types/react-dom@18.2.0)(@types/react@18.2.0)
       '@babylonjs/loaders':
         specifier: ^6.3.1
         version: 6.3.1(@babylonjs/core@6.3.1)(babylonjs-gltf2interface@6.20.1)
@@ -115,8 +115,14 @@ importers:
         version: 0.152.2
       zustand:
         specifier: ^4.4.1
-        version: 4.4.1(@types/react@18.0.28)(react@18.2.0)
+        version: 4.4.1(@types/react@18.2.0)(react@18.2.0)
     devDependencies:
+      '@types/react':
+        specifier: ^18.2.0
+        version: 18.2.0
+      '@types/react-dom':
+        specifier: ^18.2.0
+        version: 18.2.0
       autoprefixer:
         specifier: ^10.4.15
         version: 10.4.15(postcss@8.4.29)
@@ -514,7 +520,7 @@ packages:
     resolution: {integrity: sha512-VShcryUF+H55cJ556Ki9yBQJCIMMALsin1dFHFmdG4VUKlDf9AVj5WbvSmAtr0dRNJZop+RNRrteKHHqVEOYyA==}
     dev: false
 
-  /@babylonjs/gui-editor@6.14.0(@babylonjs/core@6.3.1)(@babylonjs/gui@6.13.0)(@types/react-dom@18.0.11)(@types/react@18.0.28):
+  /@babylonjs/gui-editor@6.14.0(@babylonjs/core@6.3.1)(@babylonjs/gui@6.13.0)(@types/react-dom@18.2.0)(@types/react@18.2.0):
     resolution: {integrity: sha512-6axCe80B63/PhWuS/GmQbaCRg4BL0L3UPQVrfS3KKl2JvG5Wl5qTj5s6Iv2g+ODcLQ8PWL4fstTA+5p7xD58Yg==}
     peerDependencies:
       '@babylonjs/core': ^6.0.0
@@ -524,8 +530,8 @@ packages:
     dependencies:
       '@babylonjs/core': 6.3.1
       '@babylonjs/gui': 6.13.0(@babylonjs/core@6.3.1)
-      '@types/react': 18.0.28
-      '@types/react-dom': 18.0.11
+      '@types/react': 18.2.0
+      '@types/react-dom': 18.2.0
     dev: false
 
   /@babylonjs/gui@6.13.0(@babylonjs/core@6.3.1):
@@ -536,7 +542,7 @@ packages:
       '@babylonjs/core': 6.3.1
     dev: false
 
-  /@babylonjs/inspector@6.10.0(@babylonjs/core@6.3.1)(@babylonjs/gui-editor@6.14.0)(@babylonjs/gui@6.13.0)(@babylonjs/loaders@6.3.1)(@babylonjs/materials@6.3.1)(@babylonjs/serializers@6.14.0)(@types/react-dom@18.0.11)(@types/react@18.0.28):
+  /@babylonjs/inspector@6.10.0(@babylonjs/core@6.3.1)(@babylonjs/gui-editor@6.14.0)(@babylonjs/gui@6.13.0)(@babylonjs/loaders@6.3.1)(@babylonjs/materials@6.3.1)(@babylonjs/serializers@6.14.0)(@types/react-dom@18.2.0)(@types/react@18.2.0):
     resolution: {integrity: sha512-tDVd8A7ACN1D52dnm1nDgjIxqtjgQuStHaSdnKjDGA/LYnzMkvCbediXcGhtLoBkM/MSRTDxxJJEPILZuKuZvw==}
     peerDependencies:
       '@babylonjs/core': ^6.0.0
@@ -550,15 +556,15 @@ packages:
     dependencies:
       '@babylonjs/core': 6.3.1
       '@babylonjs/gui': 6.13.0(@babylonjs/core@6.3.1)
-      '@babylonjs/gui-editor': 6.14.0(@babylonjs/core@6.3.1)(@babylonjs/gui@6.13.0)(@types/react-dom@18.0.11)(@types/react@18.0.28)
+      '@babylonjs/gui-editor': 6.14.0(@babylonjs/core@6.3.1)(@babylonjs/gui@6.13.0)(@types/react-dom@18.2.0)(@types/react@18.2.0)
       '@babylonjs/loaders': 6.3.1(@babylonjs/core@6.3.1)(babylonjs-gltf2interface@6.20.1)
       '@babylonjs/materials': 6.3.1(@babylonjs/core@6.3.1)
       '@babylonjs/serializers': 6.14.0(@babylonjs/core@6.3.1)(babylonjs-gltf2interface@6.20.1)
       '@fortawesome/fontawesome-svg-core': 6.4.2
       '@fortawesome/free-regular-svg-icons': 6.4.2
       '@fortawesome/free-solid-svg-icons': 6.4.2
-      '@types/react': 18.0.28
-      '@types/react-dom': 18.0.11
+      '@types/react': 18.2.0
+      '@types/react-dom': 18.2.0
     dev: false
 
   /@babylonjs/loaders@6.3.1(@babylonjs/core@6.3.1)(babylonjs-gltf2interface@6.20.1):
@@ -1336,13 +1342,13 @@ packages:
     resolution: {integrity: sha512-EEhsLsD6UsDM1yFhAvy0Cjr6VwmpMWqFBCb9w07wVugF7w9nfajxLuVmngTIpgS6svCnm6Vaw+MZhoDCKnOfsw==}
     dev: false
 
-  /@types/react-dom@18.0.11:
-    resolution: {integrity: sha512-O38bPbI2CWtgw/OoQoY+BRelw7uysmXbWvw3nLWO21H1HSh+GOlqPuXshJfjmpNlKiiSDG9cc1JZAaMmVdcTlw==}
+  /@types/react-dom@18.2.0:
+    resolution: {integrity: sha512-8yQrvS6sMpSwIovhPOwfyNf2Wz6v/B62LFSVYQ85+Rq3tLsBIG7rP5geMxaijTUxSkrO6RzN/IRuIAADYQsleA==}
     dependencies:
-      '@types/react': 18.0.28
+      '@types/react': 18.2.0
 
-  /@types/react@18.0.28:
-    resolution: {integrity: sha512-RD0ivG1kEztNBdoAK7lekI9M+azSnitIn85h4iOiaLjaTrMjzslhaqCGaI4IyCJ1RljWiLCEu4jyrLLgqxBTew==}
+  /@types/react@18.2.0:
+    resolution: {integrity: sha512-0FLj93y5USLHdnhIhABk83rm8XEGA7kH3cr+YUlvxoUGp1xNt/DINUMvqPxLyOQMzLmZe8i4RTHbvb8MC7NmrA==}
     dependencies:
       '@types/prop-types': 15.7.5
       '@types/scheduler': 0.16.3
@@ -5086,7 +5092,7 @@ packages:
     resolution: {integrity: sha512-wvWkphh5WQsJbVk1tbx1l1Ly4yg+XecD+Mq280uBGt9wa5BKSWf4Mhp6GmrkPixhMxmabYY7RbzlwVP32pbGCg==}
     dev: false
 
-  /zustand@4.4.1(@types/react@18.0.28)(react@18.2.0):
+  /zustand@4.4.1(@types/react@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-QCPfstAS4EBiTQzlaGP1gmorkh/UL1Leaj2tdj+zZCZ/9bm0WS7sI2wnfD5lpOszFqWJ1DcPnGoY8RDL61uokw==}
     engines: {node: '>=12.7.0'}
     peerDependencies:
@@ -5101,7 +5107,7 @@ packages:
       react:
         optional: true
     dependencies:
-      '@types/react': 18.0.28
+      '@types/react': 18.2.0
       react: 18.2.0
       use-sync-external-store: 1.2.0(react@18.2.0)
     dev: false
