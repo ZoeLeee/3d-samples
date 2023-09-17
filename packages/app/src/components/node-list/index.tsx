@@ -44,11 +44,26 @@ export const NodeTree: React.FC<{
     return parse(nodes);
   }, [nodes, scene]);
 
+  const resetAll = () => {
+    const nodes = map.values();
+    for (const node of nodes) {
+      if (node instanceof Mesh && node.geometry) {
+        node.renderingGroupId = 0;
+        node.visibility = 1;
+        if (
+          "emissiveColor" in node.material &&
+          node.material?.metadata?.emissiveColor
+        ) {
+          node.material.emissiveColor = node.material?.metadata?.emissiveColor;
+        }
+      }
+    }
+  };
+
   const highlight = (selectedKeys: React.Key[]) => {
     const cache = new Set();
 
     const h = (node: Mesh) => {
-      console.log("file: index.tsx:49 ~ h ~ node:", node);
       if ("emissiveColor" in node.material) {
         if (!node.material.metadata?.emissiveColor) {
           node.material.metadata = {
@@ -86,14 +101,12 @@ export const NodeTree: React.FC<{
           r(node);
         }
       } else {
-        const ms = node.getChildren();
-        for (const m of ms) {
-          if (m instanceof Mesh && m.geometry) {
-            cache.add(m.uniqueId);
-            if (selectedKeys.includes(m.uniqueId)) {
+        if (selectedKeys.includes(node.uniqueId)) {
+          const ms = node.getChildren();
+          for (const m of ms) {
+            if (m instanceof Mesh && m.geometry) {
+              cache.add(m.uniqueId);
               h(m);
-            } else {
-              r(m);
             }
           }
         }
@@ -103,12 +116,21 @@ export const NodeTree: React.FC<{
 
   const onSelect = useCallback(
     (selectedKeys: React.Key[], info: any) => {
-      highlight(selectedKeys);
-
       zoomToNode(
         map.get(selectedKeys[0] as number),
         scene.activeCamera as ArcRotateCamera
       );
+
+      for (const k of selectedKeys) {
+        const node = map.get(k as number);
+        const ms = node.getChildren();
+        if (ms.length > 0 && ms.every((m) => !m["geometry"])) {
+          resetAll();
+          return;
+        }
+      }
+
+      highlight(selectedKeys);
     },
     [scene]
   );
