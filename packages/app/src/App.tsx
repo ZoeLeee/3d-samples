@@ -41,16 +41,6 @@ function App() {
     <>
       <RouterProvider router={router} />
       {loading && <LoadingComponent title={title} />}
-      {/* <GithubOutlined />; */}
-      <a
-        className="github-fork-ribbon"
-        href="https://github.com/ZoeLeee/3d-samples"
-        target="_blank"
-        data-ribbon="Fork me on GitHub"
-        title="Fork me on GitHub"
-      >
-        Fork me on GitHub
-      </a>
     </>
   );
 }

@@ -81,6 +81,15 @@ export default function Root() {
           闽ICP备19012108号
         </a>
       </div>
+      <a
+        className="github-fork-ribbon"
+        href="https://github.com/ZoeLeee/3d-samples"
+        target="_blank"
+        data-ribbon="Fork me on GitHub"
+        title="Fork me on GitHub"
+      >
+        Fork me on GitHub
+      </a>
     </div>
   );
 }
