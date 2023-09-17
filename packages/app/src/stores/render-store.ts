@@ -8,4 +8,5 @@ export const createRenderSlice: StateCreator<
   RenderSlice
 > = (set) => ({
   nodes: null,
+  scene: null,
 });

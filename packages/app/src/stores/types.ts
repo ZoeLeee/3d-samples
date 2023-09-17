@@ -8,6 +8,7 @@ export interface LoadingSlice {
 }
 export interface RenderSlice {
   nodes: Node[];
+  scene: Scene;
 }
 
 export type WithSelectors<S> = S extends { getState: () => infer T }

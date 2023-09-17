@@ -13,6 +13,8 @@ import { explode } from "./explode";
 export function renderModelViewer(canvas: HTMLCanvasElement) {
   const [engine, scene, camera, gui] = InitCanvas(canvas);
 
+  camera.minZ = 0.01;
+
   if (import.meta.env.VITE_DEBUG_VIEWER === "true") {
     toggleGLoablLoading(true);
     SceneLoader.LoadAssetContainer(
@@ -24,7 +26,7 @@ export function renderModelViewer(canvas: HTMLCanvasElement) {
 
         const roots = container.meshes.filter((m) => !m.parent);
 
-        setRenderScene(roots);
+        setRenderScene(roots, scene);
 
         mergeMeshes(roots);
 
@@ -80,7 +82,7 @@ export function renderModelViewer(canvas: HTMLCanvasElement) {
 
                 mergeMeshes(roots);
 
-                setRenderScene(roots);
+                setRenderScene(roots, scene);
 
                 setTimeout(() => {
                   ZoomAll(camera, scene);

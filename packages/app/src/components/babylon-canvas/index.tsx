@@ -10,7 +10,7 @@ import { useStores } from "@/stores";
 export function BabylonCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const par = useParams();
-  const [nodes] = useStores((state) => [state.nodes]);
+  const [nodes, scene] = useStores((state) => [state.nodes, state.scene]);
 
   useEffect(() => {
     const clears = [];
@@ -49,7 +49,7 @@ export function BabylonCanvas() {
             overflow: "auto",
           }}
         >
-          <NodeTree nodes={nodes} />
+          <NodeTree nodes={nodes} scene={scene} />
         </div>
       )}
     </div>

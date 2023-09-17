@@ -26,6 +26,6 @@ export const Stores = createSelectors(useStores);
 export const toggleGLoablLoading = (v: boolean, title?: string) =>
   useStores.setState((state) => ({ loading: v, title }));
 
-export const setRenderScene = (nodes: Node[]) => {
-  useStores.setState((state) => ({ nodes }));
+export const setRenderScene = (nodes: Node[], scene: Scene) => {
+  useStores.setState((state) => ({ nodes, scene }));
 };
