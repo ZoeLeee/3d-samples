@@ -5,9 +5,10 @@ import { koaBody } from "koa-body";
 
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
-import { clearFiles, optimize } from "./transform.js";
+import { clearFiles, optimize, optimizeGLTF } from "./transform.js";
 import path from "path";
 import fs from "fs";
+import { convertSTEPorIGES } from "./convert.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -30,7 +31,7 @@ app.use(async (ctx, next) => {
 });
 
 app.use(async (ctx, next) => {
-  if (ctx.request.url === "/upload") {
+  if (ctx.request.url === "/upload" || ctx.request.url === "/model-viewer") {
     const dir = path.resolve(__dirname, `../public/upload`);
     // 检查文件夹是否存在如果不存在则新建文件夹
     if (!fs.existsSync(dir)) {
@@ -38,10 +39,10 @@ app.use(async (ctx, next) => {
       fs.mkdirSync(dir);
     } else {
       //清理目录中的文件
-      const files = fs.readdirSync(dir);
-      files.forEach((file) => {
-        fs.unlinkSync(path.resolve(dir, file));
-      });
+      // const files = fs.readdirSync(dir);
+      // files.forEach((file) => {
+      //   fs.unlinkSync(path.resolve(dir, file));
+      // });
     }
   }
   await next();
@@ -54,12 +55,8 @@ app.use(
       uploadDir: path.resolve(__dirname, "../public/upload/"), // 设置文件上传目录
       keepExtensions: true, // 保持文件的后缀
       maxFieldsSize: 20 * 1024 * 1024, // 文件上传大小限制
-      onFileBegin: (name, file) => {
-        const dir = path.resolve(__dirname, `../public/upload`);
-
-        file.name = name;
-        // 覆盖文件存放的完整路径(保留原始名称)
-        file.path = `${dir}/${name}`;
+      filename: (name, ext) => {
+        return `${name}${ext}`;
       },
       onError: (error) => {
         app.status = 400;
@@ -75,8 +72,7 @@ app.use(
 // 设置静态资源目录为public
 app.use(
   koaStatic(join(__dirname, "../public"), {
-    //缓存一个月
-    maxage: 30 * 24 * 60 * 60 * 1000,
+    maxAge: 1,
   })
 );
 
@@ -96,7 +92,43 @@ router.post("/upload", (ctx) => {
         break;
       }
     }
-    ctx.body = { code: 0, msg: "", data: { fileName: path } };
+    ctx.body = { code: 0, msg: "", data: { url: `/upload/${path}` } };
+  } catch (error) {
+    ctx.status = 400;
+    ctx.body = { code: 400, msg: "上传失败", data: {} };
+  }
+});
+
+router.post("/model-viewer", async (ctx) => {
+  try {
+    // 获取上传文件
+    const files = ctx.request.files;
+
+    let path;
+    let writePath;
+
+    for (const key in files) {
+      const file = files[key];
+      const name = file.newFilename;
+      if (name.endsWith("glb") || name.endsWith("gltf")) {
+        path = name;
+        break;
+      } else if (name.endsWith(".STEP")) {
+        // 处理Step
+        [path, writePath] = await convertSTEPorIGES({
+          filename: name,
+          path: file.filepath,
+        });
+
+        await optimizeGLTF(writePath, {
+          out: writePath,
+        });
+
+        break;
+      }
+    }
+
+    ctx.body = { code: 0, msg: "", data: { url: `/upload/${path}` } };
   } catch (error) {
     ctx.status = 400;
     ctx.body = { code: 400, msg: "上传失败", data: {} };
@@ -122,6 +154,11 @@ router.post("/clear", (ctx) => {
 });
 
 app.use(router.routes());
+
+process.on("uncaughtException", function (err) {
+  console.log("An error occurred: ", err);
+  console.log(err.stack);
+});
 
 // 启动服务
 const port = 3000;

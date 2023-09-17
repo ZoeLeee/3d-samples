@@ -4,8 +4,10 @@ import "./shaders";
 import ErrorPage from "./view/ErrorPage";
 import Root from "./view/Root";
 import { RenderBJS } from "./components/render-bjs";
-import { lazy } from "react";
 import SamplesComponent from "./components/samples";
+import { RenderTJS } from "./components/render-threejs";
+import { LoadingComponent } from "./components/loading";
+import { useStores } from "./stores/stores";
 
 const router = createBrowserRouter([
   {
@@ -18,13 +20,28 @@ const router = createBrowserRouter([
     element: <SamplesComponent />,
   },
   {
+    path: "/tjs",
+    element: <SamplesComponent />,
+  },
+  {
     path: "/bjs/:id",
     element: <RenderBJS />,
+  },
+  {
+    path: "/tjs/:id",
+    element: <RenderTJS />,
   },
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  const [loading, title] = useStores((state) => [state.loading, state.title]);
+
+  return (
+    <>
+      <RouterProvider router={router} />
+      {loading && <LoadingComponent title={title} />}
+    </>
+  );
 }
 
 export default App;

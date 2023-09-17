@@ -80,25 +80,25 @@ export function renderHome(canvas: HTMLCanvasElement) {
 
     })
 
-    const anchor = new TransformNode("anchor", scene);
+    // const anchor = new TransformNode("anchor", scene);
 
-    // Create the 3D UI manager
-    const manager = new GUI3DManager(scene);
+    // // Create the 3D UI manager
+    // const manager = new GUI3DManager(scene);
 
-    const button = new HolographicButton("BJS");
-    manager.addControl(button);
-    button.linkToTransformNode(anchor);
+    // const button = new HolographicButton("BJS");
+    // manager.addControl(button);
+    // button.linkToTransformNode(anchor);
 
-    button.position.set(-500, 500, 0)
-    button.scaling.set(200, 200, 200)
+    // button.position.set(-500, 500, 0)
+    // button.scaling.set(200, 200, 200)
 
-    button.imageUrl = "https://logos-download.com/wp-content/uploads/2022/12/Babylon.js_Logo.png";
+    // button.imageUrl = "https://logos-download.com/wp-content/uploads/2022/12/Babylon.js_Logo.png";
 
-    button.text = "Babylonjs";
+    // button.text = "Babylonjs";
 
-    button.onPointerDownObservable.addOnce(() => {
-        location.href = "/bjs"
-    })
+    // button.onPointerDownObservable.addOnce(() => {
+    //     location.href = "/bjs"
+    // })
 
     return () => {
         engine.dispose()

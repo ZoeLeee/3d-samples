@@ -1,8 +1,9 @@
 import React, { useMemo } from "react";
 import { Col, Divider, Layout, Row } from "antd";
 import { RenderMap } from "../babylon-canvas/map";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Card } from "antd";
+import { ThreeRenderMap } from "../three-canvas/map";
 
 const { Meta } = Card;
 const { Content } = Layout;
@@ -18,17 +19,23 @@ const headerStyle: React.CSSProperties = {
 };
 
 const SamplesComponent: React.FC = () => {
+  const location = useLocation();
+
+  const map = useMemo(() => {
+    return location.pathname.includes("bjs") ? RenderMap : ThreeRenderMap;
+  }, [location?.pathname]);
+
   const list = useMemo(() => {
     const list = [];
-    for (const key in RenderMap) {
+    for (const key in map) {
       list.push({
         key,
-        title: RenderMap[key].title,
+        title: map[key].title,
       });
     }
 
     return list;
-  }, []);
+  }, [map]);
 
   return (
     <Layout style={{ height: "100%" }}>
@@ -41,17 +48,14 @@ const SamplesComponent: React.FC = () => {
       <Content>
         <Row gutter={16}>
           {list.map((item) => (
-            <Col className="gutter-row" xs={4} span={6}>
-              <Link to={`/bjs/${item.key}`}>
+            <Col className="gutter-row" xs={4} span={6} key={item.key}>
+              <Link to={`${item.key}`}>
                 <Card
                   hoverable
                   cover={
                     <img
                       alt="example"
-                      src={
-                        RenderMap[item.key].image ??
-                        "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-                      }
+                      src={map[item.key].image ?? "/dodream2.jpg"}
                     />
                   }
                 >
