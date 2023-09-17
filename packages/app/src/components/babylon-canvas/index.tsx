@@ -26,14 +26,7 @@ export function BabylonCanvas() {
   };
 
   return (
-    <div
-      style={{
-        position: "relative",
-        width: "100%",
-        height: "100%",
-        display: "flex",
-      }}
-    >
+    <div className="w-full h-full relative flex">
       {renderContent()}
       <FloatButton
         onClick={() => console.log("click")}
