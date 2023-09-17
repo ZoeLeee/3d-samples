@@ -15,7 +15,7 @@ export function renderModelViewer(canvas: HTMLCanvasElement) {
 
   camera.minZ = 0.01;
 
-  if (import.meta.env.VITE_DEBUG_VIEWER === "true") {
+  if (import.meta.env.VITE_DEBUG_VIEWER === "true" && import.meta.env.DEV) {
     toggleGLoablLoading(true);
     SceneLoader.LoadAssetContainer(
       "//localhost:3000/upload/wolf.glb",
