@@ -2,6 +2,7 @@ import {
   Animation,
   AnimationGroup,
   BoundingBox,
+  CreateLines,
   Mesh,
   MeshBuilder,
   Node,
@@ -18,22 +19,6 @@ export function explode(root: Node) {
 
   const center = box.centerWorld;
 
-  const size = box.extendSizeWorld.scale(2);
-
-  const TestBox = MeshBuilder.CreateBox("test", {
-    width: size.x,
-    height: size.y,
-    depth: size.z,
-  });
-
-  const mtl = new StandardMaterial("1");
-
-  mtl.wireframe = true;
-
-  TestBox.material = mtl;
-
-  TestBox.position = center;
-
   const group = new AnimationGroup("分解动画");
 
   const time = 3;
@@ -41,16 +26,14 @@ export function explode(root: Node) {
 
   for (const mesh of meshes) {
     if (mesh instanceof Mesh && mesh.geometry) {
-      const pos = mesh.position;
+      const pos = mesh.position.clone();
       const bound = mesh.getBoundingInfo();
 
-      const meshCenter = bound.boundingBox.center;
+      const meshCenter = bound.boundingBox.centerWorld;
 
-      const mtx = mesh.getWorldMatrix().clone().invert();
+      const mtx = mesh.parent.getWorldMatrix().invert();
 
-      const localCenter = Vector3.TransformCoordinates(center, mtx);
-
-      const dir = meshCenter.subtract(localCenter);
+      const dir = meshCenter.subtract(center);
 
       const an = new Animation(
         mesh.name,
@@ -59,6 +42,8 @@ export function explode(root: Node) {
         Animation.ANIMATIONTYPE_VECTOR3
       );
 
+      const d = Vector3.TransformCoordinates(dir, mtx.getRotationMatrix());
+
       an.setKeys([
         {
           frame: 0,
@@ -66,7 +51,7 @@ export function explode(root: Node) {
         },
         {
           frame: frame * time,
-          value: pos.clone().add(dir.scale(2)),
+          value: pos.clone().add(d.scale(2)),
         },
       ]);
 
@@ -74,11 +59,11 @@ export function explode(root: Node) {
     }
   }
 
-  setTimeout(() => {
-    group.start();
+  // setTimeout(() => {
+  //   group.start();
 
-    group.onAnimationGroupEndObservable.addOnce(() => {
-      group.start(false, 1, time * frame, 0);
-    });
-  }, 1000);
+  //   group.onAnimationGroupEndObservable.addOnce(() => {
+  //     group.start(false, 1, time * frame, 0);
+  //   });
+  // }, 1000);
 }

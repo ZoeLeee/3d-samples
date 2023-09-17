@@ -13,7 +13,7 @@ import { explode } from "./explode";
 export function renderModelViewer(canvas: HTMLCanvasElement) {
   const [engine, scene, camera, gui] = InitCanvas(canvas);
 
-  if (import.meta.env.DEV) {
+  if (import.meta.env.VITE_DEBUG_VIEWER === "true") {
     toggleGLoablLoading(true);
     SceneLoader.LoadAssetContainer(
       "//localhost:3000/upload/wolf.glb",

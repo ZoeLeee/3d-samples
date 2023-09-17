@@ -31,7 +31,7 @@ app.use(async (ctx, next) => {
 });
 
 app.use(async (ctx, next) => {
-  if (ctx.request.url === "/upload") {
+  if (ctx.request.url === "/upload" || ctx.request.url === "/model-viewer") {
     const dir = path.resolve(__dirname, `../public/upload`);
     // 检查文件夹是否存在如果不存在则新建文件夹
     if (!fs.existsSync(dir)) {
@@ -154,6 +154,11 @@ router.post("/clear", (ctx) => {
 });
 
 app.use(router.routes());
+
+process.on("uncaughtException", function (err) {
+  console.log("An error occurred: ", err);
+  console.log(err.stack);
+});
 
 // 启动服务
 const port = 3000;
