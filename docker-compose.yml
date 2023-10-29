@@ -1,0 +1,15 @@
+version: '3'
+services:
+  frontend:
+    image: "lizhou1021/3d-samples:v2"
+    build:
+      context: ./packages/app  # 前端 Dockerfile 所在的目录
+    ports:
+      - "8081:80"  # 将容器的 80 端口映射到主机的 8081 端口
+
+  backend:
+    image: "lizhou1021/3d-samples-backend:v2"
+    build:
+      context: ./packages/mesh-optimize  # 后端 Dockerfile 所在的目录
+    ports:
+      - "3000:3000"  # 将容器的 3000 端口映射到主机的 3000 端口
