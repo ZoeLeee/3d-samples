@@ -1,7 +1,8 @@
 // Example POST method implementation:
+
 export async function postData(url = "", data = {}) {
   // Default options are marked with *
-  const response = await fetch(url, {
+  const response = await fetch(location.origin + url, {
     method: "POST", // *GET, POST, PUT, DELETE, etc.
     mode: "cors", // no-cors, *cors, same-origin
     headers: {

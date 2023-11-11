@@ -8,6 +8,7 @@ import { renderClip2ParticleEffect } from "../../engine/babylonjs/render-list/cl
 
 import prev2 from "../../assets/preview2.png";
 import { renderModelViewer } from "@/engine/babylonjs/render-list/model-viewer";
+import { lazyLoadMaterial } from "@/engine/babylonjs/render-list/lazy-load-material";
 
 export const RenderMap = {
   coverSnow: {
@@ -37,5 +38,9 @@ export const RenderMap = {
   viewer: {
     render: renderModelViewer,
     title: "模型查看器",
+  },
+  lazyLoad: {
+    render: lazyLoadMaterial,
+    title: "场景懒加载",
   },
 };

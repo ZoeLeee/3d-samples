@@ -18,7 +18,7 @@ export function renderModelViewer(canvas: HTMLCanvasElement) {
   if (import.meta.env.VITE_DEBUG_VIEWER === "true" && import.meta.env.DEV) {
     toggleGLoablLoading(true);
     SceneLoader.LoadAssetContainer(
-      "//localhost:3000/upload/wolf.glb",
+      location.origin + "/api/upload/wolf.glb",
       "",
       scene,
       (container) => {
@@ -65,7 +65,7 @@ export function renderModelViewer(canvas: HTMLCanvasElement) {
           toggleGLoablLoading(true);
           const res = await uploadMultiple(formData, "model-viewer");
 
-          const url = `//${location.hostname}:3000`;
+          const url = `${location.origin}/api`;
           if (res.code === 0) {
             console.log("res: ", res);
             clearAll();
