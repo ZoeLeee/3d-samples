@@ -6,9 +6,9 @@ COPY . /app
 WORKDIR /app
 
 FROM base AS build
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 RUN pnpm run build:app
 
 FROM nginx
-COPY --from=0 /app/dist /usr/share/nginx/html
+COPY --from=0 /app/packages/app/dist /usr/share/nginx/html
 COPY --from=0 /app/deploy/nginx.conf /etc/nginx/conf.d/default.conf

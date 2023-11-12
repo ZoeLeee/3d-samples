@@ -18,5 +18,6 @@
   },
   "[less]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "liveServer.settings.root": "/packages/app/dist"
 }
