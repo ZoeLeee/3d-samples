@@ -9,6 +9,8 @@ import SamplesComponent from "./components/samples";
 import { RenderTJS } from "./components/render-threejs";
 import { LoadingComponent } from "./components/loading";
 import { useStores } from "./stores/stores";
+import Samples2DComponent from "./components/samples/2d";
+import { VisualList } from "./view/2d/VisualList";
 
 const router = createBrowserRouter([
   {
@@ -25,12 +27,20 @@ const router = createBrowserRouter([
     element: <SamplesComponent />,
   },
   {
+    path: "/2d",
+    element: <Samples2DComponent />,
+  },
+  {
     path: "/bjs/:id",
     element: <RenderBJS />,
   },
   {
     path: "/tjs/:id",
     element: <RenderTJS />,
+  },
+  {
+    path: "/2d/vis-list",
+    element: <VisualList />,
   },
 ]);
 

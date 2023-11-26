@@ -101,6 +101,9 @@ importers:
       gsap:
         specifier: ^3.11.5
         version: 3.11.5
+      konva:
+        specifier: ^9.2.3
+        version: 9.2.3
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -3058,6 +3061,10 @@ packages:
       vary: 1.1.2
     transitivePeerDependencies:
       - supports-color
+    dev: false
+
+  /konva@9.2.3:
+    resolution: {integrity: sha512-oQ6VQ6kUL9IlhOGuEKKhxqnv6g/t8jZpVuWahQQ6hCqAsO8Ydi1zFGv7ef4EOq5GoPNq/d6Fyj/3i5Y/a5NooA==}
     dev: false
 
   /ktx-parse@0.5.0:

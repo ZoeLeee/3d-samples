@@ -14,6 +14,11 @@ const List = [
     path: "/tjs",
     icon: "/threejs.svg",
   },
+  {
+    label: "Canvas2D",
+    path: "/2d",
+    icon: "/threejs.svg",
+  },
 ];
 
 export default function Root() {
