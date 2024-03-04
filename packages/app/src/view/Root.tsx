@@ -19,6 +19,11 @@ const List = [
     path: "/2d",
     icon: "/threejs.svg",
   },
+  {
+    label: "开源",
+    path: "/open-source",
+    icon: "/threejs.svg",
+  },
 ];
 
 export default function Root() {
