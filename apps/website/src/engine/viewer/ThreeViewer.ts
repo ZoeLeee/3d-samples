@@ -233,6 +233,7 @@ export class ThreeViewer {
       let texture = new TextureLoader().load(CDN_IMG_URL + img);
       this.defaultMaterial.map = texture;
       await sleep(1);
+      break;
     }
   }
   OnSize(width?: number, height?: number) {

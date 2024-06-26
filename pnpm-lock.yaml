@@ -8,9 +8,12 @@ importers:
 
   .:
     devDependencies:
+      '@biomejs/biome':
+        specifier: 1.7.1
+        version: 1.7.1
       '@trivago/prettier-plugin-sort-imports':
         specifier: ^4.2.0
-        version: 4.2.0(prettier@3.0.3)
+        version: 4.2.0(prettier@3.2.5)
       '@types/react':
         specifier: ^18.2.0
         version: 18.2.0
@@ -60,7 +63,56 @@ importers:
         specifier: ^4.3.2
         version: 4.3.2(terser@5.19.2)
 
-  packages/app:
+  apps/mesh-optimize:
+    dependencies:
+      '@gltf-transform/core':
+        specifier: ^3.4.8
+        version: 3.4.8
+      '@gltf-transform/extensions':
+        specifier: ^3.4.8
+        version: 3.4.8
+      '@gltf-transform/functions':
+        specifier: ^3.4.8
+        version: 3.4.8
+      date-fns:
+        specifier: ^2.30.0
+        version: 2.30.0
+      draco3dgltf:
+        specifier: ^1.5.6
+        version: 1.5.6
+      koa:
+        specifier: next
+        version: 2.14.2
+      koa-body:
+        specifier: ^6.0.1
+        version: 6.0.1
+      koa-router:
+        specifier: ^12.0.0
+        version: 12.0.0
+      koa-static:
+        specifier: ^5.0.0
+        version: 5.0.0
+      koa2-cors:
+        specifier: ^2.0.6
+        version: 2.0.6
+      meshoptimizer:
+        specifier: ^0.19.0
+        version: 0.19.0
+      multer:
+        specifier: ^1.4.5-lts.1
+        version: 1.4.5-lts.1
+      opencascade.js:
+        specifier: 2.0.0-beta.b5ff984
+        version: 2.0.0-beta.b5ff984(ws@8.16.0)
+      sharp:
+        specifier: ^0.32.4
+        version: 0.32.4
+    devDependencies:
+      nodemon:
+        specifier: ^3.0.1
+        version: 3.0.1
+
+  apps/website:
     dependencies:
       '@ant-design/icons':
         specifier: ^5.1.4
@@ -79,13 +131,13 @@ importers:
         version: 6.10.0(@babylonjs/core@6.3.1)(@babylonjs/gui-editor@6.14.0)(@babylonjs/gui@6.13.0)(@babylonjs/loaders@6.3.1)(@babylonjs/materials@6.3.1)(@babylonjs/serializers@6.14.0)(@types/react-dom@18.2.0)(@types/react@18.2.0)
       '@babylonjs/loaders':
         specifier: ^6.3.1
-        version: 6.3.1(@babylonjs/core@6.3.1)(babylonjs-gltf2interface@6.20.1)
+        version: 6.3.1(@babylonjs/core@6.3.1)(babylonjs-gltf2interface@6.49.0)
       '@babylonjs/materials':
         specifier: ^6.3.1
         version: 6.3.1(@babylonjs/core@6.3.1)
       '@babylonjs/serializers':
         specifier: ^6.14.0
-        version: 6.14.0(@babylonjs/core@6.3.1)(babylonjs-gltf2interface@6.20.1)
+        version: 6.14.0(@babylonjs/core@6.3.1)(babylonjs-gltf2interface@6.49.0)
       '@types/dat.gui':
         specifier: ^0.7.10
         version: 0.7.10
@@ -135,55 +187,6 @@ importers:
       tailwindcss:
         specifier: ^3.3.3
         version: 3.3.3
-
-  packages/mesh-optimize:
-    dependencies:
-      '@gltf-transform/core':
-        specifier: ^3.4.8
-        version: 3.4.8
-      '@gltf-transform/extensions':
-        specifier: ^3.4.8
-        version: 3.4.8
-      '@gltf-transform/functions':
-        specifier: ^3.4.8
-        version: 3.4.8
-      date-fns:
-        specifier: ^2.30.0
-        version: 2.30.0
-      draco3dgltf:
-        specifier: ^1.5.6
-        version: 1.5.6
-      koa:
-        specifier: next
-        version: 2.14.2
-      koa-body:
-        specifier: ^6.0.1
-        version: 6.0.1
-      koa-router:
-        specifier: ^12.0.0
-        version: 12.0.0
-      koa-static:
-        specifier: ^5.0.0
-        version: 5.0.0
-      koa2-cors:
-        specifier: ^2.0.6
-        version: 2.0.6
-      meshoptimizer:
-        specifier: ^0.19.0
-        version: 0.19.0
-      multer:
-        specifier: ^1.4.5-lts.1
-        version: 1.4.5-lts.1
-      opencascade.js:
-        specifier: 2.0.0-beta.b5ff984
-        version: 2.0.0-beta.b5ff984(ws@8.14.1)
-      sharp:
-        specifier: ^0.32.4
-        version: 0.32.4
-    devDependencies:
-      nodemon:
-        specifier: ^3.0.1
-        version: 3.0.1
 
 packages:
 
@@ -560,9 +563,9 @@ packages:
       '@babylonjs/core': 6.3.1
       '@babylonjs/gui': 6.13.0(@babylonjs/core@6.3.1)
       '@babylonjs/gui-editor': 6.14.0(@babylonjs/core@6.3.1)(@babylonjs/gui@6.13.0)(@types/react-dom@18.2.0)(@types/react@18.2.0)
-      '@babylonjs/loaders': 6.3.1(@babylonjs/core@6.3.1)(babylonjs-gltf2interface@6.20.1)
+      '@babylonjs/loaders': 6.3.1(@babylonjs/core@6.3.1)(babylonjs-gltf2interface@6.49.0)
       '@babylonjs/materials': 6.3.1(@babylonjs/core@6.3.1)
-      '@babylonjs/serializers': 6.14.0(@babylonjs/core@6.3.1)(babylonjs-gltf2interface@6.20.1)
+      '@babylonjs/serializers': 6.14.0(@babylonjs/core@6.3.1)(babylonjs-gltf2interface@6.49.0)
       '@fortawesome/fontawesome-svg-core': 6.4.2
       '@fortawesome/free-regular-svg-icons': 6.4.2
       '@fortawesome/free-solid-svg-icons': 6.4.2
@@ -570,14 +573,14 @@ packages:
       '@types/react-dom': 18.2.0
     dev: false
 
-  /@babylonjs/loaders@6.3.1(@babylonjs/core@6.3.1)(babylonjs-gltf2interface@6.20.1):
+  /@babylonjs/loaders@6.3.1(@babylonjs/core@6.3.1)(babylonjs-gltf2interface@6.49.0):
     resolution: {integrity: sha512-YeosnXHd/h4HewAiCokJ3O5y9XZIpQG4WieriK3xcMtIagw1nx8w31iXv9eXSiZTMFHWcAsvCiEl7GcmppjydQ==}
     peerDependencies:
       '@babylonjs/core': ^6.0.0
       babylonjs-gltf2interface: ^6.0.0
     dependencies:
       '@babylonjs/core': 6.3.1
-      babylonjs-gltf2interface: 6.20.1
+      babylonjs-gltf2interface: 6.49.0
     dev: false
 
   /@babylonjs/materials@6.3.1(@babylonjs/core@6.3.1):
@@ -588,15 +591,107 @@ packages:
       '@babylonjs/core': 6.3.1
     dev: false
 
-  /@babylonjs/serializers@6.14.0(@babylonjs/core@6.3.1)(babylonjs-gltf2interface@6.20.1):
+  /@babylonjs/serializers@6.14.0(@babylonjs/core@6.3.1)(babylonjs-gltf2interface@6.49.0):
     resolution: {integrity: sha512-qJ1TDvzMeW0SLFJGa4Mo3LqEqtv16rUy6co6fMMlM6f+FG78gUhHR2lgxKbdBesXfrwj8keKqwKcqgrBQAtJUw==}
     peerDependencies:
       '@babylonjs/core': ^6.0.0
       babylonjs-gltf2interface: ^6.0.0
     dependencies:
       '@babylonjs/core': 6.3.1
-      babylonjs-gltf2interface: 6.20.1
+      babylonjs-gltf2interface: 6.49.0
     dev: false
+
+  /@biomejs/biome@1.7.1:
+    resolution: {integrity: sha512-wb2UNoFXcgaMdKXKT5ytsYntaogl2FSTjDt20CZynF3v7OXQUcIpTrr+be3XoOGpoZRj3Ytq9TSpmplUREXmeA==}
+    engines: {node: '>=14.21.3'}
+    hasBin: true
+    requiresBuild: true
+    optionalDependencies:
+      '@biomejs/cli-darwin-arm64': 1.7.1
+      '@biomejs/cli-darwin-x64': 1.7.1
+      '@biomejs/cli-linux-arm64': 1.7.1
+      '@biomejs/cli-linux-arm64-musl': 1.7.1
+      '@biomejs/cli-linux-x64': 1.7.1
+      '@biomejs/cli-linux-x64-musl': 1.7.1
+      '@biomejs/cli-win32-arm64': 1.7.1
+      '@biomejs/cli-win32-x64': 1.7.1
+    dev: true
+
+  /@biomejs/cli-darwin-arm64@1.7.1:
+    resolution: {integrity: sha512-qfLrIIB58dkgiY/1tgG6fSCBK22PZaSIf6blweZBsG6iMij05mEuJt50ne+zPnNFNUmt8t43NC/qOXT3iFHQBA==}
+    engines: {node: '>=14.21.3'}
+    cpu: [arm64]
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@biomejs/cli-darwin-x64@1.7.1:
+    resolution: {integrity: sha512-OGeyNsEcp5VnKbF9/TBjPCTHNEOm7oHegEve07U3KZmzqfpw2Oe3i9DVW8t6vvj1TYbrwWYCld25H34kBDY7Vg==}
+    engines: {node: '>=14.21.3'}
+    cpu: [x64]
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@biomejs/cli-linux-arm64-musl@1.7.1:
+    resolution: {integrity: sha512-giH0/CzLOJ+wbxLxd5Shnr5xQf5fGnTRWLDe3lzjaF7IplVydNCEeZJtncB01SvyA6DAFJsvQ4LNxzAOQfEVCg==}
+    engines: {node: '>=14.21.3'}
+    cpu: [arm64]
+    os: [linux]
+    libc: [musl]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@biomejs/cli-linux-arm64@1.7.1:
+    resolution: {integrity: sha512-MQDf5wErj1iBvlcxCyOa0XqZYN8WJrupVgbNnqhntO3yVATg8GxduVUn1fDSaolznkDRsj7Pz3Xu1esBFwvfmg==}
+    engines: {node: '>=14.21.3'}
+    cpu: [arm64]
+    os: [linux]
+    libc: [glibc]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@biomejs/cli-linux-x64-musl@1.7.1:
+    resolution: {integrity: sha512-ySNDtPhsLxU125IFHHAxfpoHBpkM56s4mEXeO70GZtgZay/o1h8IUPWCWf5Z7gKgc4jwgYN1U1U9xabI3hZVAg==}
+    engines: {node: '>=14.21.3'}
+    cpu: [x64]
+    os: [linux]
+    libc: [musl]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@biomejs/cli-linux-x64@1.7.1:
+    resolution: {integrity: sha512-3wmCsGcC3KZ4pfTknXHfyMMlXPMhgfXVAcG5GlrR+Tq2JGiAw0EUydaLpsSBEbcG7IxH6OiUZEJZ95kAycCHBA==}
+    engines: {node: '>=14.21.3'}
+    cpu: [x64]
+    os: [linux]
+    libc: [glibc]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@biomejs/cli-win32-arm64@1.7.1:
+    resolution: {integrity: sha512-8hIDakEqZn0i6+388noYKdZ0ZrovTwnvMU/Qp/oJou0G7EPVdXupOe0oxiQSdRN0W7f6CS/yjPCYuVGzDG6r0g==}
+    engines: {node: '>=14.21.3'}
+    cpu: [arm64]
+    os: [win32]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@biomejs/cli-win32-x64@1.7.1:
+    resolution: {integrity: sha512-3W9k3uH6Ea6VOpAS9xkkAlS0LTfnGQjmIUCegZ8SDtK2NgJ1gO+qdEkGJb0ltahusFTN1QxJ107dM7ASA9IUEg==}
+    engines: {node: '>=14.21.3'}
+    cpu: [x64]
+    os: [win32]
+    requiresBuild: true
+    dev: true
+    optional: true
 
   /@ctrl/tinycolor@3.6.1:
     resolution: {integrity: sha512-SITSV6aIXsuVNV3f3O0f2n/cgyEDWoSqtZMYiAmcsYHydcKrOz3gUxB/iXd/Qf08+IZX4KpgNbvUdMBmWz+kcA==}
@@ -1192,7 +1287,7 @@ packages:
     engines: {node: '>=14'}
     dev: false
 
-  /@trivago/prettier-plugin-sort-imports@4.2.0(prettier@3.0.3):
+  /@trivago/prettier-plugin-sort-imports@4.2.0(prettier@3.2.5):
     resolution: {integrity: sha512-YBepjbt+ZNBVmN3ev1amQH3lWCmHyt5qTbLCp/syXJRu/Kw2koXh44qayB1gMRxcL/gV8egmjN5xWSrYyfUtyw==}
     peerDependencies:
       '@vue/compiler-sfc': 3.x
@@ -1207,7 +1302,7 @@ packages:
       '@babel/types': 7.17.0
       javascript-natural-sort: 0.7.1
       lodash: 4.17.21
-      prettier: 3.0.3
+      prettier: 3.2.5
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -1763,8 +1858,8 @@ packages:
     resolution: {integrity: sha512-fpWrvyVHEKyeEvbKZTVOeZF3VSKKWtJxFIxX/jaVPf+cLbGUSitjb49pHLqPV2BUNNZ0LcoeEGfE/YCpyDYHIw==}
     dev: false
 
-  /babylonjs-gltf2interface@6.20.1:
-    resolution: {integrity: sha512-2JXpjXyj+lu8HuCCLqjmjqP3lx8eRU5iQW4uR9yzu79tHez2JAVGAO14KOaAXDqquEqsoh+O+XY7AjmMarapVA==}
+  /babylonjs-gltf2interface@6.49.0:
+    resolution: {integrity: sha512-4qzKCgEayti/YUaeMgAAZxZJlx/kLqXxoC+G8gODYz9wOV9UjnHF09wREZ5cuELzzY/rjSJMqkgDfYbUQIQ6/A==}
     dev: false
 
   /balanced-match@1.0.2:
@@ -1837,7 +1932,7 @@ packages:
     engines: {node: '>= 6.0.0'}
     dependencies:
       mime-types: 2.1.35
-      ylru: 1.3.2
+      ylru: 1.4.0
     dev: false
 
   /call-bind@1.0.2:
@@ -2093,7 +2188,7 @@ packages:
       supports-color:
         optional: true
     dependencies:
-      ms: 2.1.2
+      ms: 2.1.3
       supports-color: 5.5.0
 
   /debug@4.3.4:
@@ -2630,6 +2725,7 @@ packages:
 
   /glob@7.1.6:
     resolution: {integrity: sha512-LwaxwyZ72Lk7vZINtNNrywX0ZuLyStrdDtabefZKAY5ZGJhVtgdznluResxNmPitE0SAO+O26sWTHeKSI2wMBA==}
+    deprecated: Glob versions prior to v9 are no longer supported
     dependencies:
       fs.realpath: 1.0.0
       inflight: 1.0.6
@@ -2694,8 +2790,8 @@ packages:
     engines: {node: '>= 0.4'}
     dev: false
 
-  /has-tostringtag@1.0.0:
-    resolution: {integrity: sha512-kFjcSNhnlGV1kyoGk7OXKSawH5JOb/LzUc5w9B02hOTO0dfFRjbHQKvg1d6cf3HbeUmtU9VbbV3qzZ2Teh97WQ==}
+  /has-tostringtag@1.0.2:
+    resolution: {integrity: sha512-NqADB8VjPFLM2V0VvHUewwwsw0ZWBaIdgo+ieHtK3hasLz4qeCRjYcqfB6AQrBggRKppKF8L52/VqdVsO47Dlw==}
     engines: {node: '>= 0.4'}
     dependencies:
       has-symbols: 1.0.3
@@ -2791,6 +2887,7 @@ packages:
 
   /inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
+    deprecated: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
     dependencies:
       once: 1.4.0
       wrappy: 1.0.2
@@ -2852,7 +2949,7 @@ packages:
     resolution: {integrity: sha512-jsEjy9l3yiXEQ+PsXdmBwEPcOxaXWLspKdplFUVI9vq1iZgIekeC0L167qeu86czQaxed3q/Uzuw0swL0irL8A==}
     engines: {node: '>= 0.4'}
     dependencies:
-      has-tostringtag: 1.0.0
+      has-tostringtag: 1.0.2
     dev: false
 
   /is-glob@4.0.3:
@@ -2999,6 +3096,7 @@ packages:
   /koa-router@12.0.0:
     resolution: {integrity: sha512-zGrdiXygGYW8WvrzeGsHZvKnHs4DzyGoqJ9a8iHlRkiwuEAOAPyI27//OlhoWdgFAEIM3qbUgr0KCuRaP/TCag==}
     engines: {node: '>= 12'}
+    deprecated: '**IMPORTANT 10x+ PERFORMANCE UPGRADE**: Please upgrade to v12.0.1+ as we have fixed an issue with debuglog causing 10x slower router benchmark performance, see https://github.com/koajs/router/pull/173'
     dependencies:
       http-errors: 2.0.0
       koa-compose: 4.1.0
@@ -3206,6 +3304,9 @@ packages:
 
   /ms@2.1.2:
     resolution: {integrity: sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==}
+
+  /ms@2.1.3:
+    resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
 
   /multer@1.4.5-lts.1:
     resolution: {integrity: sha512-ywPWvcDMeH+z9gQq5qYHCCy+ethsk4goepZ45GLD63fOu0YcNecQxi64nDs3qluZB+murG3/D4dJ7+dGctcCQQ==}
@@ -3452,12 +3553,12 @@ packages:
       is-wsl: 2.2.0
     dev: true
 
-  /opencascade.js@2.0.0-beta.b5ff984(ws@8.14.1):
+  /opencascade.js@2.0.0-beta.b5ff984(ws@8.16.0):
     resolution: {integrity: sha512-4ZIrYrfrCV7SXvQFSmbHlfueSYngQNWGVrRVloVaAEZHDSY+R1k2htdY4AU5axbIGkbWVmrj+M8nmyeMLAelwA==}
     peerDependencies:
       ws: ^8.5.0
     dependencies:
-      ws: 8.14.1
+      ws: 8.16.0
     dev: false
 
   /optionator@0.9.3:
@@ -3638,8 +3739,8 @@ packages:
     engines: {node: '>= 0.8.0'}
     dev: true
 
-  /prettier@3.0.3:
-    resolution: {integrity: sha512-L/4pUDMxcNa8R/EthV08Zt42WBO4h1rarVtK0K+QJG0X187OLo7l699jWw0GKuwzkPQ//jMFA/8Xm6Fh3J/DAg==}
+  /prettier@3.2.5:
+    resolution: {integrity: sha512-3/GWa9aOC0YeD7LUfvOG2NiDyhOWRvt1k+rcKhOuYnMY24iiCphgneUfJDyFXd6rZCAnuLBv6UeAULtrhT/F4A==}
     engines: {node: '>=14'}
     hasBin: true
     dev: true
@@ -5032,8 +5133,8 @@ packages:
   /wrappy@1.0.2:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
 
-  /ws@8.14.1:
-    resolution: {integrity: sha512-4OOseMUq8AzRBI/7SLMUwO+FEDnguetSk7KMb1sHwvF2w2Wv5Hoj0nlifx8vtGsftE/jWHojPy8sMMzYLJ2G/A==}
+  /ws@8.16.0:
+    resolution: {integrity: sha512-HS0c//TP7Ina87TfiPUz1rQzMhHrl/SG2guqRcTOIUYD2q8uhUdNHZYJUaQ8aTGPzCh+c6oawMKW35nFl1dxyQ==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
       bufferutil: ^4.0.1
@@ -5085,8 +5186,8 @@ packages:
       yargs-parser: 21.1.1
     dev: true
 
-  /ylru@1.3.2:
-    resolution: {integrity: sha512-RXRJzMiK6U2ye0BlGGZnmpwJDPgakn6aNQ0A7gHRbD4I0uvK4TW6UqkK1V0pp9jskjJBAXd3dRrbzWkqJ+6cxA==}
+  /ylru@1.4.0:
+    resolution: {integrity: sha512-2OQsPNEmBCvXuFlIni/a+Rn+R2pHW9INm0BxXJ4hVDA8TirqMj+J/Rp9ItLatT/5pZqWwefVrTQcHpixsxnVlA==}
     engines: {node: '>= 4.0.0'}
     dev: false
 
