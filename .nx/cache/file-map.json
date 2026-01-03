@@ -1,0 +1,697 @@
+{
+  "version": "6.0",
+  "nxVersion": "16.5.5",
+  "deps": {
+    "@biomejs/biome": "1.7.1",
+    "@trivago/prettier-plugin-sort-imports": "^4.2.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@typescript-eslint/eslint-plugin": "^5.57.1",
+    "@typescript-eslint/parser": "^5.57.1",
+    "@vitejs/plugin-react": "^4.0.0",
+    "axios": "^1.5.0",
+    "eslint": "^8.38.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.3.4",
+    "form-data": "^4.0.0",
+    "nx": "16.5.5",
+    "terser": "^5.19.2",
+    "tslib": "^2.6.2",
+    "turbo": "^1.10.13",
+    "typescript": "^5.0.2",
+    "vite": "^4.3.2"
+  },
+  "pathMappings": {},
+  "nxJsonPlugins": [],
+  "projectFileMap": {
+    "@lizhou/mesh-optimize": [
+      {
+        "file": "apps/mesh-optimize/Dockerfile",
+        "hash": "12911208117648814037"
+      },
+      {
+        "file": "apps/mesh-optimize/package.json",
+        "hash": "318847360059082241",
+        "deps": [
+          "npm:@gltf-transform/core",
+          "npm:@gltf-transform/extensions",
+          "npm:@gltf-transform/functions",
+          "npm:date-fns",
+          "npm:draco3dgltf",
+          "npm:koa",
+          "npm:koa-body",
+          "npm:koa-router",
+          "npm:koa-static",
+          "npm:koa2-cors",
+          "npm:meshoptimizer",
+          "npm:multer",
+          "npm:opencascade.js",
+          "npm:sharp",
+          "npm:nodemon"
+        ]
+      },
+      {
+        "file": "apps/mesh-optimize/public/DamagedHelmet/DamagedHelmet.bin",
+        "hash": "17516731449617750894"
+      },
+      {
+        "file": "apps/mesh-optimize/public/DamagedHelmet/DamagedHelmet.gltf",
+        "hash": "6107948990131167113"
+      },
+      {
+        "file": "apps/mesh-optimize/public/DamagedHelmet/Default_AO.jpg",
+        "hash": "10266696076699083351"
+      },
+      {
+        "file": "apps/mesh-optimize/public/DamagedHelmet/Default_albedo.jpg",
+        "hash": "11727125521918768924"
+      },
+      {
+        "file": "apps/mesh-optimize/public/DamagedHelmet/Default_emissive.jpg",
+        "hash": "859053791423071704"
+      },
+      {
+        "file": "apps/mesh-optimize/public/DamagedHelmet/Default_metalRoughness.jpg",
+        "hash": "12858487771665286040"
+      },
+      {
+        "file": "apps/mesh-optimize/public/DamagedHelmet/Default_normal.jpg",
+        "hash": "18112206796990566802"
+      },
+      {
+        "file": "apps/mesh-optimize/public/LittlestTokyo.glb",
+        "hash": "3011917800297421062"
+      },
+      {
+        "file": "apps/mesh-optimize/public/Soldier.glb",
+        "hash": "2784641972607029389"
+      },
+      {
+        "file": "apps/mesh-optimize/public/Xbot.glb",
+        "hash": "7969140111590551404"
+      },
+      {
+        "file": "apps/mesh-optimize/public/index.html",
+        "hash": "4232406611078883605"
+      },
+      {
+        "file": "apps/mesh-optimize/src/convert.js",
+        "hash": "5279238117276877938"
+      },
+      {
+        "file": "apps/mesh-optimize/src/index.js",
+        "hash": "10902053068471243639"
+      },
+      {
+        "file": "apps/mesh-optimize/src/transform.js",
+        "hash": "16033817100836726079"
+      }
+    ],
+    "personal-site": [
+      {
+        "file": "apps/personal-site/.gitignore",
+        "hash": "1867017717006394117"
+      },
+      {
+        "file": "apps/personal-site/README.md",
+        "hash": "10766794746169900117"
+      },
+      {
+        "file": "apps/personal-site/app/favicon.ico",
+        "hash": "9157999678830540297"
+      },
+      {
+        "file": "apps/personal-site/app/globals.css",
+        "hash": "13803416617225302536"
+      },
+      {
+        "file": "apps/personal-site/app/layout.tsx",
+        "hash": "3768300601413009371"
+      },
+      {
+        "file": "apps/personal-site/app/page.tsx",
+        "hash": "14773234855831957016"
+      },
+      {
+        "file": "apps/personal-site/eslint.config.mjs",
+        "hash": "11456145150381806295"
+      },
+      {
+        "file": "apps/personal-site/next.config.ts",
+        "hash": "17157214668998829023"
+      },
+      {
+        "file": "apps/personal-site/package.json",
+        "hash": "2137164945309732239",
+        "deps": [
+          "npm:react",
+          "npm:react-dom",
+          "npm:@types/node",
+          "npm:@types/react",
+          "npm:@types/react-dom",
+          "npm:eslint",
+          "npm:tailwindcss",
+          "npm:typescript"
+        ]
+      },
+      {
+        "file": "apps/personal-site/pnpm-lock.yaml",
+        "hash": "1320003955825189780"
+      },
+      {
+        "file": "apps/personal-site/pnpm-workspace.yaml",
+        "hash": "11798434003721599344"
+      },
+      {
+        "file": "apps/personal-site/postcss.config.mjs",
+        "hash": "12094959087305894889"
+      },
+      {
+        "file": "apps/personal-site/public/file.svg",
+        "hash": "15617830351863523835"
+      },
+      {
+        "file": "apps/personal-site/public/globe.svg",
+        "hash": "9134466864871335697"
+      },
+      {
+        "file": "apps/personal-site/public/next.svg",
+        "hash": "8300767200008744458"
+      },
+      {
+        "file": "apps/personal-site/public/vercel.svg",
+        "hash": "3007623926711696394"
+      },
+      {
+        "file": "apps/personal-site/public/window.svg",
+        "hash": "16677869292061012332"
+      },
+      {
+        "file": "apps/personal-site/tsconfig.json",
+        "hash": "8097238392793607448"
+      }
+    ],
+    "samples-3d": [
+      {
+        "file": ".dockerignore",
+        "hash": "15352010184729618399"
+      },
+      {
+        "file": ".gitignore",
+        "hash": "5985137693933048657"
+      },
+      {
+        "file": ".npmrc",
+        "hash": "13788509502085999695"
+      },
+      {
+        "file": ".prettierrc",
+        "hash": "11518820434124495770"
+      },
+      {
+        "file": ".vscode/settings.json",
+        "hash": "13301302949834851360"
+      },
+      {
+        "file": "LICENSE",
+        "hash": "3677930472965700228"
+      },
+      {
+        "file": "README.md",
+        "hash": "12771257676988691511"
+      },
+      {
+        "file": "biome.json",
+        "hash": "1954595164018650008"
+      },
+      {
+        "file": "deploy/nginx.conf",
+        "hash": "18256352451941179739"
+      },
+      {
+        "file": "designer.html",
+        "hash": "3840535851768862457"
+      },
+      {
+        "file": "docker-compose.yml",
+        "hash": "18009013149051130273"
+      },
+      {
+        "file": "nx.json",
+        "hash": "17488316352398793664"
+      },
+      {
+        "file": "package.json",
+        "hash": "1987123456611674105",
+        "deps": [
+          "npm:@biomejs/biome",
+          "npm:@trivago/prettier-plugin-sort-imports",
+          "npm:@types/react",
+          "npm:@types/react-dom",
+          "npm:@typescript-eslint/eslint-plugin",
+          "npm:@typescript-eslint/parser",
+          "npm:@vitejs/plugin-react",
+          "npm:axios",
+          "npm:eslint",
+          "npm:eslint-plugin-react-hooks",
+          "npm:eslint-plugin-react-refresh",
+          "npm:form-data",
+          "npm:nx",
+          "npm:terser",
+          "npm:tslib",
+          "npm:turbo",
+          "npm:typescript",
+          "npm:vite"
+        ]
+      },
+      {
+        "file": "pnpm-lock.yaml",
+        "hash": "17422155265300999099"
+      },
+      {
+        "file": "pnpm-workspace.yaml",
+        "hash": "2402858569772394028"
+      },
+      {
+        "file": "scripts/publish.js",
+        "hash": "6255853542256593784"
+      },
+      {
+        "file": "todo.md",
+        "hash": "16150970829163855346"
+      },
+      {
+        "file": "turbo.json",
+        "hash": "14830772391563606854"
+      }
+    ],
+    "@lizhou/3d-samples": [
+      {
+        "file": "apps/website/.env",
+        "hash": "8162453011749242183"
+      },
+      {
+        "file": "apps/website/.eslintrc.cjs",
+        "hash": "17616892838835472983"
+      },
+      {
+        "file": "apps/website/Dockerfile",
+        "hash": "447312348452740111"
+      },
+      {
+        "file": "apps/website/index.html",
+        "hash": "10958393620423099462"
+      },
+      {
+        "file": "apps/website/package.json",
+        "hash": "107113521852927745",
+        "deps": [
+          "npm:@ant-design/icons",
+          "npm:@babylonjs/core",
+          "npm:@babylonjs/gui",
+          "npm:@babylonjs/gui-editor",
+          "npm:@babylonjs/inspector",
+          "npm:@babylonjs/loaders",
+          "npm:@babylonjs/materials",
+          "npm:@babylonjs/serializers",
+          "npm:@types/dat.gui",
+          "npm:@types/three",
+          "npm:antd",
+          "npm:dat.gui",
+          "npm:gsap",
+          "npm:konva",
+          "npm:react",
+          "npm:react-dom",
+          "npm:react-router-dom",
+          "npm:three",
+          "npm:zustand",
+          "npm:@types/react",
+          "npm:@types/react-dom",
+          "npm:autoprefixer",
+          "npm:postcss",
+          "npm:tailwindcss"
+        ]
+      },
+      {
+        "file": "apps/website/postcss.config.js",
+        "hash": "15693758819557691193"
+      },
+      {
+        "file": "apps/website/public/Babylon.js_Logo.png",
+        "hash": "361984826044561252"
+      },
+      {
+        "file": "apps/website/public/Cube-1s-200px.gif",
+        "hash": "17106810082985502383"
+      },
+      {
+        "file": "apps/website/public/dodream2.jpg",
+        "hash": "16741424027096313408"
+      },
+      {
+        "file": "apps/website/public/models/HillValley.babylon",
+        "hash": "16687215355109352329"
+      },
+      {
+        "file": "apps/website/public/models/city.fbx",
+        "hash": "709134274592352282"
+      },
+      {
+        "file": "apps/website/public/models/city.glb",
+        "hash": "13361318026559155795"
+      },
+      {
+        "file": "apps/website/public/models/dog.STEP",
+        "hash": "15566560982894296124"
+      },
+      {
+        "file": "apps/website/public/models/seagulf.glb",
+        "hash": "835122494353115000"
+      },
+      {
+        "file": "apps/website/public/models/wolf.STEP",
+        "hash": "607099796980936210"
+      },
+      {
+        "file": "apps/website/public/textures/snow/Material_395.png",
+        "hash": "17580523506125342152"
+      },
+      {
+        "file": "apps/website/public/textures/snow/Snow_003_COLOR.jpg",
+        "hash": "12804895867506630891"
+      },
+      {
+        "file": "apps/website/public/textures/snow/Snow_003_DISP.png",
+        "hash": "2651138968560042327"
+      },
+      {
+        "file": "apps/website/public/textures/snow/Snow_003_NORM.jpg",
+        "hash": "11268470373934668632"
+      },
+      {
+        "file": "apps/website/public/textures/snow/Snow_003_OCC.jpg",
+        "hash": "9726419983784260615"
+      },
+      {
+        "file": "apps/website/public/textures/snow/Snow_003_ROUGH.jpg",
+        "hash": "1699846036496461780"
+      },
+      {
+        "file": "apps/website/public/threejs.svg",
+        "hash": "9326035281284756523"
+      },
+      {
+        "file": "apps/website/public/vite.svg",
+        "hash": "16046085400642193116"
+      },
+      {
+        "file": "apps/website/src/App.css",
+        "hash": "8381962660979149111"
+      },
+      {
+        "file": "apps/website/src/App.tsx",
+        "hash": "14009009355235930981"
+      },
+      {
+        "file": "apps/website/src/assets/coversnow1.jpg",
+        "hash": "621176403863716115"
+      },
+      {
+        "file": "apps/website/src/assets/preview2.png",
+        "hash": "8880538825533671417"
+      },
+      {
+        "file": "apps/website/src/assets/radar.png",
+        "hash": "6584924013590575260"
+      },
+      {
+        "file": "apps/website/src/assets/react.svg",
+        "hash": "16069471864800376455"
+      },
+      {
+        "file": "apps/website/src/assets/southeast.jpg",
+        "hash": "7487413082245030721"
+      },
+      {
+        "file": "apps/website/src/assets/threejs-preview/room.png",
+        "hash": "3881795555975109749"
+      },
+      {
+        "file": "apps/website/src/components/babylon-canvas/index.tsx",
+        "hash": "267093868259998423"
+      },
+      {
+        "file": "apps/website/src/components/babylon-canvas/map.tsx",
+        "hash": "6835575332050548508"
+      },
+      {
+        "file": "apps/website/src/components/loading/index.tsx",
+        "hash": "6374120408655294796"
+      },
+      {
+        "file": "apps/website/src/components/node-list/index.tsx",
+        "hash": "13146658784275885161"
+      },
+      {
+        "file": "apps/website/src/components/render-bjs/index.tsx",
+        "hash": "1187170063031596959"
+      },
+      {
+        "file": "apps/website/src/components/render-bjs/material.ts",
+        "hash": "13746177909286788221"
+      },
+      {
+        "file": "apps/website/src/components/render-threejs/index.tsx",
+        "hash": "4445060433281328519"
+      },
+      {
+        "file": "apps/website/src/components/samples/2d.tsx",
+        "hash": "11227391008560762430"
+      },
+      {
+        "file": "apps/website/src/components/samples/config.tsx",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "apps/website/src/components/samples/index.less",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "apps/website/src/components/samples/index.tsx",
+        "hash": "5164072424047933714"
+      },
+      {
+        "file": "apps/website/src/components/three-canvas/map.tsx",
+        "hash": "5720974830528026744"
+      },
+      {
+        "file": "apps/website/src/engine/babylonjs/ScanMaterialPlugin.ts",
+        "hash": "18163470739813968562"
+      },
+      {
+        "file": "apps/website/src/engine/babylonjs/SnowCoverMaterialPlugin.ts",
+        "hash": "13477346824336039055"
+      },
+      {
+        "file": "apps/website/src/engine/babylonjs/common/init.ts",
+        "hash": "10190227803994595840"
+      },
+      {
+        "file": "apps/website/src/engine/babylonjs/common/load.ts",
+        "hash": "13046270774330951865"
+      },
+      {
+        "file": "apps/website/src/engine/babylonjs/home/index.ts",
+        "hash": "9046748898270089320"
+      },
+      {
+        "file": "apps/website/src/engine/babylonjs/render-list/clip-particles/index.ts",
+        "hash": "6712652903930188284"
+      },
+      {
+        "file": "apps/website/src/engine/babylonjs/render-list/lazy-load-material/index.ts",
+        "hash": "1040121900312202064"
+      },
+      {
+        "file": "apps/website/src/engine/babylonjs/render-list/mesh-optimize/index.ts",
+        "hash": "12799109730923407928"
+      },
+      {
+        "file": "apps/website/src/engine/babylonjs/render-list/model-viewer/explode.ts",
+        "hash": "15871097634738098874"
+      },
+      {
+        "file": "apps/website/src/engine/babylonjs/render-list/model-viewer/index.ts",
+        "hash": "5671234474884875742"
+      },
+      {
+        "file": "apps/website/src/engine/babylonjs/render-list/radar/index.ts",
+        "hash": "9614080134443644259"
+      },
+      {
+        "file": "apps/website/src/engine/babylonjs/render-list/scan/index.ts",
+        "hash": "12933347616549823907"
+      },
+      {
+        "file": "apps/website/src/engine/babylonjs/render-list/snow/index.ts",
+        "hash": "10488397298165954556"
+      },
+      {
+        "file": "apps/website/src/engine/babylonjs/shader.ts",
+        "hash": "10194609161937840712"
+      },
+      {
+        "file": "apps/website/src/engine/babylonjs/shaders/radar.ts",
+        "hash": "16345858190292640288"
+      },
+      {
+        "file": "apps/website/src/engine/effect/snow.ts",
+        "hash": "9618764764841777284"
+      },
+      {
+        "file": "apps/website/src/engine/fly-line/flyLine.fs",
+        "hash": "668161637319791197"
+      },
+      {
+        "file": "apps/website/src/engine/fly-line/flyLine.vs",
+        "hash": "13053265523166667998"
+      },
+      {
+        "file": "apps/website/src/engine/fly-line/trhee-fly-line.ts",
+        "hash": "195903308525726658"
+      },
+      {
+        "file": "apps/website/src/engine/index.ts",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "apps/website/src/engine/initThree.ts",
+        "hash": "7438276740736443027"
+      },
+      {
+        "file": "apps/website/src/engine/utils/fetch.ts",
+        "hash": "15465626640780823546"
+      },
+      {
+        "file": "apps/website/src/engine/utils/file.ts",
+        "hash": "14676156126618981070"
+      },
+      {
+        "file": "apps/website/src/engine/utils/index.ts",
+        "hash": "17691512078027857034"
+      },
+      {
+        "file": "apps/website/src/engine/viewer/Render.ts",
+        "hash": "8716340126917951368"
+      },
+      {
+        "file": "apps/website/src/engine/viewer/ThreeViewer.ts",
+        "hash": "17949964431666263922"
+      },
+      {
+        "file": "apps/website/src/github.css",
+        "hash": "6913472082833359116"
+      },
+      {
+        "file": "apps/website/src/index.css",
+        "hash": "9974699510029120134"
+      },
+      {
+        "file": "apps/website/src/main.tsx",
+        "hash": "1483480939375355134"
+      },
+      {
+        "file": "apps/website/src/shaders/home/index.fs",
+        "hash": "4869157232595561466"
+      },
+      {
+        "file": "apps/website/src/shaders/home/index.vs",
+        "hash": "17412638581798892483"
+      },
+      {
+        "file": "apps/website/src/shaders/index.ts",
+        "hash": "5816934276156861282"
+      },
+      {
+        "file": "apps/website/src/shaders/test/index.fs",
+        "hash": "17450809810368900023"
+      },
+      {
+        "file": "apps/website/src/shaders/test/index.vs",
+        "hash": "4149411389655321267"
+      },
+      {
+        "file": "apps/website/src/stores/index.ts",
+        "hash": "3881954618064593210"
+      },
+      {
+        "file": "apps/website/src/stores/render-store.ts",
+        "hash": "8598134771975312958"
+      },
+      {
+        "file": "apps/website/src/stores/root-store.ts",
+        "hash": "10976561211290203503"
+      },
+      {
+        "file": "apps/website/src/stores/stores.ts",
+        "hash": "14894978940260418370"
+      },
+      {
+        "file": "apps/website/src/stores/types.ts",
+        "hash": "6745524987962637560"
+      },
+      {
+        "file": "apps/website/src/utils/bjs-utils.ts",
+        "hash": "11929660819353010821"
+      },
+      {
+        "file": "apps/website/src/utils/host.ts",
+        "hash": "17376713938112228258"
+      },
+      {
+        "file": "apps/website/src/utils/loaders.ts",
+        "hash": "17039914033966346226"
+      },
+      {
+        "file": "apps/website/src/utils/utils.ts",
+        "hash": "4393227213756250190"
+      },
+      {
+        "file": "apps/website/src/view/2d/VisualList.tsx",
+        "hash": "10589360541733913829"
+      },
+      {
+        "file": "apps/website/src/view/ErrorPage.tsx",
+        "hash": "11800929230248244336"
+      },
+      {
+        "file": "apps/website/src/view/Root.tsx",
+        "hash": "16095587731010743186"
+      },
+      {
+        "file": "apps/website/src/view/Test.tsx",
+        "hash": "5905821492552942948"
+      },
+      {
+        "file": "apps/website/src/vite-env.d.ts",
+        "hash": "7856441258253745083"
+      },
+      {
+        "file": "apps/website/tailwind.config.js",
+        "hash": "6048690551038708254"
+      },
+      {
+        "file": "apps/website/tsconfig.json",
+        "hash": "8741421474554641865"
+      },
+      {
+        "file": "apps/website/tsconfig.node.json",
+        "hash": "6447909583214678802"
+      },
+      {
+        "file": "apps/website/vite.config.ts",
+        "hash": "14693609138405042506"
+      }
+    ]
+  }
+}

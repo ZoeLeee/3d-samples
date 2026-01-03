@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Li Zhou - 个人作品集</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+                'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+                sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Navigation */
+        header {
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: #0ea5e9;
+            text-decoration: none;
+            margin-right: 60px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+            flex: 1;
+        }
+
+        .nav-links a {
+            color: #666;
+            text-decoration: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: color 0.3s;
+            padding: 5px 0;
+            border-bottom: 3px solid transparent;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #0ea5e9;
+            border-bottom-color: #0ea5e9;
+        }
+
+        /* Page Container */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* ============ HOME PAGE ============ */
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 100px 40px;
+            text-align: center;
+            border-radius: 12px;
+            margin-bottom: 60px;
+        }
+
+        .hero-section h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .hero-section p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 12px 32px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: transform 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .featured-section {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .featured-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .featured-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .featured-card-image {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+        }
+
+        .featured-card-content {
+            padding: 20px;
+        }
+
+        .featured-card-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .featured-card-desc {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* ============ PROJECTS PAGE ============ */
+        .projects-header {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .projects-header h1 {
+            font-size: 36px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .projects-header p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .filter-tab {
+            padding: 10px 24px;
+            border: 2px solid #ddd;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+            color: #666;
+        }
+
+        .filter-tab:hover,
+        .filter-tab.active {
+            border-color: #0ea5e9;
+            color: #0ea5e9;
+            background: #f0f9ff;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-card-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+        }
+
+        .project-card-content {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-tag {
+            display: inline-block;
+            background: #e3f2fd;
+            color: #0ea5e9;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            width: fit-content;
+        }
+
+        .project-card-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .project-card-desc {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            flex: 1;
+        }
+
+        .project-tech-list {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .tech-badge {
+            background: #f0f0f0;
+            color: #666;
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+
+        .project-footer {
+            display: flex;
+            gap: 10px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .project-btn {
+            flex: 1;
+            padding: 8px 12px;
+            background: #f0f0f0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background 0.3s;
+            color: #333;
+        }
+
+        .project-btn:hover {
+            background: #0ea5e9;
+            color: white;
+        }
+
+        /* ============ PROJECT DETAIL PAGE ============ */
+        .detail-header {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #0ea5e9;
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .detail-header h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .detail-meta {
+            display: flex;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .meta-label {
+            font-size: 12px;
+            color: #999;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .meta-value {
+            font-size: 16px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .detail-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+        }
+
+        .detail-main {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .detail-image {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 8px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+        }
+
+        .detail-section {
+            margin-bottom: 40px;
+        }
+
+        .detail-section h2 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .detail-section p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+
+        .detail-tech-list {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .detail-tech-item {
+            background: #e3f2fd;
+            color: #0ea5e9;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .detail-sidebar {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            height: fit-content;
+        }
+
+        .sidebar-section {
+            margin-bottom: 30px;
+        }
+
+        .sidebar-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .sidebar-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #999;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        .sidebar-content {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .sidebar-item {
+            padding: 12px;
+            background: #f5f5f5;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .action-button {
+            width: 100%;
+            padding: 12px 20px;
+            background: #0ea5e9;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-bottom: 10px;
+        }
+
+        .action-button:hover {
+            background: #0d8bb8;
+        }
+
+        .action-button.secondary {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .action-button.secondary:hover {
+            background: #e0e0e0;
+        }
+
+        /* ============ SKILLS PAGE ============ */
+        .skills-header {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .skills-header h1 {
+            font-size: 36px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .skills-header p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .skill-category {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .skill-category h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #0ea5e9;
+        }
+
+        .skill-items {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .skill-item-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: #f5f5f5;
+            border-radius: 4px;
+        }
+
+        .skill-item-box::before {
+            content: '✓';
+            color: #0ea5e9;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .skill-item-name {
+            color: #333;
+            font-weight: 500;
+        }
+
+        /* ============ ABOUT PAGE ============ */
+        .about-container {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .about-header h1 {
+            font-size: 42px;
+            margin-bottom: 10px;
+        }
+
+        .about-header p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        .about-body {
+            padding: 60px 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .about-text h2 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .about-text p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 20px;
+            background: #f5f5f5;
+            border-radius: 8px;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: #0ea5e9;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .about-image {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+        }
+
+        /* ============ CONTACT PAGE ============ */
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-header {
+            background: white;
+            padding: 60px 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .contact-header h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .contact-header p {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .contact-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .contact-link {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.3s;
+        }
+
+        .contact-link:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+            color: #0ea5e9;
+        }
+
+        .contact-link-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .contact-link-text {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 20px;
+            }
+
+            .detail-content {
+                grid-template-columns: 1fr;
+            }
+
+            .about-body {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .projects-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+
+            .hero-section h1 {
+                font-size: 32px;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header>
+        <nav>
+            <a href="#" class="logo">LZ Portfolio</a>
+            <ul class="nav-links">
+                <li><a onclick="showPage('home')" class="nav-link active">首页</a></li>
+                <li><a onclick="showPage('projects')" class="nav-link">项目</a></li>
+                <li><a onclick="showPage('skills')" class="nav-link">技能</a></li>
+                <li><a onclick="showPage('about')" class="nav-link">关于</a></li>
+                <li><a onclick="showPage('contact')" class="nav-link">联系</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- ========== HOME PAGE ========== -->
+    <div id="home-page" class="page active">
+        <div class="container">
+            <section class="hero-section">
+                <h1>Hi, I'm Li Zhou</h1>
+                <p>3D 可视化工程师 | 全栈开发者 | 创意开发者</p>
+                <button class="cta-button" onclick="showPage('projects')">查看作品</button>
+            </section>
+
+            <section class="featured-section">
+                <h2 class="section-title">精选项目</h2>
+                <div class="featured-grid">
+                    <div class="featured-card" onclick="showProjectDetail('project-1')">
+                        <div class="featured-card-image">🏙️</div>
+                        <div class="featured-card-content">
+                            <div class="featured-card-title">3D 城市漫游系统</div>
+                            <div class="featured-card-desc">高性能的 3D 城市场景渲染系统</div>
+                        </div>
+                    </div>
+                    <div class="featured-card" onclick="showProjectDetail('project-2')">
+                        <div class="featured-card-image">🎨</div>
+                        <div class="featured-card-content">
+                            <div class="featured-card-title">模型优化工具</div>
+                            <div class="featured-card-desc">专业的 3D 模型优化和压缩平台</div>
+                        </div>
+                    </div>
+                    <div class="featured-card" onclick="showProjectDetail('project-3')">
+                        <div class="featured-card-image">✨</div>
+                        <div class="featured-card-content">
+                            <div class="featured-card-title">交互式模型查看器</div>
+                            <div class="featured-card-desc">支持多种 3D 格式的查看器</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- ========== PROJECTS PAGE ========== -->
+    <div id="projects-page" class="page">
+        <div class="container">
+            <div class="projects-header">
+                <h1>我的项目</h1>
+                <p>探索我在 3D 场景、2D 应用和工具开发方面的作品</p>
+            </div>
+
+            <div class="filter-tabs">
+                <button class="filter-tab active" onclick="filterProjects('all')">全部</button>
+                <button class="filter-tab" onclick="filterProjects('3d')">3D 场景</button>
+                <button class="filter-tab" onclick="filterProjects('2d')">2D 应用</button>
+                <button class="filter-tab" onclick="filterProjects('tool')">工具平台</button>
+            </div>
+
+            <div class="projects-grid" id="projects-grid">
+                <!-- Projects will be generated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== PROJECT DETAIL PAGE ========== -->
+    <div id="detail-page" class="page">
+        <div class="container">
+            <a class="back-link" onclick="showPage('projects')">← 返回项目列表</a>
+
+            <div class="detail-header" id="detail-header">
+                <!-- Will be populated by JavaScript -->
+            </div>
+
+            <div class="detail-content" id="detail-content">
+                <!-- Will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== SKILLS PAGE ========== -->
+    <div id="skills-page" class="page">
+        <div class="container">
+            <div class="skills-header">
+                <h1>技能与技术栈</h1>
+                <p>我熟悉的工具和技术</p>
+            </div>
+
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>3D 引擎</h3>
+                    <div class="skill-items">
+                        <div class="skill-item-box"><span class="skill-item-name">Babylon.js</span></div>
+                        <div class="skill-item-box"><span class="skill-item-name">Three.js</span></div>
+                        <div class="skill-item-box"><span class="skill-item-name">Cesium.js</span></div>
+                        <div class="skill-item-box"><span class="skill-item-name">WebGL</span></div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>前端框架</h3>
+                    <div class="skill-items">
+                        <div class="skill-item-box"><span class="skill-item-name">React</span></div>
+                        <div class="skill-item-box"><span class="skill-item-name">TypeScript</span></div>
+                        <div class="skill-item-box"><span class="skill-item-name">Tailwind CSS</span></div>
+                        <div class="skill-item-box"><span class="skill-item-name">Vite</span></div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>后端开发</h3>
+                    <div class="skill-items">
+                        <div class="skill-item-box"><span class="skill-item-name">Node.js</span></div>
+                        <div class="skill-item-box"><span class="skill-item-name">Koa</span></div>
+                        <div class="skill-item-box"><span class="skill-item-name">Express</span></div>
+                        <div class="skill-item-box"><span class="skill-item-name">MongoDB</span></div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>3D 处理</h3>
+                    <div class="skill-items">
+                        <div class="skill-item-box"><span class="skill-item-name">GLTF/GLB</span></div>
+                        <div class="skill-item-box"><span class="skill-item-name">Draco</span></div>
+                        <div class="skill-item-box"><span class="skill-item-name">MeshOptimizer</span></div>
+                        <div class="skill-item-box"><span class="skill-item-name">OpenCASCADE</span></div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>图形学</h3>
+                    <div class="skill-items">
+                        <div class="skill-item-box"><span class="skill-item-name">GLSL</span></div>
+                        <div class="skill-item-box"><span class="skill-item-name">Shader</span></div>
+                        <div class="skill-item-box"><span class="skill-item-name">PBR</span></div>
+                        <div class="skill-item-box"><span class="skill-item-name">光照</span></div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>开发工具</h3>
+                    <div class="skill-items">
+                        <div class="skill-item-box"><span class="skill-item-name">Git</span></div>
+                        <div class="skill-item-box"><span class="skill-item-name">Docker</span></div>
+                        <div class="skill-item-box"><span class="skill-item-name">npm/pnpm</span></div>
+                        <div class="skill-item-box"><span class="skill-item-name">VS Code</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== ABOUT PAGE ========== -->
+    <div id="about-page" class="page">
+        <div class="container">
+            <div class="about-container">
+                <div class="about-header">
+                    <h1>关于我</h1>
+                    <p>3D 可视化工程师与全栈开发者</p>
+                </div>
+
+                <div class="about-body">
+                    <div class="about-text">
+                        <h2>Li Zhou</h2>
+                        <p>我是一名专注于 3D 可视化和交互式应用开发的全栈工程师。拥有多年的 Web 3D 开发经验，在 Babylon.js、Three.js 等框架上有深入的研究。</p>
+                        <p>我热衷于探索新的技术，特别是在 WebGL、3D 模型优化、实时渲染等领域。同时也具备完整的全栈开发能力，从前端界面到后端服务器都能胜任。</p>
+                        <p>在工作中，我强调代码质量、性能优化和用户体验，致力于创建高效、可维护的解决方案。</p>
+
+                        <div class="about-stats">
+                            <div class="stat">
+                                <div class="stat-number">5+</div>
+                                <div class="stat-label">年开发经验</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-number">20+</div>
+                                <div class="stat-label">已完成项目</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-number">100%</div>
+                                <div class="stat-label">交付质量</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="about-image">👨‍💻</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== CONTACT PAGE ========== -->
+    <div id="contact-page" class="page">
+        <div class="container">
+            <div class="contact-container">
+                <div class="contact-header">
+                    <h1>让我们合作</h1>
+                    <p>如果你对我的项目感兴趣，或者想讨论任何关于 3D 开发、Web 技术的话题，欢迎通过以下方式联系我。</p>
+                </div>
+
+                <div class="contact-links">
+                    <a href="mailto:your-email@example.com" class="contact-link">
+                        <span class="contact-link-icon">✉️</span>
+                        <span class="contact-link-text">邮箱</span>
+                    </a>
+                    <a href="https://github.com" target="_blank" class="contact-link">
+                        <span class="contact-link-icon">🐙</span>
+                        <span class="contact-link-text">GitHub</span>
+                    </a>
+                    <a href="https://linkedin.com" target="_blank" class="contact-link">
+                        <span class="contact-link-icon">💼</span>
+                        <span class="contact-link-text">LinkedIn</span>
+                    </a>
+                    <a href="https://twitter.com" target="_blank" class="contact-link">
+                        <span class="contact-link-icon">𝕏</span>
+                        <span class="contact-link-text">Twitter</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 项目数据
+        const projectsData = [
+            {
+                id: 'project-1',
+                title: '3D 城市漫游系统',
+                category: '3d',
+                icon: '🏙️',
+                shortDesc: '高性能的 3D 城市场景渲染系统',
+                fullDesc: '高性能的 3D 城市场景渲染系统，支持实时光照、阴影和粒子效果。采用 Three.js 和 Babylon.js 混合架构，可处理大规模场景渲染。',
+                tech: ['Three.js', 'Babylon.js', 'WebGL', 'React'],
+                status: '已完成',
+                date: '2024年3月',
+                link: '#',
+                repo: '#'
+            },
+            {
+                id: 'project-2',
+                title: '模型优化工具',
+                category: '3d',
+                icon: '🎨',
+                shortDesc: '专业的 3D 模型优化和压缩平台',
+                fullDesc: '专业的 3D 模型优化平台，支持 GLTF/GLB 压缩、拓扑优化和材质烘焙。集成 Draco、MeshOptimizer 等先进算法，可大幅减小模型文件大小。',
+                tech: ['Draco', 'MeshOptimizer', 'Node.js', 'Koa', 'React'],
+                status: '已完成',
+                date: '2024年2月',
+                link: '#',
+                repo: '#'
+            },
+            {
+                id: 'project-3',
+                title: '交互式模型查看器',
+                category: '3d',
+                icon: '✨',
+                shortDesc: '支持多种 3D 格式的查看器',
+                fullDesc: '支持多种 3D 格式的交互式查看器，包括 GLTF、FBX、OBJ、STEP 等。支持爆炸视图、动画播放和实时配置调整。',
+                tech: ['Babylon.js', 'Three.js', 'React', 'TypeScript'],
+                status: '已完成',
+                date: '2024年1月',
+                link: '#',
+                repo: '#'
+            },
+            {
+                id: 'project-4',
+                title: '雪景特效系统',
+                category: '3d',
+                icon: '❄️',
+                shortDesc: '高度可定制的雪景渲染系统',
+                fullDesc: '高度可定制的雪景渲染系统，包括雪粒子、积雪贴图和动态光照。支持实时参数调整和多平台兼容。',
+                tech: ['Babylon.js', 'GLSL', 'Shader'],
+                status: '已完成',
+                date: '2023年12月',
+                link: '#',
+                repo: '#'
+            },
+            {
+                id: 'project-5',
+                title: '雷达扫描可视化',
+                category: '3d',
+                icon: '📡',
+                shortDesc: '实时 3D 雷达扫描效果',
+                fullDesc: '实时 3D 雷达扫描效果，支持数据绑定和动态更新。完美适配地理信息、监控等应用场景。',
+                tech: ['Babylon.js', 'Custom Shader', 'Real-time'],
+                status: '已完成',
+                date: '2023年11月',
+                link: '#',
+                repo: '#'
+            },
+            {
+                id: 'project-6',
+                title: '粒子特效引擎',
+                category: '3d',
+                icon: '🎬',
+                shortDesc: '通用的 3D 粒子特效系统',
+                fullDesc: '通用的 3D 粒子特效系统，支持自定义粒子行为、物理模拟和碰撞检测。',
+                tech: ['Babylon.js', 'Physics', 'GLSL'],
+                status: '已完成',
+                date: '2023年10月',
+                link: '#',
+                repo: '#'
+            },
+            {
+                id: 'project-7',
+                title: 'Canvas 绘图工具',
+                category: '2d',
+                icon: '🎮',
+                shortDesc: '功能丰富的 2D 绘图和图形编辑工具',
+                fullDesc: '功能丰富的 2D 绘图和图形编辑工具，支持多种画笔、图层系统和实时渲染。',
+                tech: ['Canvas API', 'Konva.js', 'React'],
+                status: '已完成',
+                date: '2023年9月',
+                link: '#',
+                repo: '#'
+            },
+            {
+                id: 'project-8',
+                title: '数据可视化平台',
+                category: '2d',
+                icon: '📊',
+                shortDesc: '企业级数据可视化系统',
+                fullDesc: '企业级数据可视化系统，支持多种图表类型、实时数据更新和自定义主题。',
+                tech: ['D3.js', 'Chart.js', 'React'],
+                status: '已完成',
+                date: '2023年8月',
+                link: '#',
+                repo: '#'
+            },
+            {
+                id: 'project-9',
+                title: '交互式地图工具',
+                category: '2d',
+                icon: '🎯',
+                shortDesc: '基于 Leaflet/Mapbox 的交互式地图应用',
+                fullDesc: '基于 Leaflet/Mapbox 的交互式地图应用，支持地理数据展示、路线规划和实时定位。',
+                tech: ['Leaflet', 'Mapbox', 'GeoJSON'],
+                status: '已完成',
+                date: '2023年7月',
+                link: '#',
+                repo: '#'
+            },
+            {
+                id: 'project-10',
+                title: '模型转换工具',
+                category: 'tool',
+                icon: '⚙️',
+                shortDesc: '支持多格式 3D 模型转换的在线工具',
+                fullDesc: '支持多格式 3D 模型转换的在线工具，包括 OBJ、FBX、GLTF 等。快速、可靠、支持批量处理。',
+                tech: ['Node.js', 'Web Workers', 'WebGL'],
+                status: '已完成',
+                date: '2023年6月',
+                link: '#',
+                repo: '#'
+            },
+            {
+                id: 'project-11',
+                title: '纹理生成工具',
+                category: 'tool',
+                icon: '🛠️',
+                shortDesc: 'AI 驱动的 PBR 纹理生成和编辑工具',
+                fullDesc: 'AI 驱动的 PBR 纹理生成和编辑工具，支持实时预览和导出多种格式。',
+                tech: ['Canvas', 'Sharp', 'Python'],
+                status: '已完成',
+                date: '2023年5月',
+                link: '#',
+                repo: '#'
+            },
+            {
+                id: 'project-12',
+                title: '资源管理系统',
+                category: 'tool',
+                icon: '📦',
+                shortDesc: '完整的 3D 资源管理和版本控制系统',
+                fullDesc: '完整的 3D 资源管理和版本控制系统，支持团队协作、资源预览和依赖管理。',
+                tech: ['Node.js', 'MongoDB', 'React'],
+                status: '已完成',
+                date: '2023年4月',
+                link: '#',
+                repo: '#'
+            }
+        ];
+
+        // 显示页面
+        function showPage(pageName) {
+            // 隐藏所有页面
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+
+            // 显示指定页面
+            document.getElementById(pageName + '-page').classList.add('active');
+
+            // 更新导航链接
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // 如果是项目页面，初始化项目列表
+            if (pageName === 'projects') {
+                renderProjects('all');
+            }
+
+            // 滚动到顶部
+            window.scrollTo(0, 0);
+        }
+
+        // 渲染项目列表
+        function renderProjects(category) {
+            const grid = document.getElementById('projects-grid');
+            let filtered = projectsData;
+
+            if (category !== 'all') {
+                filtered = projectsData.filter(p => p.category === category);
+            }
+
+            grid.innerHTML = filtered.map(project => `
+                <div class="project-card">
+                    <div class="project-card-image">${project.icon}</div>
+                    <div class="project-card-content">
+                        <span class="project-tag">${project.category === '3d' ? '3D 场景' : project.category === '2d' ? '2D 应用' : '工具平台'}</span>
+                        <h3 class="project-card-title">${project.title}</h3>
+                        <p class="project-card-desc">${project.shortDesc}</p>
+                        <div class="project-tech-list">
+                            ${project.tech.slice(0, 3).map(t => `<span class="tech-badge">${t}</span>`).join('')}
+                        </div>
+                        <div class="project-footer">
+                            <button class="project-btn" onclick="showProjectDetail('${project.id}')">查看详情</button>
+                            <button class="project-btn">查看代码</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 筛选项目
+        function filterProjects(category) {
+            document.querySelectorAll('.filter-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            renderProjects(category);
+        }
+
+        // 显示项目详情
+        function showProjectDetail(projectId) {
+            const project = projectsData.find(p => p.id === projectId);
+            if (!project) return;
+
+            // 更新详情头部
+            document.getElementById('detail-header').innerHTML = `
+                <h1>${project.title}</h1>
+                <div class="detail-meta">
+                    <div class="meta-item">
+                        <div class="meta-label">分类</div>
+                        <div class="meta-value">${project.category === '3d' ? '3D 场景' : project.category === '2d' ? '2D 应用' : '工具平台'}</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">完成时间</div>
+                        <div class="meta-value">${project.date}</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">状态</div>
+                        <div class="meta-value">${project.status}</div>
+                    </div>
+                </div>
+            `;
+
+            // 更新详情内容
+            document.getElementById('detail-content').innerHTML = `
+                <div class="detail-main">
+                    <div class="detail-image">${project.icon}</div>
+
+                    <div class="detail-section">
+                        <h2>项目概述</h2>
+                        <p>${project.fullDesc}</p>
+                    </div>
+
+                    <div class="detail-section">
+                        <h2>技术栈</h2>
+                        <div class="detail-tech-list">
+                            ${project.tech.map(t => `<span class="detail-tech-item">${t}</span>`).join('')}
+                        </div>
+                    </div>
+
+                    <div class="detail-section">
+                        <h2>项目特色</h2>
+                        <p>✨ 高性能和优化的代码架构</p>
+                        <p>🎯 用户友好的交互设计</p>
+                        <p>📱 完全响应式布局支持</p>
+                        <p>🔧 提供完整的 API 文档和示例</p>
+                    </div>
+                </div>
+
+                <div class="detail-sidebar">
+                    <div class="sidebar-section">
+                        <div class="sidebar-title">快速链接</div>
+                        <button class="action-button" onclick="alert('访问项目演示')">查看演示</button>
+                        <button class="action-button secondary" onclick="alert('访问 GitHub 仓库')">查看代码</button>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <div class="sidebar-title">相关技术</div>
+                        <div class="sidebar-content">
+                            ${project.tech.map(t => `<div class="sidebar-item">• ${t}</div>`).join('')}
+                        </div>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <div class="sidebar-title">项目信息</div>
+                        <div class="sidebar-content">
+                            <div class="sidebar-item">分类：${project.category}</div>
+                            <div class="sidebar-item">日期：${project.date}</div>
+                            <div class="sidebar-item">状态：${project.status}</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            showPage('detail');
+        }
+
+        // 初始化页面
+        window.addEventListener('load', () => {
+            renderProjects('all');
+        });
+    </script>
+</body>
+</html>
